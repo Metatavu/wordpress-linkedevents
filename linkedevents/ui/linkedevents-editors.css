@@ -1,0 +1,8 @@
+.linkedevents-multivalue-autocomplete,
+.linkedevents-autocomplete,
+.linkedevents-datetimepicker {
+  width: 100%;
+  padding: 3px 8px;
+  height: 1.7em;
+  font-size: 1.7em;
+}
