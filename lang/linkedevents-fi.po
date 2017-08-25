@@ -1,0 +1,147 @@
+# Copyright (C) 2017 Linked Events
+# This file is distributed under the same license as the Linked Events package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Linked Events 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-"
+"linkedevents\n"
+"POT-Creation-Date: 2017-08-25 07:39+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-08-25 07:43+0300\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.9\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fi\n"
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:108
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:117
+msgid "Select an image"
+msgstr "Valitse kuva"
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:109
+msgid "Select"
+msgstr "Valitse"
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:110
+msgid "Image could not be loaded"
+msgstr "Kuvaa ei voitu ladata"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:53
+msgid "Location"
+msgstr "Paikka"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:76
+msgid "Keywords"
+msgstr "Avainsanat"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:162
+msgid "Event start time cannot be in the past"
+msgstr "Tapahtuman alkamisaika ei voi olla menneisyydessä"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:166
+msgid "Event start time cannot be after event end time"
+msgstr "Tapahtuman alkamisaika ei voi olla loppumisajan jälkeen"
+
+#: linkedevents/ui/linkedevents-event-edit.php:19
+#: linkedevents/ui/linkedevents-event-edit.php:22
+msgid "Edit Event"
+msgstr "Muokkaa tapahtumaa"
+
+#: linkedevents/ui/linkedevents-event-edit.php:78
+msgid ""
+"Wordpress plugin does not support multiple images. Only the first image will "
+"be used if the event is saved"
+msgstr ""
+"Wordpress lisäosa ei tue useita kuvia. Vain ensimmäinen kuva säilytetään "
+"tapahtuman tallennuksen yhteydessä."
+
+#: linkedevents/ui/linkedevents-event-edit.php:85
+#: linkedevents/ui/linkedevents-event-new.php:53
+msgid "Start"
+msgstr "Alkamisaika"
+
+#: linkedevents/ui/linkedevents-event-edit.php:86
+#: linkedevents/ui/linkedevents-event-new.php:54
+msgid "End"
+msgstr "Loppumisaika"
+
+#: linkedevents/ui/linkedevents-event-edit.php:89
+#: linkedevents/ui/linkedevents-event-new.php:57
+msgid "Event Image"
+msgstr "Kuva"
+
+#: linkedevents/ui/linkedevents-event-edit.php:90
+#: linkedevents/ui/linkedevents-event-new.php:58
+msgid "Description"
+msgstr "Kuvaus"
+
+#: linkedevents/ui/linkedevents-event-edit.php:91
+#: linkedevents/ui/linkedevents-event-new.php:59
+msgid "Short Description"
+msgstr "Lyhyt kuvaus"
+
+#: linkedevents/ui/linkedevents-event-menu.php:23
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: linkedevents/ui/linkedevents-event-new.php:16
+#: linkedevents/ui/linkedevents-event-new.php:19
+msgid "New Event"
+msgstr "Uusi tapahtuma"
+
+#: linkedevents/ui/linkedevents-event-table.php:93
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+#: linkedevents/ui/linkedevents-event-table.php:94
+msgid "Are you sure that you want to remove event '%s'?"
+msgstr "Oletko varma, että haluat poistaa tapahtuman '%s'?"
+
+#: linkedevents/ui/linkedevents-event-table.php:95
+#: linkedevents/ui/linkedevents-event-table.php:100
+msgid "Delete"
+msgstr "Poista"
+
+#: linkedevents/ui/linkedevents-event-table.php:96
+msgid "Cancel"
+msgstr "Peruuta"
+
+#: linkedevents/ui/linkedevents-event-table.php:99
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: settings/settings-ui.php:22
+msgid "Linked Events Settings"
+msgstr "Linked Events -asetukset"
+
+#. Plugin Name of the plugin/theme
+#: settings/settings-ui.php:22 settings/settings-ui.php:52
+msgid "Linked Events"
+msgstr "Linked Events"
+
+#: settings/settings-ui.php:27
+msgid "API Settings"
+msgstr "API Asetukset"
+
+#: settings/settings-ui.php:28
+msgid "API URL"
+msgstr "API URL"
+
+#: settings/settings-ui.php:29
+msgid "API Key"
+msgstr "API Avain"
+
+#: settings/settings-ui.php:48
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Sinulla ei ole riittäviä oikeuksia tälle sivulle"
+
+#. Description of the plugin/theme
+msgid "Wordpress plugin to manage Linked Events API"
+msgstr "Wordpress laajennus Linked Events API:n hallinnointiin"
+
+#. Author of the plugin/theme
+msgid "Metatavu Oy"
+msgstr "Metatavu Oy"

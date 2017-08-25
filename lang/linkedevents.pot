@@ -1,0 +1,143 @@
+# Copyright (C) 2017 Linked Events
+# This file is distributed under the same license as the Linked Events package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Linked Events 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-"
+"linkedevents\n"
+"POT-Creation-Date: 2017-08-25 04:38:32+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:108
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:117
+msgid "Select an image"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:109
+msgid "Select"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:110
+msgid "Image could not be loaded"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:53
+msgid "Location"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:76
+msgid "Keywords"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:162
+msgid "Event start time cannot be in the past"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:166
+msgid "Event start time cannot be after event end time"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:19
+#: linkedevents/ui/linkedevents-event-edit.php:22
+msgid "Edit Event"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:78
+msgid ""
+"Wordpress plugin does not support multiple images. Only the first image will "
+"be used if the event is saved"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:85
+#: linkedevents/ui/linkedevents-event-new.php:53
+msgid "Start"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:86
+#: linkedevents/ui/linkedevents-event-new.php:54
+msgid "End"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:89
+#: linkedevents/ui/linkedevents-event-new.php:57
+msgid "Event Image"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:90
+#: linkedevents/ui/linkedevents-event-new.php:58
+msgid "Description"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:91
+#: linkedevents/ui/linkedevents-event-new.php:59
+msgid "Short Description"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-menu.php:23
+msgid "Events"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-new.php:16
+#: linkedevents/ui/linkedevents-event-new.php:19
+msgid "New Event"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:93
+msgid "Are you sure?"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:94
+msgid "Are you sure that you want to remove event '%s'?"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:95
+#: linkedevents/ui/linkedevents-event-table.php:100
+msgid "Delete"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:96
+msgid "Cancel"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:99
+msgid "Edit"
+msgstr ""
+
+#: settings/settings-ui.php:22
+msgid "Linked Events Settings"
+msgstr ""
+
+#. #-#-#-#-#  wordpress-linkedevents.pot (Linked Events 0.0.1)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: settings/settings-ui.php:22 settings/settings-ui.php:52
+msgid "Linked Events"
+msgstr ""
+
+#: settings/settings-ui.php:27
+msgid "API Settings"
+msgstr ""
+
+#: settings/settings-ui.php:28
+msgid "API URL"
+msgstr ""
+
+#: settings/settings-ui.php:29
+msgid "API Key"
+msgstr ""
+
+#: settings/settings-ui.php:48
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Wordpress plugin to manage Linked Events API"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Metatavu Oy"
+msgstr ""

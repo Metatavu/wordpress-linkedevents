@@ -12,4 +12,8 @@
   require_once( __DIR__ . '/linkedevents/linkedevents.php');
   require_once( __DIR__ . '/settings/settings.php');
 
+  add_action('plugins_loaded', function() {
+    load_plugin_textdomain('linkedevents', false, dirname( plugin_basename(__FILE__) ) . '/lang/' );
+  });
+  
 ?>
