@@ -20,7 +20,7 @@
         wp_enqueue_style('jquery-ui');
         
         add_action( 'admin_menu', function () {
-          add_menu_page(__('Events', 'linkedevents'), __('Events', 'linkedevents'), 'manage_options', 'linked-events.php', array($this, 'renderList'));
+          add_menu_page(__('Events', 'linkedevents'), __('Events', 'linkedevents'), 'manage_options', 'linked-events.php', array($this, 'renderList'), 'dashicons-calendar-alt', 50);
         });
       }
       
