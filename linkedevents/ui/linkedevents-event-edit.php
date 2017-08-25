@@ -42,14 +42,25 @@
           if ($validateMessage) {
             echo '<div class="notice-error notice">' . $validateMessage . '</div>';
           } else {
-            $this->updateEventName($event, $language);
-            $this->updateEventDescription($event, $language);
-            $this->updateEventShortDescription($event, $language);
-            $this->updateEventKeywords($event);
-            $this->updateEventLocation($event);
-            $this->updateEventStartTime($event);
-            $this->updateEventEndTime($event);
-            $this->updateEvent($event);
+            try {
+              $this->updateEventName($event, $language);
+              $this->updateEventDescription($event, $language);
+              $this->updateEventShortDescription($event, $language);
+              $this->updateEventKeywords($event);
+              $this->updateEventImage($event);
+              $this->updateEventLocation($event);
+              $this->updateEventStartTime($event);
+              $this->updateEventEndTime($event);
+              $this->updateEvent($event);
+            } catch (\Metatavu\LinkedEvents\ApiException $e) {
+              echo '<div class="error notice">';
+              if ($e->getResponseBody()) {
+                echo print_r($e->getResponseBody());
+              } else {
+                echo $e;
+              }
+              echo '</div>';
+            }
           }
         }
         
@@ -60,12 +71,22 @@
         $eventId = $this->getEventId();
         $event = $this->findEvent($eventId);
         $language = 'fi';
-        
+        $imageUrl = null;
+        $images = $event->getImages();        
+        if (count($images) > 0) {
+          if (count($images) > 1) {
+            echo '<div class="notice-warning notice">' . __('Wordpress plugin does not support multiple images. Only the first image will be used if the event is saved') . '</div>';
+          }
+          
+          $imageUrl = $images[0]->getUrl();
+        }
+       
         $this->renderEventName($event, $language);
         $this->renderDateTimePicker("start", __('Start', 'linkedevents'), $event->getStartTime() ? $event->getStartTime()->getTimestamp() : null);
         $this->renderDateTimePicker("end", __('End', 'linkedevents'), $event->getEndTime() ? $event->getEndTime()->getTimestamp() : null);
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
+        $this->renderImageSelector('image', __('Event Image', 'linkedevents'), $imageUrl);
         $this->renderMemo(__('Description', 'linkedevents'), 'description', $event, $language);
         $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event, $language);
       }

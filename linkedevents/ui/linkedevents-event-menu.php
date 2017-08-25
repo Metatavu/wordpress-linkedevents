@@ -14,7 +14,7 @@
       public function __construct() {
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-ui-dialog', null, ['jquery']);
-        wp_enqueue_script('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-event-table.js', null, ['jquery-ui-dialog' ]);
+        wp_enqueue_script('linkedevents-event-table', plugin_dir_url(__FILE__) . 'linkedevents-event-table.js', null, ['jquery-ui-dialog' ]);
         
         wp_register_style('jquery-ui', 'https://cdn.metatavu.io/libs/jquery-ui/1.12.1/jquery-ui.min.css');
         wp_enqueue_style('jquery-ui');

@@ -81,7 +81,53 @@
         $name->setFi($this->getLocalizedPostString('name', $language));
         $event->setName($name);
       }
-
+      
+      /**
+       * Updates event image into model
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       */
+      protected function updateEventImage($event) {
+        $imageUrl = $this->getPostString('image');
+        $images = $event->getImages();
+        $imageFound = false;
+        $imageRefs = [];
+        
+        foreach ($images as $image) {
+          if ($image->getUrl() == $imageUrl) {
+            $imageFound = true;
+          }
+          
+          $imageRefs[] = $this->getImageRef($image->getId());
+        }
+        
+        if ($imageFound) {
+          $event->setImages($imageRefs);
+          return;
+        }
+        
+        if (!empty($imageUrl)) {
+          $wordpressImageId = attachment_url_to_postid($imageUrl);
+          if ($wordpressImageId) {
+            $linkedEventsImageId = get_post_meta($wordpressImageId, 'linkedevents-imageid', true);
+            if ($linkedEventsImageId) {
+              $event->setImages([$this->getImageRef($linkedEventsImageId)]);
+              return;
+            }
+          }
+          
+          $image = $this->createImage($imageUrl);
+          $linkedEventsImageId = $image['id'];
+          if ($wordpressImageId) {
+            update_post_meta($wordpressImageId, 'linkedevents-imageid', $linkedEventsImageId);
+          }
+          
+          $event->setImages([$this->getImageRef($linkedEventsImageId)]);
+        } else {
+          $event->setImages([]);
+        }
+      }
+      
       protected function updateEventDescription($event, $language) {
         $description = $event->getDescription();
         $description[$language] = $this->getLocalizedPostString('description', $language);
@@ -174,17 +220,7 @@
       }
       
       protected function updateEvent($event) {
-        try {
-          return $this->eventsApi->eventUpdate($event->getId(), $event);
-        } catch (\Metatavu\LinkedEvents\ApiException $e) {
-          echo '<div class="error notice">';
-          if ($e->getResponseBody()) {
-            echo print_r($e->getResponseBody());
-          } else {
-            echo $e;
-          }
-          echo '</div>';
-        }
+        return $this->eventsApi->eventUpdate($event->getId(), $event);
       }
       
       protected function ensureEventRequiredFields($event) {

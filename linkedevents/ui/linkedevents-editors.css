@@ -1,8 +1,44 @@
 .linkedevents-multivalue-autocomplete,
 .linkedevents-autocomplete,
-.linkedevents-datetimepicker {
+.linkedevents-datetimepicker,
+.linkedevents-image-selector input {
   width: 100%;
   padding: 3px 8px;
   height: 1.7em;
   font-size: 1.7em;
 }
+
+.linkedevents-image-selector input {
+  margin-bottom: 20px;
+}
+
+.linkedevents-image-selector.broken-image input,
+.linkedevents-image-selector.no-image input {
+  margin-bottom: 0px;
+}
+
+.linkedevents-image-selector .broken-image-text {
+  display: none;
+}
+
+.linkedevents-image-selector.broken-image .broken-image-text {
+  display: block;
+  color: red;
+  margin-bottom: 20px;
+}
+
+.linkedevents-image-selector img {
+  max-width: 300px;
+  max-height: 300px;
+  display: block;
+} 
+
+.linkedevents-image-selector.broken-image img,
+.linkedevents-image-selector.no-image img {
+  display: none;
+}
+
+.linkedevents-image-selector a {
+  margin-top: 10px;
+  display: block;
+}{

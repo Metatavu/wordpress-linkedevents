@@ -2,6 +2,64 @@
 (function ($) {
   'use strict';
   
+  $.widget("custom.linkedeventsImageSelector", {
+    
+    _create : function() {
+      this._mediaUploader = wp.media({
+        title: this.element.attr('data-title'),
+        button: {
+          text: this.element.attr('data-button')
+        },
+        library: {
+					type: 'image'
+				},
+        multiple: false
+      });
+      
+      this.element.on('click', 'a', $.proxy(this._onLinkClick, this));
+      this.element.on('change', 'input', $.proxy(this._onUrlChange, this));
+      this.element.find('img').on('load', $.proxy(this._onImageLoad, this));
+      this.element.find('img').on('error', $.proxy(this._onImageLoadError, this));
+      
+      this._mediaUploader.on('select', $.proxy(this._onMediaSelect, this));
+      
+      if (!$.trim(this.element.find('input').val())) {
+        this.element.addClass('no-image');
+      }
+    },
+    
+    _onUrlChange: function () {
+      var src = $.trim(this.element.find('input').val());
+      if (!src) {
+        this.element.removeClass('broken-image');
+        this.element.addClass('no-image');
+      } else {
+        this.element.find('img').attr('src', src);
+      }
+    },
+    
+    _onLinkClick: function () {
+      this._mediaUploader.open();
+    },
+    
+    _onMediaSelect: function () {
+      var json = this._mediaUploader.state().get("selection").first().toJSON();
+      this.element.find('img').attr('src', json.url);
+      this.element.find('input').val(json.url);
+    },
+    
+    _onImageLoad: function () {
+      this.element.removeClass('broken-image');
+      this.element.removeClass('no-image');
+    },
+    
+    _onImageLoadError: function () {
+      this.element.addClass('broken-image');
+      this.element.removeClass('no-image');
+    }
+    
+  });
+  
   $.widget("custom.linkedeventsMultivalueAutocomplete", {
     options: {
     },
@@ -153,6 +211,7 @@
   $(document).ready(function() {
     $(".linkedevents-autocomplete").linkedeventsAutocomplete();
     $(".linkedevents-multivalue-autocomplete").linkedeventsMultivalueAutocomplete();
+    $('.linkedevents-image-selector').linkedeventsImageSelector();
     
     flatpickr('.linkedevents-datetimepicker', {
       "altInput": true,
@@ -160,9 +219,6 @@
       "enableTime": true,
       "time_24hr": true
     });
-    
   });
-
-  
 
 })(jQuery);

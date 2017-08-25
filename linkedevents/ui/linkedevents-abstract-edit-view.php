@@ -15,9 +15,13 @@
       private $pageTitle;
       private $supportedLanguages = ["fi"];
       private $filterApi;
+      private $imageApi;
         
       public function __construct($pageTitle) {
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+        $this->imageApi = \Metatavu\LinkedEvents\Wordpress\Api::getImageApi();
+                
+        wp_enqueue_media();
         
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-ui-autocomplete', null, ['jquery']);
@@ -100,6 +104,20 @@
         echo '<input name="' . $name . '" type="hidden"/>';
       }
       
+      protected function renderImageSelector($name, $label, $value) {
+        $selectorTitle = __('Select an image', 'linkedevents');
+        $selectorButton = __('Select', 'linkedevents');
+        $brokenImageText = __('Image could not be loaded', 'linkedevents');
+        
+        echo '<h3>' . $label . '</h3>';
+        echo '<div class="linkedevents-image-selector" data-title="' . $selectorTitle . '" data-button="' . $selectorButton . '">';
+        echo '<input type="url" value="' . $value . '" name="' . $name . '"/>';
+        echo '<div class="broken-image-text">' . $brokenImageText . '</div>';
+        echo '<img src="' . ($value ? $value : 'about:blank') . '"/>';
+        echo '<a>' . __('Select an image', 'linkedevents') . '</a>';
+        echo '</div>';
+      }
+      
       protected function getSupportedLanguages() {
         return $this->supportedLanguages;
       }
@@ -120,6 +138,10 @@
       
       protected function getPlaceRef($locationId) {
         return $this->getIdRef($this->getApiUrl() . "/place/$locationId/");
+      }
+      
+      protected function getImageRef($id) {
+        return $this->getIdRef($this->getApiUrl() . "/image/$id/");
       }
       
       protected function getIdRef($id) {
@@ -153,6 +175,20 @@
         return null;
       }
       
+      /**
+       * Returns filename from url
+       * 
+       * @param string $url url
+       * @return string filename
+       */
+      protected function getUrlFile($url) {
+        if (!$url) {
+          return null;
+        }
+        
+        return basename($url);
+      }
+      
       protected function getApiUrl() {
         return \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url");
       }
@@ -175,6 +211,24 @@
        */
       protected function findPlace($id) {
         return $this->filterApi->placeRetrieve($id);
+      }
+      
+      protected function createImage($url) {
+        error_log("CREATE IMAGE:" . $url);
+        
+        return $this->imageApi->imageCreate(null, [
+          url => $url
+        ]);
+      }
+      
+      /**
+       * Finds image by id
+       * 
+       * @param string $id
+       * @return \Metatavu\LinkedEvents\Model\Image
+       */
+      protected function findImage($id) {
+        return $this->imageApi->imageRetrieve($id);
       }
     }
   }

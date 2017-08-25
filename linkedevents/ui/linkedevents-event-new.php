@@ -33,6 +33,7 @@
           $this->updateEventStartTime($event, $language);
           $this->updateEventPublicationStatus($event, $language);
           $this->updateEventKeywords($event, $language);
+          $this->updateEventImage($event);
           $this->updateEventLocation($event, $language);
           $this->updateEventStartTime($event);
           $this->updateEventEndTime($event);
@@ -53,6 +54,7 @@
         $this->renderDateTimePicker("end", __('End', 'linkedevents'));
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
+        $this->renderImageSelector('image', __('Event Image', 'linkedevents'));
         $this->renderMemo(__('Description', 'linkedevents'), 'description', $event, $language);
         $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event, $language);
       }
