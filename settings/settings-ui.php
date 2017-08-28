@@ -25,8 +25,12 @@
       public function adminInit() {
         register_setting(LINKEDEVENTS_SETTINGS_GROUP, LINKEDEVENTS_SETTINGS_PAGE);
         add_settings_section('api', __( "API Settings", 'linkedevents' ), null, LINKEDEVENTS_SETTINGS_PAGE);
+        add_settings_section('gmaps', __( "Google Maps", 'linkedevents' ), null, LINKEDEVENTS_SETTINGS_PAGE);
         $this->addOption('api', 'url', 'api-url', __( "API URL", 'linkedevents'));
         $this->addOption('api', 'text', 'api-key', __( "API Key", 'linkedevents' ));
+        $this->addOption('api', 'text', 'datasource', __( "Datasource", 'linkedevents' ));
+        $this->addOption('api', 'text', 'publisher', __( "Publisher Organization", 'linkedevents' ));
+        $this->addOption('gmaps', 'text', 'google-maps-key', __( "Google Maps Key", 'linkedevents' ));
       }
 
       private function addOption($group, $type, $name, $title) {

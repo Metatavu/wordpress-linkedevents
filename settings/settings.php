@@ -13,6 +13,12 @@
 
     class Settings {
 
+      /**
+       * Returns setting value
+       * 
+       * @param string $name setting name
+       * @return string setting value
+       */
       public static function getValue($name) {
         $options = get_option(LINKEDEVENTS_SETTINGS_OPTION);
         if ($options) {
