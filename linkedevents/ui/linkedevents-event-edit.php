@@ -22,15 +22,6 @@
         });
       }
       
-      public function validate() {
-        $message = $this->validateStartTime();
-        if ($message) {
-          return $message;
-        }
-        
-        return null;
-      }
-      
       public function render() {
         $eventId = $this->getEventId();
         $event = $this->findEvent($eventId);

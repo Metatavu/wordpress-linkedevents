@@ -20,40 +20,43 @@
         });
       }
       
-      // TODO: validate
-      
       public function render() {
         $language = 'fi';
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-          $event = $this->getNewEvent();
-          $this->updateEventName($event, $language);
-          $this->updateEventDescription($event,  $language);
-          $this->updateEventShortDescription($event, $language);
-          $this->updateEventStartTime($event, $language);
-          $this->updateEventPublicationStatus($event, $language);
-          $this->updateEventKeywords($event, $language);
-          $this->updateEventImage($event);
-          $this->updateEventLocation($event, $language);
-          $this->updateEventStartTime($event);
-          $this->updateEventEndTime($event);
-          $newEvent = $this->createEvent($event);
-          $newEventId = $newEvent->getId();
-          $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
-          echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
-          exit;
-        } else {
-          $this->renderForm('admin.php?page=linkedevents-new-event.php');
+          $validateMessage = $this->validate();
+          if ($validateMessage) {
+            echo '<div class="notice-error notice">' . $validateMessage . '</div>';
+          } else {
+            $event = $this->getNewEvent();
+            $this->updateEventName($event, $language);
+            $this->updateEventDescription($event,  $language);
+            $this->updateEventShortDescription($event, $language);
+            $this->updateEventStartTime($event, $language);
+            $this->updateEventPublicationStatus($event, $language);
+            $this->updateEventKeywords($event, $language);
+            $this->updateEventImage($event);
+            $this->updateEventLocation($event, $language);
+            $this->updateEventStartTime($event);
+            $this->updateEventEndTime($event);
+            $newEvent = $this->createEvent($event);
+            $newEventId = $newEvent->getId();
+            $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
+            echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
+            exit;
+          }
         }
+         
+        $this->renderForm('admin.php?page=linkedevents-new-event.php');
       }
       
       protected function renderFormFields() {
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", null);
-        $this->renderDateTimePicker("start", __('Start', 'linkedevents'));
-        $this->renderDateTimePicker("end", __('End', 'linkedevents'));
+        $this->renderDateTimePicker("start", __('Start', 'linkedevents'), null);
+        $this->renderDateTimePicker("end", __('End', 'linkedevents'), null);
         $this->renderEventLocation(null);
         $this->renderEventKeywords(null);
-        $this->renderImageSelector('image', __('Event Image', 'linkedevents'));
+        $this->renderImageSelector('image', __('Event Image', 'linkedevents'), null);
         $this->renderLocalizedMemo(__('Description', 'linkedevents'), 'description', null);
         $this->renderLocalizedMemo(__('Short Description', 'linkedevents'), 'shortDescription', null);
       }

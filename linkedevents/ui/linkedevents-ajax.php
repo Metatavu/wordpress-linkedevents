@@ -14,7 +14,7 @@
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     
     $search = $_GET['q'];
-    $placeResponse = $filterApi->placeList(null, null, true, null, $search);
+    $placeResponse = $filterApi->placeList(null, null, true, null, null, $search);
     $places = $placeResponse->getData();
     $responce = [];
     

@@ -165,15 +165,71 @@
         $event->setLocation($this->getPlaceRef($this->getPostString("location")));
       }
       
+      /*
+       * Validates event
+       */
+      public function validate() {
+        $message = $this->validateStartTime();
+        if ($message) {
+          return $message;
+        }
+        
+        $message = $this->validateLocation();
+        if ($message) {
+          return $message;
+        }
+        
+        $message = $this->validateKeywords();
+        if ($message) {
+          return $message;
+        }
+        
+        return null;
+      }
+      
+      /*
+       * Validates event start time
+       */
       protected function validateStartTime() {
+        $startTime = $this->getStartTime();
+        $endTime = $this->getEndTime();
+        
         $now = new \DateTime();
         
-        if ($this->getStartTime()->getTimestamp() < $now->getTimestamp()) {
+        if (!$startTime) {
+          return __('Event start time cannot be empty', 'linkedevents');
+        }
+        
+        if ($startTime->getTimestamp() < $now->getTimestamp()) {
           return __('Event start time cannot be in the past', 'linkedevents');
         }
         
-        if ($this->getStartTime()->getTimestamp() > $this->getEndTime()->getTimestamp()) {
-          return __('Event start time cannot be after event end time', 'linkedevents');
+        if ($endTime) {
+          if ($startTime->getTimestamp() > $endTime->getTimestamp()) {
+            return __('Event start time cannot be after event end time', 'linkedevents');
+          }
+        }
+        
+        return null;
+      }
+      
+      /**
+       * Validatess event's location
+       */
+      protected function validateLocation() {
+        if (!$this->getPostString("location")) {
+          return __('Event location is required', 'linkedevents');
+        }
+        
+        return null;
+      }
+      
+      /**
+       * Validates event's keywords
+       */
+      protected function validateKeywords() {
+        if (!$this->getPostString("keywords")) {
+          return __('Event location is required', 'linkedevents');
         }
         
         return null;
@@ -282,15 +338,35 @@
         }
       }
       
+      /**
+       * Returns event's start time from form
+       * 
+       * @return \DateTime event's start time
+       */
       private function getStartTime() {
+        $string = $this->getPostString("start");
+        if (!$string) {
+          return null;
+        }
+        
         $dateTime = new \DateTime();
-        $dateTime->setTimestamp(intval($this->getPostString("start")));
+        $dateTime->setTimestamp(intval($string));
         return $dateTime;
       }
       
+      /**
+       * Returns event's end time from form
+       * 
+       * @return \DateTime event's end time
+       */
       private function getEndTime() {
+        $string = $this->getPostString("end");
+        if (!$string) {
+          return null;
+        }
+        
         $dateTime = new \DateTime();
-        $dateTime->setTimestamp(intval($this->getPostString("end")));
+        $dateTime->setTimestamp(intval($string));
         return $dateTime;
       }
     }
