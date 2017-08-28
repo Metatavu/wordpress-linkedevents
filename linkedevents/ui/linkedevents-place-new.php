@@ -24,8 +24,6 @@
       // TODO: validate
       
       public function render() {
-        $language = 'fi';
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           try {
             $place = $this->getNewPlace();

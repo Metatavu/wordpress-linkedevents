@@ -94,11 +94,20 @@
         ]);
       }
       
+      /**
+       * Renders memo fields for localized property
+       * 
+       * @param string $label field label
+       * @param string $name field name
+       * @param \ArrayAccess $values localized values as associative array with locale as key
+       */
       protected function renderLocalizedMemo($label, $name, $values) {
         echo '<h3>' . $label . '</h3>';
         foreach ($this->getSupportedLanguages() as $language) {
+          $value = $values ? $values[$language] : null;
+          $fieldName = "$name-$language";
           echo '<label>' . $this->getLanguageName($language) . '</label>';
-          wp_editor($value, $name . '_' . $language, [
+          wp_editor($value, $fieldName, [
             'media_buttons' => false,
             'tinymce' => false
           ]);
@@ -110,31 +119,52 @@
         echo '<input class="linkedevents-input" type="text" name="' . $name . '" value="' . $value . '" />';
       }
       
+      /**
+       * Renders input fields for localized property
+       * 
+       * @param string $label field label
+       * @param string $name field name
+       * @param \ArrayAccess $values localized values as associative array with locale as key
+       */
       protected function renderLocalizedTextInput($label, $name, $values) {
         echo '<h3>' . $label . '</h3>';
         foreach ($this->getSupportedLanguages() as $language) {
+          $value = $values ? $values[$language] : null;
+          $fieldName = "$name-$language";
           echo '<label>' . $this->getLanguageName($language) . '</label>';
-          echo '<input class="linkedevents-input linkedevents-localized-input" type="text" name="' . $name . '" value="' . $value . '" />';
+          echo '<input class="linkedevents-input linkedevents-localized-input" type="text" name="' . $fieldName . '" value="' . $value . '" />';
         }  
       }
       
-      protected function renderGeoPositionInput($label, $name, $value) {
+      /**
+       * Renders geo position input
+       * 
+       * @param type $label label
+       * @param type $name name
+       * @param \ArrayAccess $streetAddress
+       * @param string $postalCode
+       * @param \ArrayAccess $addressLocality
+       * @param string $addressRegion
+       * @param string $poBox
+       * @param float[] $coordinates
+       */
+      protected function renderGeoPositionInput($label, $name, $streetAddress, $postalCode, $addressLocality, $addressRegion, $poBox, $coordinates) {
         echo '<h3>' . $label . '</h3>';
         echo '<div data-input="' . $name . '" class="linkedevents-geoinput">';
         echo '<a href="#" class="linkedevents-search dashicons-before dashicons-search">&nbsp;</a>';
         
         $this->renderGeoPositionInputField('', $name, "search");
         
-        $this->renderLocalizedGeoPositionInputField(__('Street address (%s)', 'linkedevents'), $name, "street-address");
-        $this->renderGeoPositionInputField(__('Postal code', 'linkedevents'), $name, "postal-code");
-        $this->renderLocalizedGeoPositionInputField(__('Address locality (%s)', 'linkedevents'), $name, "address-locality");
+        $this->renderLocalizedGeoPositionInputField(__('Street address (%s)', 'linkedevents'), $name, "street-address", $streetAddress);
+        $this->renderGeoPositionInputField(__('Postal code', 'linkedevents'), $name, "postal-code", $postalCode);
+        $this->renderLocalizedGeoPositionInputField(__('Address locality (%s)', 'linkedevents'), $name, "address-locality", $addressLocality);
         
-        $this->renderGeoPositionInputField(__('Address region', 'linkedevents'), $name, "address-region");
-        $this->renderGeoPositionInputField(__('Po box', 'linkedevents'), $name, "po-box");
+        $this->renderGeoPositionInputField(__('Address region', 'linkedevents'), $name, "address-region", $addressRegion);
+        $this->renderGeoPositionInputField(__('Po box', 'linkedevents'), $name, "po-box", $poBox);
         
         echo '<div><label>Coordinates</label></div>';
-        $this->renderGeoPositionInputField('', $name, "latitude");
-        $this->renderGeoPositionInputField('', $name, "longitude");
+        $this->renderGeoPositionInputField('', $name, "latitude", $coordinates ? $coordinates[0] : null);
+        $this->renderGeoPositionInputField('', $name, "longitude", $coordinates ? $coordinates[1] : null);
         
         echo '<div class="linkedevents-geoposition-map"></div>';
         echo '</div>';
@@ -146,11 +176,19 @@
         echo '<input type="text" class="linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="" />';
       }
       
-      private function renderLocalizedGeoPositionInputField($label, $name, $type) {
+      /**
+       * Renders geo position input fields for localized property
+       * 
+       * @param string $label field label
+       * @param string $name field name
+       * @param \ArrayAccess $values localized values as associative array with locale as key
+       */
+      private function renderLocalizedGeoPositionInputField($label, $name, $type, $values) {
         foreach ($this->getSupportedLanguages() as $language) {
           $fieldName = "$name-$type-$language";
+          $value = $values ? $values[$language] : null;
           echo '<label>' . sprintf($label, $this->getLanguageName($language)) . '</label>';
-          echo '<input type="text" class="linkedevents-localized-geoinput linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="" />';
+          echo '<input type="text" class="linkedevents-localized-geoinput linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="' . $value . '" />';
         }
       }
       

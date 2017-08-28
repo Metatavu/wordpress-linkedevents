@@ -45,6 +45,16 @@
       }
       
       /**
+       * Updates place
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Place $place
+       * @return \Metatavu\LinkedEvents\Model\Place updated place
+       */
+      protected function updatePlace($place) {
+        return $this->filterApi->placeUpdate($place->getId(), $place);
+      }
+      
+      /**
        * Creates new prefilled place object 
        * 
        * @return \Metatavu\LinkedEvents\Model\Place created event object
@@ -125,6 +135,7 @@
         
         $latitude = $this->getPostFloat('position-latitude');
         $longitude = $this->getPostFloat('position-longitude');
+        $place->setPosition(new \Metatavu\LinkedEvents\Model\PlacePosition());
         $place->getPosition()->setCoordinates($latitude, $longitude);
       }
       
