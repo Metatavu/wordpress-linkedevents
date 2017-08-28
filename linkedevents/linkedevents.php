@@ -8,6 +8,7 @@
   require_once( __DIR__ . '/ui/linkedevents-event-edit-view.php');
   require_once( __DIR__ . '/ui/linkedevents-event-new.php');
   require_once( __DIR__ . '/ui/linkedevents-event-edit.php');
+  require_once( __DIR__ . '/ui/linkedevents-place-new.php');
   require_once( __DIR__ . '/ui/linkedevents-ajax.php');
   
 ?>

@@ -208,10 +208,127 @@
     }
   });
   
+  $.widget("custom.linkedeventsGeoInput", {
+    
+    options: {
+      defaultLatitude: 61.9241,
+      defaultLongitude: 25.7482
+    },
+    
+    _create : function() {
+      this._initMap();
+    },
+    
+    _initMap: function () {
+      var latitude = this._getLatitude();
+      var longitude = this._geLongitude();
+      
+      this.element.find('.linkedevents-geoposition-map').locationpicker({
+        location: {
+          latitude: latitude || this.options.defaultLatitude,
+          longitude: longitude || this.options.defaultLongitude
+        },
+        radius: 0,
+        inputBinding: {
+          latitudeInput: this._getLatitudeInput(),
+          longitudeInput: this._getLongitudeInput(),
+          locationNameInput: this._getSearchInput()
+        },
+        enableAutocomplete: true,
+        onchanged: $.proxy(this._onPickerChanged, this)
+      });
+      
+      this.element.find('.linkedevents-geoinput-search').hide();
+      this.element.on('click', '.linkedevents-search', $.proxy(this._onSearchClick, this));
+      $(window).on('click', $.proxy(this._onWindowClick, this));
+    },
+    
+    _getLatitude: function () {
+      return parseFloat(this._getLatitudeInput().val());
+    },
+    
+    _geLongitude: function () {
+      return parseFloat(this._getLongitudeInput().val());
+    },
+    
+    _setLatitude: function (latitude) {
+      this._getLatitudeInput().val(latitude);
+    },
+    
+    _setLongitude: function (longitude) {
+      this._getLongitudeInput().val(longitude);
+    },
+    
+    _getInput: function (type) {
+      var name = this.element.attr('data-input');
+      return $('input[name="' + name + '-' + type + '"]');
+    },
+    
+    _getSearchInput: function () {
+      return this._getInput('search');
+    },
+    
+    _getStreetAddressInput: function (language) {
+      return this._getInput('street-address-' + language);
+    },
+    
+    _getAddressRegionInput: function () {
+      return this._getInput('address-region');
+    },
+    
+    _getPostalCodeInput: function () {
+      return this._getInput('postal-code');
+    },
+    
+    _getPoBoxInput: function () {
+      return this._getInput('po-box');
+    },
+    
+    _getAddressLocalityInput: function (language) {
+      return this._getInput('address-locality-' + language);
+    },
+    
+    _getLatitudeInput: function () {
+      return this._getInput('latitude');
+    },
+    
+    _getLongitudeInput: function () {
+      return this._getInput('longitude');
+    },
+    
+    _onCurrentPosition: function (position) {
+      this._initMap(position.coords.latitude, position.coords.longitude);
+    },
+    
+    _onPickerChanged: function (currentLocation, radius, isMarkerDropped) {
+      var map = this.element.find('.linkedevents-geoposition-map').locationpicker('map');
+      var addressComponents = map.location.addressComponents;
+      this._getStreetAddressInput('fi').val(addressComponents.addressLine1);
+      this._getPostalCodeInput().val(addressComponents.postalCode);
+      this._getAddressLocalityInput('fi').val(addressComponents.city);
+      this._setLatitude(currentLocation.latitude);
+      this._setLongitude(currentLocation.longitude);
+      this.element.find('.linkedevents-geoinput-search').hide();
+    },
+    
+    _onSearchClick: function (event) {
+      event.preventDefault();
+      this.element.find('.linkedevents-geoinput-search').show().focus();
+    },
+    
+    _onWindowClick: function (event) {
+      if (!$(event.target).closest('.linkedevents-geoinput-search, .linkedevents-search').length) {
+        this.element.find('.linkedevents-geoinput-search').hide();
+      }
+    }
+    
+  });
+  
   $(document).ready(function() {
     $(".linkedevents-autocomplete").linkedeventsAutocomplete();
     $(".linkedevents-multivalue-autocomplete").linkedeventsMultivalueAutocomplete();
     $('.linkedevents-image-selector').linkedeventsImageSelector();
+    $('.linkedevents-geoinput').linkedeventsGeoInput();
     
     flatpickr('.linkedevents-datetimepicker', {
       "altInput": true,

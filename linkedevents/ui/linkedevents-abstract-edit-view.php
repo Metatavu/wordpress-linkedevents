@@ -13,13 +13,14 @@
     class AbstractEditView {
       
       private $pageTitle;
-      private $supportedLanguages = ["fi"];
+      private $supportedLanguages = ["fi", "sv", "en"];
       private $filterApi;
       private $imageApi;
         
       public function __construct($pageTitle) {
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
         $this->imageApi = \Metatavu\LinkedEvents\Wordpress\Api::getImageApi();
+        $googleMapsKey = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("google-maps-key");
                 
         wp_enqueue_media();
         
@@ -29,12 +30,17 @@
         
         wp_register_style('flatpickr', '//cdn.metatavu.io/libs/flatpickr/2.6.1/flatpickr.min.css');
         wp_register_script('flatpickr', '//cdn.metatavu.io/libs/flatpickr/2.6.1/flatpickr.min.js');
+        wp_register_script('googlemaps', '//maps.google.com/maps/api/js?libraries=places&key=' . $googleMapsKey);
+        wp_register_script('locationpicker', '//cdn.metatavu.io/libs/jquery-locationpicker/0.1.12/locationpicker.jquery.min.js');
         
         wp_enqueue_script('flatpickr');
         wp_enqueue_style('flatpickr');
         
         wp_enqueue_script('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-editors.js', ['jquery-ui-autocomplete', 'flatpickr']);
         wp_enqueue_style('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-editors.css');
+        
+        wp_enqueue_script('googlemaps', ['jquery']);
+        wp_enqueue_script('locationpicker', ['googlemaps']);
         
         $this->pageTitle = $pageTitle;
       }
@@ -71,19 +77,81 @@
       protected function getPostString($name) {
         return sanitize_text_field($_POST[$name]);
       }
+      
+      protected function getPostFloat($name) {
+        return floatval($this->getPostString($name));
+      }
 
       protected function renderHidden($name, $value) {
         echo '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
       }
       
-      protected function renderMemo($label, $name, $event, $language) {
-        $value = isset($event) ? $event[$name][$language] : '';
-        
+      protected function renderMemo($label, $name, $value, $language) {
         echo '<h3>' . $label . '</h3>';
         wp_editor($value, $name . '_' . $language, [
           'media_buttons' => false,
           'tinymce' => false
         ]);
+      }
+      
+      protected function renderLocalizedMemo($label, $name, $values) {
+        echo '<h3>' . $label . '</h3>';
+        foreach ($this->getSupportedLanguages() as $language) {
+          echo '<label>' . $this->getLanguageName($language) . '</label>';
+          wp_editor($value, $name . '_' . $language, [
+            'media_buttons' => false,
+            'tinymce' => false
+          ]);
+        }  
+      }
+      
+      protected function renderTextInput($label, $name, $value) {
+        echo '<h3>' . $label . '</h3>';
+        echo '<input class="linkedevents-input" type="text" name="' . $name . '" value="' . $value . '" />';
+      }
+      
+      protected function renderLocalizedTextInput($label, $name, $values) {
+        echo '<h3>' . $label . '</h3>';
+        foreach ($this->getSupportedLanguages() as $language) {
+          echo '<label>' . $this->getLanguageName($language) . '</label>';
+          echo '<input class="linkedevents-input linkedevents-localized-input" type="text" name="' . $name . '" value="' . $value . '" />';
+        }  
+      }
+      
+      protected function renderGeoPositionInput($label, $name, $value) {
+        echo '<h3>' . $label . '</h3>';
+        echo '<div data-input="' . $name . '" class="linkedevents-geoinput">';
+        echo '<a href="#" class="linkedevents-search dashicons-before dashicons-search">&nbsp;</a>';
+        
+        $this->renderGeoPositionInputField('', $name, "search");
+        
+        $this->renderLocalizedGeoPositionInputField(__('Street address (%s)', 'linkedevents'), $name, "street-address");
+        $this->renderGeoPositionInputField(__('Postal code', 'linkedevents'), $name, "postal-code");
+        $this->renderLocalizedGeoPositionInputField(__('Address locality (%s)', 'linkedevents'), $name, "address-locality");
+        
+        $this->renderGeoPositionInputField(__('Address region', 'linkedevents'), $name, "address-region");
+        $this->renderGeoPositionInputField(__('Po box', 'linkedevents'), $name, "po-box");
+        
+        echo '<div><label>Coordinates</label></div>';
+        $this->renderGeoPositionInputField('', $name, "latitude");
+        $this->renderGeoPositionInputField('', $name, "longitude");
+        
+        echo '<div class="linkedevents-geoposition-map"></div>';
+        echo '</div>';
+      }
+      
+      private function renderGeoPositionInputField($label, $name, $type) {
+        $fieldName = "$name-$type";
+        echo "<label>$label</label>";
+        echo '<input type="text" class="linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="" />';
+      }
+      
+      private function renderLocalizedGeoPositionInputField($label, $name, $type) {
+        foreach ($this->getSupportedLanguages() as $language) {
+          $fieldName = "$name-$type-$language";
+          echo '<label>' . sprintf($label, $this->getLanguageName($language)) . '</label>';
+          echo '<input type="text" class="linkedevents-localized-geoinput linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="" />';
+        }
       }
       
       protected function renderDateTimePicker($name, $label, $value) {
@@ -229,6 +297,26 @@
        */
       protected function findImage($id) {
         return $this->imageApi->imageRetrieve($id);
+      }
+      
+      /**
+       * Redirects user into specified url
+       * 
+       * @param string $redirectUrl redirect url
+       */
+      protected function redirect($redirectUrl) {
+        echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
+      }
+      
+      protected function getLanguageName($language) {
+        switch ($language) {
+          case 'fi':
+            return __('Finnish', 'linkedevents');
+          case 'sv':
+            return __('Swedish', 'linkedevents');
+          case 'en':
+            return __('English', 'linkedevents');
+        }
       }
     }
   }

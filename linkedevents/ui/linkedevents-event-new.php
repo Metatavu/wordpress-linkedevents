@@ -28,7 +28,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $event = $this->getNewEvent();
           $this->updateEventName($event, $language);
-          $this->updateEventDescription($event, $language);
+          $this->updateEventDescription($event,  $language);
           $this->updateEventShortDescription($event, $language);
           $this->updateEventStartTime($event, $language);
           $this->updateEventPublicationStatus($event, $language);
@@ -43,20 +43,20 @@
           echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
           exit;
         } else {
-          $this->renderForm('admin.php?page=linked-events-new-event.php');
+          $this->renderForm('admin.php?page=linkedevents-new-event.php');
         }
       }
       
       protected function renderFormFields() {
         $language = 'fi';
-        $this->renderEventName($event, $language);
+        $this->renderEventName(null, $language);
         $this->renderDateTimePicker("start", __('Start', 'linkedevents'));
         $this->renderDateTimePicker("end", __('End', 'linkedevents'));
-        $this->renderEventLocation($event);
-        $this->renderEventKeywords($event);
+        $this->renderEventLocation(null);
+        $this->renderEventKeywords(null);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'));
-        $this->renderMemo(__('Description', 'linkedevents'), 'description', $event, $language);
-        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event, $language);
+        $this->renderMemo(__('Description', 'linkedevents'), 'description', null, $language);
+        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', null, $language);
       }
       
     }

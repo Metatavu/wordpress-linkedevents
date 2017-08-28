@@ -96,7 +96,7 @@
         $dialogCancel = __("Cancel", 'linkedevents');
         
         $actions = [
-          'edit' => sprintf('<a href="?page=linked-events-edit-event.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id),
+          'edit' => sprintf('<a href="?page=linkedevents-edit-event.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id),
           'delete' => sprintf('<a data-dialog-title="%s" data-dialog-content="%s" data-dialog-confirm="%s" data-dialog-cancel="%s" class="linkedevents-delete-link" href="#" data-id="' . $id . '">' . __('Delete', 'linkedevents') . '</a>', $dialogTitle, $dialogContent, $dialogConfirm, $dialogCancel, 'delete', $id),
         ];
         

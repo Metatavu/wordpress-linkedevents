@@ -187,6 +187,11 @@
         $event->setEndTime($this->getEndTime());
       }
       
+      /**
+       * Creates new prefilled event object 
+       * 
+       * @return \Metatavu\LinkedEvents\Model\Event created event object
+       */
       protected function getNewEvent() {
         $event = new \Metatavu\LinkedEvents\Model\Event();
         $this->ensureEventRequiredFields($event);

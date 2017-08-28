@@ -1,3 +1,4 @@
+.linkedevents-input,
 .linkedevents-multivalue-autocomplete,
 .linkedevents-autocomplete,
 .linkedevents-datetimepicker,
@@ -41,4 +42,49 @@
 .linkedevents-image-selector a {
   margin-top: 10px;
   display: block;
-}{
+}
+
+.linkedevents-geoposition-map {
+  width: 100%;
+  height: 200px;
+}
+
+.linkedevents-geoinput input.address {
+  width: 100%;
+  padding: 3px 8px;
+  height: 1.7em;
+  font-size: 1.7em;
+  margin-bottom: 10px;
+}
+
+.linkedevents-geoinput input {
+  width: 100%;
+  padding: 3px 8px;
+  height: 1.7em;
+  font-size: 1.7em;
+  margin-bottom: 10px;
+}
+
+.linkedevents-geoinput input.linkedevents-geoinput-latitude,
+.linkedevents-geoinput input.linkedevents-geoinput-longitude {
+  width: calc(50% - 2px);
+}
+
+.linkedevents-search {
+  color: #000;
+  text-decoration: none;
+  margin-left: 5px;
+  margin-top: -35px;
+  float: right;
+}
+
+input.linkedevents-geoinput-search {
+  margin-top: -38px;
+  float: right;
+  margin-right: 30px;
+  font-size: 16px;
+  width: 500px;
+  max-width: calc(100% - 30px);
+  z-index: 1;
+  position: relative;
+}

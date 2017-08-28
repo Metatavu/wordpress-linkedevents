@@ -19,7 +19,7 @@
         parent::__construct(__('Edit Event', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page(NULL, __('Edit Event', 'linkedevents'), __('Edit Event', 'linkedevents'), 'manage_options', 'linked-events-edit-event.php', array($this, 'render'));
+          add_submenu_page(NULL, __('Edit Event', 'linkedevents'), __('Edit Event', 'linkedevents'), 'manage_options', 'linkedevents-edit-event.php', array($this, 'render'));
         });
       }
       
@@ -64,7 +64,7 @@
           }
         }
         
-        $this->renderForm('admin.php?page=linked-events-edit-event.php&event=' . $eventId);
+        $this->renderForm('admin.php?page=linkedevents-edit-event.php&event=' . $eventId);
       }
       
       protected function renderFormFields() {
@@ -87,8 +87,8 @@
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), $imageUrl);
-        $this->renderMemo(__('Description', 'linkedevents'), 'description', $event, $language);
-        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event, $language);
+        $this->renderMemo(__('Description', 'linkedevents'), 'description', $event['description'][$language], $language);
+        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event['shortDescription'][$language], $language);
       }
       
       private function getEventId() {
