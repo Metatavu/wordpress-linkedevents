@@ -153,7 +153,7 @@
         echo '<div data-input="' . $name . '" class="linkedevents-geoinput">';
         echo '<a href="#" class="linkedevents-search dashicons-before dashicons-search">&nbsp;</a>';
         
-        $this->renderGeoPositionInputField('', $name, "search");
+        $this->renderGeoPositionInputField('', $name, "search", ''  );
         
         $this->renderLocalizedGeoPositionInputField(__('Street address (%s)', 'linkedevents'), $name, "street-address", $streetAddress);
         $this->renderGeoPositionInputField(__('Postal code', 'linkedevents'), $name, "postal-code", $postalCode);
@@ -170,10 +170,12 @@
         echo '</div>';
       }
       
-      private function renderGeoPositionInputField($label, $name, $type) {
+      private function renderGeoPositionInputField($label, $name, $type, $value) {
         $fieldName = "$name-$type";
+        $fieldValue = $value != null ? strval($value) : '';
+        
         echo "<label>$label</label>";
-        echo '<input type="text" class="linkedevents-geoinput-' . $type . '" name="' . $fieldName . '" value="" />';
+        echo "<input type=\"text\" class=\"linkedevents-geoinput-$type\" name=\"$fieldName\" value=\"$fieldValue\"/>";
       }
       
       /**
@@ -192,6 +194,13 @@
         }
       }
       
+      /**
+       * Renders date-time picker component
+       * 
+       * @param string $name name
+       * @param string $label label
+       * @param string $value value
+       */
       protected function renderDateTimePicker($name, $label, $value) {
         echo '<h3>' . $label . '</h3>';
         echo '<input class="linkedevents-datetimepicker" name="' . $name . '" value="' . $value . '" type="text">';
@@ -320,8 +329,6 @@
       }
       
       protected function createImage($url) {
-        error_log("CREATE IMAGE:" . $url);
-        
         return $this->imageApi->imageCreate(null, [
           url => $url
         ]);
