@@ -29,11 +29,8 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           try {
             $place = $this->findPlace($placeId);
-            // TODO: origin id
-            $place->setOriginId($place->getId());
             $place->setDataSource(null);
             $place->setPublisher(null);
-        
             $this->updatePlaceName($place);
             $this->updatePlaceDescription($place);
             $this->updatePlaceHomePage($place);
