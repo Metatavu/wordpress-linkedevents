@@ -104,8 +104,9 @@
         $showAllPlaces = true;
         $division = null;
         $text = null;
+        $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         
-        return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $text, $sort);
+        return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $dataSource, $text, $sort);
       }
     }
     

@@ -117,7 +117,7 @@
         $start = null;
         $end = null;
         $bbox = null;
-        $dataSource = null;
+        $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         $location = null;
         $division = null;
         $keyword = null;

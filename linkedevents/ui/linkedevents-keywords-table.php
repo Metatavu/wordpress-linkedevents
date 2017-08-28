@@ -102,7 +102,7 @@
       
       private function listKeywords($page, $pageSize, $sort = null) {
         $showAllKeywords = true;
-        $dataSource = null;
+        $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         $text = null;
         
         return $this->filterApi->keywordList($page, $pageSize, null, $showAllKeywords, $dataSource, $text, $sort);

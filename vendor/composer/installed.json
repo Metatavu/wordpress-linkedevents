@@ -125,7 +125,7 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Metatavu/linkedevents-client-php.git",
-            "reference": "9391fcc9be50634b53d12df4a6b1e8a225601f97"
+            "reference": "d7d0eb811b9aece6ba120291400a6dc89de5488b"
         },
         "require": {
             "ext-curl": "*",
@@ -139,7 +139,7 @@
             "satooshi/php-coveralls": "~1.0",
             "squizlabs/php_codesniffer": "~2.6"
         },
-        "time": "2017-08-28T13:01:07+00:00",
+        "time": "2017-08-28T15:26:16+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {

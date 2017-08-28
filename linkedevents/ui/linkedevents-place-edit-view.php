@@ -81,10 +81,13 @@
        * @param \Metatavu\LinkedEvents\Model\Place $place
        */
       protected function updatePlaceDescription($place) {
-        $description = $place->getDescription();
-        $description->setFi($this->getLocalizedPostString('description', 'fi'));
-        $description->setSv($this->getLocalizedPostString('description', 'sv'));
-        $description->setEn($this->getLocalizedPostString('description', 'en'));
+        if (!$place->getDescription()) {
+          $place->setDescription(new \Metatavu\LinkedEvents\Model\PlaceDescription());
+        }
+        
+        $place->getDescription()->setFi($this->getLocalizedPostString('description', 'fi'));
+        $place->getDescription()->setSv($this->getLocalizedPostString('description', 'sv'));
+        $place->getDescription()->setEn($this->getLocalizedPostString('description', 'en'));
         $place->setDescription($description);
       }
       
@@ -105,6 +108,14 @@
        * @param \Metatavu\LinkedEvents\Model\Place $place
        */
       protected function updatePlaceAddress($place) {
+        if (!$place->getStreetAddress()) {
+          $place->setStreetAddress(new \Metatavu\LinkedEvents\Model\PlaceStreetAddress());
+        }
+        
+        if (!$place->getAddressLocality()) {
+          $place->setAddressLocality(new \Metatavu\LinkedEvents\Model\PlaceAddressLocality());
+        }
+        
         $place->setAddressCountry($this->getPostString('position-street-country'));
         $place->setAddressRegion($this->getPostString('position-address-region'));
         $place->setPostOfficeBoxNum($this->getPostString('position-po-box'));
@@ -145,6 +156,10 @@
        * @param \Metatavu\LinkedEvents\Model\Place $place
        */
       protected function updatePlaceTelephone($place) {
+        if (!$place->getTelephone()) {
+          $place->setTelephone(new \Metatavu\LinkedEvents\Model\PlaceTelephone());
+        }
+        
         $place->getTelephone()->setFi($this->getLocalizedPostString('telephone', 'fi'));
         $place->getTelephone()->setSv($this->getLocalizedPostString('telephone', 'sv'));
         $place->getTelephone()->setEn($this->getLocalizedPostString('telephone', 'en'));
