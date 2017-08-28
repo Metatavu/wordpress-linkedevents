@@ -39,6 +39,7 @@
             $this->updatePlaceTelephone($place);
             $this->updatePlaceContactType($place);
             $this->updatePlace($place);
+            $this->redirect("admin.php?page=linkedevents-edit-place.php&action=edit&place=$placeId");
             exit;
           } catch (\Metatavu\LinkedEvents\ApiException $e) {
             echo '<div class="error notice">';

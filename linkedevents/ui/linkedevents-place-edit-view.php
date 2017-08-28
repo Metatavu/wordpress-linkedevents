@@ -82,9 +82,9 @@
        */
       protected function updatePlaceDescription($place) {
         $description = $place->getDescription();
-        $description->setFi($this->getLocalizedPostString('descrption', 'fi'));
-        $description->setSv($this->getLocalizedPostString('descrption', 'sv'));
-        $description->setEn($this->getLocalizedPostString('descrption', 'en'));
+        $description->setFi($this->getLocalizedPostString('description', 'fi'));
+        $description->setSv($this->getLocalizedPostString('description', 'sv'));
+        $description->setEn($this->getLocalizedPostString('description', 'en'));
         $place->setDescription($description);
       }
       
@@ -121,7 +121,13 @@
         $latitude = $this->getPostFloat('position-latitude');
         $longitude = $this->getPostFloat('position-longitude');
         $place->setPosition(new \Metatavu\LinkedEvents\Model\PlacePosition());
-        $place->getPosition()->setCoordinates($latitude, $longitude);
+        
+        if ($latitude && $longitude) {
+          $place->getPosition()->setCoordinates([$latitude, $longitude]);
+          $place->getPosition()->setType("Point");
+        } else {
+          $place->setPosition(null);
+        }
       }
       
       /**

@@ -31,6 +31,7 @@
             $keyword = $this->findKeyword($keywordId);
             $this->updateKeywordName($keyword);
             $this->updateKeyword($keyword);
+            $this->redirect("admin.php?page=linkedevents-edit-keyword.php&action=edit&keyword=$keywordId");
             exit;
           } catch (\Metatavu\LinkedEvents\ApiException $e) {
             echo '<div class="error notice">';
