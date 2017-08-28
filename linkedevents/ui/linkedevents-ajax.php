@@ -73,4 +73,14 @@
     wp_die();
   });
   
+  add_action('wp_ajax_linkedevents_delete_keyword', function () {
+    // TODO: Check permissions
+    
+    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    $id = $_GET['id'];
+    $filterApi->keywordDelete($id);
+
+    wp_die();
+  });
+  
 ?>
