@@ -18,21 +18,6 @@
         parent::__construct($pageTitle);
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
       }
-        
-      /**
-       * Renders event name field
-       * 
-       * @param \Metatavu\LinkedEvents\Model\Place $place place
-       * @param string $language language
-       */
-      protected function renderPlaceName($place, $language) {
-        $value = isset($place) ? $place['name'][$language] : '';
-        echo '<div id="titlediv">';
-	      echo '<div id="titlewrap">';
-	      echo '<input name="name_' . $language . '" size="30" value="' . $value . '" id="title" spellcheck="true" autocomplete="off" type="text">';
-        echo '</div>';
-        echo '</div>';
-      }
       
       /**
        * Creates new place
