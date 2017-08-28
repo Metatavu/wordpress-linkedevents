@@ -20,21 +20,6 @@
       }
         
       /**
-       * Renders event name field
-       * 
-       * @param \Metatavu\LinkedEvents\Model\Event $event event
-       * @param string $language language
-       */
-      protected function renderEventName($event, $language) {
-        $value = isset($event) ? $event['name'][$language] : '';
-        echo '<div id="titlediv">';
-	      echo '<div id="titlewrap">';
-	      echo '<input name="name_' . $language . '" size="30" value="' . $value . '" id="title" spellcheck="true" autocomplete="off" type="text">';
-        echo '</div>';
-        echo '</div>';
-      }
-      
-      /**
        * Renders autocomplete component for editing event location
        * 
        * @param \Metatavu\LinkedEvents\Model\Event $event
@@ -76,10 +61,47 @@
         $this->renderMultivalueAutocomplete('keywords', __('Keywords', 'linkedevents'), 'linkedevents_keywords', $values);
       }
       
-      protected function updateEventName($event, $language) {
+      /**
+       * Updates event name into model
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       */
+      protected function updateEventName($event) {
         $name = $event->getName();
-        $name->setFi($this->getLocalizedPostString('name', $language));
+        $name->setFi($this->getLocalizedPostString('name', "fi"));
+        $name->setSv($this->getLocalizedPostString('name', "sv"));
+        $name->setEn($this->getLocalizedPostString('name', "en"));
         $event->setName($name);
+      }
+      
+      /**
+       * Updates event description into model
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       */
+      protected function updateEventDescription($event) {
+        $description = $event->getDescription();
+        
+        foreach ($this->getSupportedLanguages() as $language) {
+          $description[$language] = $this->getLocalizedPostString('name', $language);
+        }
+        
+        $event->setDescription($description);
+      }
+      
+      /**
+       * Updates event short description into model
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       */
+      protected function updateEventShortDescription($event) {
+        $shortDescription = $event->getShortDescription();
+        
+        foreach ($this->getSupportedLanguages() as $language) {
+          $shortDescription[$language] = $this->getLocalizedPostString('name', $language);
+        }
+        
+        $event->setShortDescription($shortDescription);
       }
       
       /**
@@ -126,18 +148,6 @@
         } else {
           $event->setImages([]);
         }
-      }
-      
-      protected function updateEventDescription($event, $language) {
-        $description = $event->getDescription();
-        $description[$language] = $this->getLocalizedPostString('description', $language);
-        $event->setDescription($description);
-      }
-
-      protected function updateEventShortDescription($event, $language) {
-        $shortDescription = $event->getShortDescription();
-        $shortDescription[$language] = $this->getLocalizedPostString('shortDescription', $language);
-        $event->setShortDescription($shortDescription);
       }
       
       protected function updateEventKeywords($event) {
@@ -241,12 +251,6 @@
           $name = new \Metatavu\LinkedEvents\Model\EventName();
           $event->setName($name);
         }
-        
-        foreach ($this->getSupportedLanguages() as $supportedLanguage) {
-          if (!isset($name[$supportedLanguage])) {
-            $name[$supportedLanguage] = 'Nimi';
-          }
-        }
       }
       
       protected function ensureDescriptions($event) {
@@ -261,18 +265,6 @@
         if (!isset($shortDescription)) {
           $shortDescription = [];
           $event->setShortDescription($shortDescription);
-        }
-        
-        foreach ($this->getSupportedLanguages() as $supportedLanguage) {
-          if (!isset($description[$supportedLanguage])) {
-            $description[$supportedLanguage] = 'Kuvaus';
-            $event->setDescription($shortDescription);
-          }
-          
-          if (!isset($shortDescription[$supportedLanguage])) {
-            $shortDescription[$supportedLanguage] = 'Lyhyt kuvaus';
-            $event->setShortDescription($shortDescription);
-          }
         }
       }
       

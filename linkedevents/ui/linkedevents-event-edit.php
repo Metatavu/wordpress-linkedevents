@@ -13,7 +13,6 @@
     class EventEdit extends EventEditView {
       
       private $eventsApi;
-      private $supportedLanguages = ["fi"];
       
       public function __construct() {
         parent::__construct(__('Edit Event', 'linkedevents'));
@@ -35,7 +34,6 @@
       public function render() {
         $eventId = $this->getEventId();
         $event = $this->findEvent($eventId);
-        $language = 'fi';
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $validateMessage = $this->validate();
@@ -43,9 +41,9 @@
             echo '<div class="notice-error notice">' . $validateMessage . '</div>';
           } else {
             try {
-              $this->updateEventName($event, $language);
-              $this->updateEventDescription($event, $language);
-              $this->updateEventShortDescription($event, $language);
+              $this->updateEventName($event);
+              $this->updateEventDescription($event);
+              $this->updateEventShortDescription($event);
               $this->updateEventKeywords($event);
               $this->updateEventImage($event);
               $this->updateEventLocation($event);
@@ -70,7 +68,6 @@
       protected function renderFormFields() {
         $eventId = $this->getEventId();
         $event = $this->findEvent($eventId);
-        $language = 'fi';
         $imageUrl = null;
         $images = $event->getImages();        
         if (count($images) > 0) {
@@ -81,14 +78,14 @@
           $imageUrl = $images[0]->getUrl();
         }
        
-        $this->renderEventName($event, $language);
+        $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", $event->getName());
         $this->renderDateTimePicker("start", __('Start', 'linkedevents'), $event->getStartTime() ? $event->getStartTime()->getTimestamp() : null);
         $this->renderDateTimePicker("end", __('End', 'linkedevents'), $event->getEndTime() ? $event->getEndTime()->getTimestamp() : null);
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), $imageUrl);
-        $this->renderMemo(__('Description', 'linkedevents'), 'description', $event['description'][$language], $language);
-        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event['shortDescription'][$language], $language);
+        $this->renderLocalizedMemo(__('Description', 'linkedevents'), 'description', $event->getDescription());
+        $this->renderLocalizedMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event->getShortDescription());
       }
       
       private function getEventId() {

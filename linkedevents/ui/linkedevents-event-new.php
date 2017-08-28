@@ -16,7 +16,7 @@
         parent::__construct(__('New Event', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page('linked-events.php', __('New Event', 'linkedevents'),  __('New Event', 'linkedevents'), 'manage_options', 'linked-events-new-event.php', array($this, 'render'));
+          add_submenu_page('linked-events.php', __('New Event', 'linkedevents'),  __('New Event', 'linkedevents'), 'manage_options', 'linkedevents-new-event.php', array($this, 'render'));
         });
       }
       
@@ -39,7 +39,7 @@
           $this->updateEventEndTime($event);
           $newEvent = $this->createEvent($event);
           $newEventId = $newEvent->getId();
-          $redirectUrl = "admin.php?page=linked-events-edit-event.php&action=edit&event=$newEventId";
+          $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
           echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
           exit;
         } else {
@@ -48,15 +48,14 @@
       }
       
       protected function renderFormFields() {
-        $language = 'fi';
-        $this->renderEventName(null, $language);
+        $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", null);
         $this->renderDateTimePicker("start", __('Start', 'linkedevents'));
         $this->renderDateTimePicker("end", __('End', 'linkedevents'));
         $this->renderEventLocation(null);
         $this->renderEventKeywords(null);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'));
-        $this->renderMemo(__('Description', 'linkedevents'), 'description', null, $language);
-        $this->renderMemo(__('Short Description', 'linkedevents'), 'shortDescription', null, $language);
+        $this->renderLocalizedMemo(__('Description', 'linkedevents'), 'description', null);
+        $this->renderLocalizedMemo(__('Short Description', 'linkedevents'), 'shortDescription', null);
       }
       
     }

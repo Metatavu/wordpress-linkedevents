@@ -71,7 +71,7 @@
       }
       
       protected function getLocalizedPostString($name, $language) {
-        return $this->getPostString($name . '_' . $language);
+        return $this->getPostString($name . '-' . $language);
       }
       
       protected function getPostString($name) {
