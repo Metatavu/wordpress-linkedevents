@@ -28,7 +28,9 @@
           try {
             $keyword = $this->getNewKeyword();
             $this->updateKeywordName($keyword);
-            $this->createKeyword($keyword);
+            $keyword = $this->createKeyword($keyword);
+            $newKeywordId = $keyword->getId();
+            $this->redirect("admin.php?page=linkedevents-edit-keyword.php&action=edit&keyword=$newKeywordId");
             exit;
           } catch (\Metatavu\LinkedEvents\ApiException $e) {
             echo '<div class="error notice">';
@@ -40,7 +42,7 @@
             echo '</div>';
           }
         } else {
-          $this->renderForm('admin.php?page=linkedevents-edit-keyword.php&keyword=' . $keywordId);
+          $this->renderForm('admin.php?page=linkedevents-new-keyword.php');
         }
       }
       

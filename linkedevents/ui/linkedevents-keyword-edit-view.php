@@ -47,6 +47,7 @@
       protected function getNewKeyword() {
         $keyword = new \Metatavu\LinkedEvents\Model\Keyword();
         $keyword->setName(new \Metatavu\LinkedEvents\Model\KeywordName());
+        $keyword->setDataSource(\Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource"));
         return $keyword; 
       }
       
