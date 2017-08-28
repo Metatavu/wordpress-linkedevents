@@ -129,7 +129,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Metatavu/linkedevents-client-php.git",
-                "reference": "01e463b070e5bc8e0f9986e46b33db0cf6144303"
+                "reference": "2ce6d2736980643ad37b81529334e81a97a7ed9a"
             },
             "require": {
                 "ext-curl": "*",
@@ -170,7 +170,7 @@
                 "sdk",
                 "swagger"
             ],
-            "time": "2017-08-28T03:58:13+00:00"
+            "time": "2017-08-28T05:48:20+00:00"
         }
     ],
     "packages-dev": [],

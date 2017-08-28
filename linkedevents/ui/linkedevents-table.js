@@ -5,6 +5,7 @@
   $(document).on('click', '.linkedevents-delete-link', function (event) {  
     var link = $(event.target).closest('.linkedevents-delete-link');
     var id = $(event.target).attr('data-id');
+    var action = $(event.target).attr('data-action');
     
     $('<div>')
       .attr('title', link.attr('data-dialog-title'))
@@ -13,7 +14,7 @@
         buttons : [{
           text: link.attr('data-dialog-confirm'),
           click: function() {
-            $.post(ajaxurl + '?action=linkedevents_delete_event&id=' + id, function() {
+            $.post(ajaxurl + '?action=' + action + '&id=' + id, function() {
               window.location.reload(true);
             });
           }

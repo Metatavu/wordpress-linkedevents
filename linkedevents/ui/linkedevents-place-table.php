@@ -12,17 +12,17 @@
   
   require_once( __DIR__ . '/../linkedevents-api.php');
   
-  if (!class_exists( '\Metatavu\LinkedEvents\Wordpress\UI\EventsTable' ) ) {
+  if (!class_exists( '\Metatavu\LinkedEvents\Wordpress\UI\PlacesTable' ) ) {
     
-    class EventsTable extends \WP_List_Table {
+    class PlacesTable extends \WP_List_Table {
       
       private $perPage = 10;
-      private $eventsApi;
+      private $filterApi;
       
       public function __construct() {        
         parent::__construct([
-          'singular'  => 'event',
-          'plural'    => 'events',
+          'singular'  => 'place',
+          'plural'    => 'places',
           'ajax'      => false  
         ]);
         
@@ -33,27 +33,22 @@
         wp_register_style('jquery-ui', 'https://cdn.metatavu.io/libs/jquery-ui/1.12.1/jquery-ui.min.css');
         wp_enqueue_style('jquery-ui');
         
-        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
+        $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
       }
       
       public function prepare_items() {
         $this->_column_headers = [ $this->get_columns(), $this->get_hidden_columns(), $this->get_sortable_columns() ];
         $this->process_bulk_action();
-        $events = $this->listEvents($this->get_pagenum(), $this->perPage);
+        $places = $this->listPlaces($this->get_pagenum(), $this->perPage);
         
         $this->items = [];
-        $itemCount = $events->getMeta()->getCount();
+        $itemCount = $places->getMeta()->getCount();
         
         // TODO: Support localization
-        foreach ($events->getData() as $event) {
-          $start = $event['startTime'];
-          $end = $event['endTime'];
-          
+        foreach ($places->getData() as $place) {
           $this->items[] = [
-            "id" => $event['id'],
-            "title" => $event['name']['fi'],
-            "start" => $start ? $start->format('Y-m-d H:i:s') : '',
-            "end" => $end ? $end->format('Y-m-d H:i:s') : ''
+            "id" => $place['id'],
+            "title" => $place['name']['fi']
           ];
         }
         
@@ -67,9 +62,7 @@
       public function get_columns() {
         $columns = [
           'id' => 'ID',
-          'title' => 'Title',
-          'start' => 'Start',
-          'end' => 'End'
+          'title' => 'Title'
         ];
 
         return $columns;
@@ -80,8 +73,7 @@
       }
       
       public function get_sortable_columns() {
-        return [
-        ];
+        return [ ];
       }
       
       public function column_default( $item, $column_name ) {
@@ -93,43 +85,28 @@
         $title = $item['title'];
         
         $dialogTitle = __("Are you sure?", 'linkedevents');
-        $dialogContent = sprintf(__("Are you sure that you want to remove event '%s'?", 'linkedevents'), $title);
+        $dialogContent = sprintf(__("Are you sure that you want to remove place '%s'?", 'linkedevents'), $title);
         $dialogConfirm = __("Delete", 'linkedevents');
         $dialogCancel = __("Cancel", 'linkedevents');
         
         $actions = [
-          'edit' => sprintf('<a href="?page=linkedevents-edit-event.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id),
-          'delete' => sprintf('<a data-action="linkedevents_delete_event" data-dialog-title="%s" data-dialog-content="%s" data-dialog-confirm="%s" data-dialog-cancel="%s" class="linkedevents-delete-link" href="#" data-id="' . $id . '">' . __('Delete', 'linkedevents') . '</a>', $dialogTitle, $dialogContent, $dialogConfirm, $dialogCancel, 'delete', $id),
+          'edit' => sprintf('<a href="?page=linkedevents-edit-place.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id),
+          'delete' => sprintf('<a data-action="linkedevents_delete_place" data-dialog-title="%s" data-dialog-content="%s" data-dialog-confirm="%s" data-dialog-cancel="%s" class="linkedevents-delete-link" href="#" data-id="' . $id . '">' . __('Delete', 'linkedevents') . '</a>', $dialogTitle, $dialogContent, $dialogConfirm, $dialogCancel, 'delete', $id),
         ];
         
         return sprintf('%1$s%2$s',
           $title,
           $this->row_actions($actions)
-      );
-    }
-      
-    private function listEvents($page, $pageSize, $sort = null) {
-      // TODO: error handling
-        
-        $include = null;
-        $text = null;
-        $lastModifiedSince = null;
-        $start = null;
-        $end = null;
-        $bbox = null;
-        $dataSource = null;
-        $location = null;
-        $division = null;
-        $keyword = null;
-        $recurring = null;
-        $minDuration = null;
-        $maxDuration = null;
-        $publisher = null;
-        
-        $result = $this->eventsApi->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
-        return $result;
+        );
       }
       
+      private function listPlaces($page, $pageSize, $sort = null) {
+        $showAllPlaces = true;
+        $division = null;
+        $text = null;
+        
+        return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $text, $sort);
+      }
     }
     
   }
