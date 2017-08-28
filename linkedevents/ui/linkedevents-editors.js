@@ -54,8 +54,13 @@
     },
     
     _onImageLoadError: function () {
-      this.element.addClass('broken-image');
-      this.element.removeClass('no-image');
+      if (!$.trim(this.element.find('input').val())) {
+        this.element.removeClass('broken-image');
+        this.element.addClass('no-image');
+      } else {
+        this.element.addClass('broken-image');
+        this.element.removeClass('no-image');
+      }
     }
     
   });
