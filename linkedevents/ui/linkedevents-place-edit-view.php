@@ -88,7 +88,6 @@
         $place->getDescription()->setFi($this->getLocalizedPostString('description', 'fi'));
         $place->getDescription()->setSv($this->getLocalizedPostString('description', 'sv'));
         $place->getDescription()->setEn($this->getLocalizedPostString('description', 'en'));
-        $place->setDescription($description);
       }
       
       /**
