@@ -3,7 +3,7 @@
  * Created on Aug 22, 2018
  * Plugin Name: Linked Events
  * Description: Wordpress plugin to manage Linked Events API
- * Version: 0.0.1
+ * Version: 1.0.1
  * Author: Metatavu Oy
  */
 
