@@ -83,7 +83,7 @@
         $description = $event->getDescription();
         
         foreach ($this->getSupportedLanguages() as $language) {
-          $description[$language] = $this->getLocalizedPostString('name', $language);
+          $description[$language] = $this->getLocalizedRawPostString('name', $language);
         }
         
         $event->setDescription($description);
@@ -98,7 +98,7 @@
         $shortDescription = $event->getShortDescription();
         
         foreach ($this->getSupportedLanguages() as $language) {
-          $shortDescription[$language] = $this->getLocalizedPostString('name', $language);
+          $shortDescription[$language] = $this->getLocalizedRawPostString('name', $language);
         }
         
         $event->setShortDescription($shortDescription);

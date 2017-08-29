@@ -85,9 +85,9 @@
           $place->setDescription(new \Metatavu\LinkedEvents\Model\PlaceDescription());
         }
         
-        $place->getDescription()->setFi($this->getLocalizedPostString('description', 'fi'));
-        $place->getDescription()->setSv($this->getLocalizedPostString('description', 'sv'));
-        $place->getDescription()->setEn($this->getLocalizedPostString('description', 'en'));
+        $place->getDescription()->setFi($this->getLocalizedRawPostString('description', 'fi'));
+        $place->getDescription()->setSv($this->getLocalizedRawPostString('description', 'sv'));
+        $place->getDescription()->setEn($this->getLocalizedRawPostString('description', 'en'));
       }
       
       /**

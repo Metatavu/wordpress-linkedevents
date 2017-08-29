@@ -74,8 +74,16 @@
         return $this->getPostString($name . '-' . $language);
       }
       
+      protected function getLocalizedRawPostString($name, $language) {
+        return $this->getRawPostString($name . '-' . $language);
+      }
+      
       protected function getPostString($name) {
         return sanitize_text_field($_POST[$name]);
+      }
+      
+      protected function getRawPostString($name) {
+        return $_POST[$name];
       }
       
       protected function getPostFloat($name) {
