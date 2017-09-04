@@ -13,7 +13,7 @@
     class EventNew extends EventEditView {
       
       public function __construct() {
-        parent::__construct(__('New Event', 'linkedevents'));
+        parent::__construct('linkedevents-new-event.php', __('New Event', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
           add_submenu_page('linked-events.php', __('New Event', 'linkedevents'),  __('New Event', 'linkedevents'), 'manage_options', 'linkedevents-new-event.php', array($this, 'render'));

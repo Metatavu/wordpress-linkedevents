@@ -17,13 +17,20 @@
       private $filterApi;
       private $imageApi;
         
-      public function __construct($pageTitle) {
+      public function __construct($targetPage, $pageTitle) {
+        $this->pageTitle = $pageTitle;
+        
+        if ($this->isPageActive($targetPage)) {
+          $this->initializeForm();
+        }
+      }
+      
+      protected function initializeForm() {
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
         $this->imageApi = \Metatavu\LinkedEvents\Wordpress\Api::getImageApi();
         $googleMapsKey = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("google-maps-key");
-                
         wp_enqueue_media();
-        
+         
         wp_enqueue_script('jquery');
         wp_enqueue_script('jquery-ui-autocomplete', null, ['jquery']);
         wp_enqueue_script('jquery-ui-datepicker', null, ['jquery']);
@@ -41,8 +48,6 @@
         
         wp_enqueue_script('googlemaps', ['jquery']);
         wp_enqueue_script('locationpicker', ['googlemaps']);
-        
-        $this->pageTitle = $pageTitle;
       }
         
       public function renderForm($formAction) {
@@ -59,6 +64,10 @@
         echo '<form method="post" action="' . $action . '">';
         echo '<div id="poststuff">';
         wp_nonce_field();
+      }
+      
+      protected function isPageActive($page) {
+        return $_GET['page'] == $page;
       }
       
       protected function renderFormPostfix() {
