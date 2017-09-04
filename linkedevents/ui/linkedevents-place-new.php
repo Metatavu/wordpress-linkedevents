@@ -14,7 +14,7 @@
     class PlaceNew extends PlaceEditView {
       
       public function __construct() {
-        parent::__construct(__('New Place', 'linkedevents'));
+        parent::__construct('linkedevents-new-place.php', __('New Place', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
           add_submenu_page('linked-events.php', __('New Place', 'linkedevents'),  __('New Place', 'linkedevents'), 'manage_options', 'linkedevents-new-place.php', array($this, 'render'));

@@ -14,7 +14,7 @@
     class KeywordEdit extends KeywordEditView {
       
       public function __construct() {
-        parent::__construct(__('Edit Keyword', 'linkedevents'));
+        parent::__construct('linkedevents-edit-keyword.php', __('Edit Keyword', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
           add_submenu_page(null, __('Edit Keyword', 'linkedevents'),  __('Edit Keyword', 'linkedevents'), 'manage_options', 'linkedevents-edit-keyword.php', array($this, 'render'));
