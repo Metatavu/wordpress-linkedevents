@@ -64,8 +64,8 @@
         $this->renderLocalizedTextInput(__('Home page', 'linkedevents'), 'homepage', $place->getInfoUrl());
         
         $this->renderGeoPositionInput(__('Address', 'linkedevents'), 'position', 
-          $place->getStreetAddress(), $place->getPostalCode(), $place->getAddressLocality(), $place->getAddressRegion(), 
-          $place->getPostOfficeBoxNum(), $place->getPosition() ? $place->getPosition()->getCoordinates() : null);
+        $place->getStreetAddress(), $place->getPostalCode(), $place->getAddressLocality(), $place->getAddressRegion(), 
+        $place->getPostOfficeBoxNum(), $place->getPosition() ? $place->getPosition()->getCoordinates() : null);
         
         $this->renderTextInput(__('Email', 'linkedevents'), 'email', $place->getEmail());
         $this->renderLocalizedTextInput(__('Telephone', 'linkedevents'), 'telephone', $place->getTelephone());

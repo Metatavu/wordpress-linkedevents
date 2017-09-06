@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** | image id | [optional] 
-**name** | [**\Metatavu\LinkedEvents\Model\ImageName**](ImageName.md) |  | [optional] 
+**name** | **string** |  | [optional] 
 **publisher** | **string** | The organization responsible for the image. | [optional] 
 **createdTime** | [**\DateTime**](\DateTime.md) | Creation time for the image. | [optional] 
 **lastModifiedTime** | [**\DateTime**](\DateTime.md) | Time this image was modified in the datastore behind the API (not necessarily in the originating system) | [optional] 
