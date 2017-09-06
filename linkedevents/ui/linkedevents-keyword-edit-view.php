@@ -14,8 +14,8 @@
       
       private $filterApi;
       
-      public function __construct($pageTitle) {
-        parent::__construct($pageTitle);
+      public function __construct($targetPage, $pageTitle) {
+        parent::__construct($targetPage, $pageTitle);
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
       }
       

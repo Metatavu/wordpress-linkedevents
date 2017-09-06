@@ -14,8 +14,8 @@
       
       private $eventsApi;
       
-      public function __construct($pageTitle) {
-        parent::__construct($pageTitle);
+      public function __construct($targetPage, $pageTitle) {
+        parent::__construct($targetPage, $pageTitle);
         $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
       }
         
@@ -83,7 +83,7 @@
         $description = $event->getDescription();
         
         foreach ($this->getSupportedLanguages() as $language) {
-          $description[$language] = $this->getLocalizedRawPostString('name', $language);
+          $description[$language] = $this->getLocalizedRawPostString('description', $language);
         }
         
         $event->setDescription($description);
@@ -98,7 +98,7 @@
         $shortDescription = $event->getShortDescription();
         
         foreach ($this->getSupportedLanguages() as $language) {
-          $shortDescription[$language] = $this->getLocalizedRawPostString('name', $language);
+          $shortDescription[$language] = $this->getLocalizedRawPostString('shortDescription', $language);
         }
         
         $event->setShortDescription($shortDescription);
