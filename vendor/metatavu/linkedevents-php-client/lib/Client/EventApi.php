@@ -587,6 +587,7 @@ class EventApi
         } elseif (count($formParams) > 0) {
             $httpBody = $formParams; // for HTTP post (form)
         }
+        
         // make the API Call
         try {
             list($response, $statusCode, $httpHeader) = $this->apiClient->callApi(
