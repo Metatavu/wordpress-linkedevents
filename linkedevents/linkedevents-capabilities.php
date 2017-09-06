@@ -25,10 +25,9 @@
         $role->add_cap('linkedevents_edit_events', true);  
         $role->add_cap('linkedevents_edit_places', true);  
         $role->add_cap('linkedevents_edit_keywords', true);
-        
-        // linkedevents_new_event
-        // linkedevents_new_keyword
-        // linkedevents_new_place
+        $role->add_cap('linkedevents_new_event', true);
+        $role->add_cap('linkedevents_new_keyword', true);
+        $role->add_cap('linkedevents_new_place', true);
       }
         
     }
