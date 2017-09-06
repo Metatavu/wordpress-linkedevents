@@ -17,7 +17,7 @@
         parent::__construct('linkedevents-new-place.php', __('New Place', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page('linked-events.php', __('New Place', 'linkedevents'),  __('New Place', 'linkedevents'), 'manage_options', 'linkedevents-new-place.php', array($this, 'render'));
+          add_submenu_page('linked-events.php', __('New Place', 'linkedevents'),  __('New Place', 'linkedevents'), 'linkedevents_new_place', 'linkedevents-new-place.php', array($this, 'render'));
         });
       }
       

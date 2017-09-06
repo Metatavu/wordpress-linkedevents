@@ -17,7 +17,7 @@
         parent::__construct('linkedevents-edit-place.php', __('Edit Place', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page(null, __('Edit Place', 'linkedevents'),  __('Edit Place', 'linkedevents'), 'manage_options', 'linkedevents-edit-place.php', array($this, 'render'));
+          add_submenu_page(null, __('Edit Place', 'linkedevents'),  __('Edit Place', 'linkedevents'), 'linkedevents_edit_places', 'linkedevents-edit-place.php', array($this, 'render'));
         });
       }
       
