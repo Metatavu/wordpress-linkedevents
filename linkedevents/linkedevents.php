@@ -3,6 +3,7 @@
   defined ( 'ABSPATH' ) || die ( 'No script kiddies please!' );
   
   require_once( __DIR__ . '/linkedevents-api.php');
+  require_once( __DIR__ . '/linkedevents-capabilities.php');
   require_once( __DIR__ . '/ui/linkedevents-event-menu.php');
   require_once( __DIR__ . '/ui/linkedevents-abstract-edit-view.php');
   require_once( __DIR__ . '/ui/linkedevents-event-edit-view.php');

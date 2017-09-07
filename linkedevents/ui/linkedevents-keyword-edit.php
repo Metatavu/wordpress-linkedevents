@@ -17,7 +17,7 @@
         parent::__construct('linkedevents-edit-keyword.php', __('Edit Keyword', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page(null, __('Edit Keyword', 'linkedevents'),  __('Edit Keyword', 'linkedevents'), 'manage_options', 'linkedevents-edit-keyword.php', array($this, 'render'));
+          add_submenu_page(null, __('Edit Keyword', 'linkedevents'),  __('Edit Keyword', 'linkedevents'), 'linkedevents_edit_keywords', 'linkedevents-edit-keyword.php', array($this, 'render'));
         });
       }
       

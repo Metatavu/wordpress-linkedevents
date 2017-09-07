@@ -14,8 +14,18 @@
         buttons : [{
           text: link.attr('data-dialog-confirm'),
           click: function() {
-            $.post(ajaxurl + '?action=' + action + '&id=' + id, function() {
+            $.post(ajaxurl + '?action=' + action + '&id=' + id, function () {
               window.location.reload(true);
+            })
+            .fail(function(jqXHR, message) {
+              $("<div>").text(jqXHR.responseText).dialog({
+                modal: true,
+                buttons: {
+                  Ok: function() {
+                    $( this ).dialog( "close" );
+                  }
+                }
+              });
             });
           }
         }, {

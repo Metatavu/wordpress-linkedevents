@@ -18,7 +18,7 @@
         parent::__construct('linkedevents-edit-event.php', __('Edit Event', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page(NULL, __('Edit Event', 'linkedevents'), __('Edit Event', 'linkedevents'), 'manage_options', 'linkedevents-edit-event.php', array($this, 'render'));
+          add_submenu_page(NULL, __('Edit Event', 'linkedevents'), __('Edit Event', 'linkedevents'), 'linkedevents_edit_events', 'linkedevents-edit-event.php', array($this, 'render'));
         });
       }
       

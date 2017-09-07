@@ -9,8 +9,6 @@
   require_once( __DIR__ . '/../linkedevents-api.php');
   
   add_action('wp_ajax_linkedevents_places', function () {
-    // TODO: Check permissions
-    
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     
     $search = $_GET['q'];
@@ -31,8 +29,6 @@
   });
   
   add_action('wp_ajax_linkedevents_keywords', function () {
-    // TODO: Check permissions
-    
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     
     $search = $_GET['q'];
@@ -53,7 +49,10 @@
   });
   
   add_action('wp_ajax_linkedevents_delete_event', function () {
-    // TODO: Check permissions
+    if (!current_user_can('linkedevents_delete_event')) {
+      wp_die("User does not have permission to remove event", 403);
+      return;
+    }
     
     $eventApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
     $id = $_GET['id'];
@@ -64,7 +63,10 @@
   });
   
   add_action('wp_ajax_linkedevents_delete_place', function () {
-    // TODO: Check permissions
+    if (!current_user_can('linkedevents_delete_place')) {
+      wp_die("User does not have permission to remove place", 403);
+      return;
+    }
     
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     $id = $_GET['id'];
@@ -74,7 +76,10 @@
   });
   
   add_action('wp_ajax_linkedevents_delete_keyword', function () {
-    // TODO: Check permissions
+    if (!current_user_can('linkedevents_delete_keyword')) {
+      wp_die("User does not have permission to remove keyword", 403);
+      return;
+    }
     
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     $id = $_GET['id'];

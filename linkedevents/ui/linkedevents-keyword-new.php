@@ -17,7 +17,7 @@
         parent::__construct('linkedevents-new-keyword.php', __('New Keyword', 'linkedevents'));
         
         add_action( 'admin_menu', function () {
-          add_submenu_page("linked-events.php", __('New Keyword', 'linkedevents'),  __('New Keyword', 'linkedevents'), 'manage_options', 'linkedevents-new-keyword.php', array($this, 'render'));
+          add_submenu_page("linked-events.php", __('New Keyword', 'linkedevents'),  __('New Keyword', 'linkedevents'), 'linkedevents_new_keyword', 'linkedevents-new-keyword.php', array($this, 'render'));
         });
       }
       
