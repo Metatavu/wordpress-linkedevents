@@ -12,27 +12,45 @@
   if (!class_exists( '\Metatavu\LinkedEvents\Wordpress\Capabilities' ) ) {
   
     class Capabilities {
-        
-      public function __construct() {
-        error_log("Hopsanssaaa!");
-        
-        $this->addCapabilities('administrator');
-        $this->addCapabilities('editor');
+      
+      private static $capabilities = [
+        'linkedevents_edit_events', 
+        'linkedevents_edit_places', 
+        'linkedevents_edit_keywords', 
+        'linkedevents_new_event', 
+        'linkedevents_new_keyword', 
+        'linkedevents_new_place', 
+        'linkedevents_delete_event', 
+        'linkedevents_delete_keyword', 
+        'linkedevents_delete_place'
+      ];
+              
+      public static function activationHook() {
+        self::addCapabilities('administrator');
+        self::addCapabilities('editor');
       }
       
-      private function addCapabilities($roleName) {
+      public static function deactivationHook() {
+        self::removeCapabilities('administrator');
+        self::removeCapabilities('editor');
+      }
+      
+      private static function addCapabilities($roleName) {
         $role = get_role($roleName);
-        $role->add_cap('linkedevents_edit_events', true);  
-        $role->add_cap('linkedevents_edit_places', true);  
-        $role->add_cap('linkedevents_edit_keywords', true);
-        $role->add_cap('linkedevents_new_event', true);
-        $role->add_cap('linkedevents_new_keyword', true);
-        $role->add_cap('linkedevents_new_place', true);
+        
+        foreach (self::$capabilities as $capability) {
+          $role->add_cap($capability, true);  
+        }
+      }
+      
+      private static function removeCapabilities($roleName) {
+        $role = get_role($roleName);        
+        foreach (self::$capabilities as $capability) {
+          $role->remove_cap($capability);
+        }
       }
         
     }
   }
-
-  new Capabilities();
 
 ?>

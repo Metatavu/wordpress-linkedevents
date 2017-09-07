@@ -92,15 +92,19 @@
         $id = $item['id'];
         $title = $item['title'];
         
-        $dialogTitle = __("Are you sure?", 'linkedevents');
-        $dialogContent = sprintf(__("Are you sure that you want to remove event '%s'?", 'linkedevents'), $title);
-        $dialogConfirm = __("Delete", 'linkedevents');
-        $dialogCancel = __("Cancel", 'linkedevents');
+        $actions = [];
         
-        $actions = [
-          'edit' => sprintf('<a href="?page=linkedevents-edit-event.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id),
-          'delete' => sprintf('<a data-action="linkedevents_delete_event" data-dialog-title="%s" data-dialog-content="%s" data-dialog-confirm="%s" data-dialog-cancel="%s" class="linkedevents-delete-link" href="#" data-id="' . $id . '">' . __('Delete', 'linkedevents') . '</a>', $dialogTitle, $dialogContent, $dialogConfirm, $dialogCancel, 'delete', $id),
-        ];
+        if (current_user_can('linkedevents_edit_events')) {
+          $actions['edit'] = sprintf('<a href="?page=linkedevents-edit-event.php&action=%s&event=%s">' . __('Edit', 'linkedevents') . '</a>', 'edit', $id);
+        }
+        
+        if (current_user_can('linkedevents_delete_event')) {
+          $dialogTitle = __("Are you sure?", 'linkedevents');
+          $dialogContent = sprintf(__("Are you sure that you want to remove event '%s'?", 'linkedevents'), $title);
+          $dialogConfirm = __("Delete", 'linkedevents');
+          $dialogCancel = __("Cancel", 'linkedevents');
+          $actions['delete'] = sprintf('<a data-action="linkedevents_delete_event" data-dialog-title="%s" data-dialog-content="%s" data-dialog-confirm="%s" data-dialog-cancel="%s" class="linkedevents-delete-link" href="#" data-id="' . $id . '">' . __('Delete', 'linkedevents') . '</a>', $dialogTitle, $dialogContent, $dialogConfirm, $dialogCancel, 'delete', $id);
+        }
         
         return sprintf('%1$s%2$s',
           $title,
