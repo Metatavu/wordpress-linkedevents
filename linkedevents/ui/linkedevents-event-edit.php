@@ -68,10 +68,12 @@
           
           $imageUrl = $images[0]->getUrl();
         }
-       
+        
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", $event->getName());
-        $this->renderDateTimePicker("start", __('Start', 'linkedevents'), $event->getStartTime() ? $event->getStartTime()->getTimestamp() : null);
-        $this->renderDateTimePicker("end", __('End', 'linkedevents'), $event->getEndTime() ? $event->getEndTime()->getTimestamp() : null);
+        $this->renderDatePicker("start-date", __('Start Date', 'linkedevents'), true, $event->getStartTime());
+        $this->renderTimePicker("start-time", __('Start Time', 'linkedevents'), false, $event->getStartTime());
+        $this->renderDatePicker("end-date", __('End Date', 'linkedevents'), false, $event->getEndTime());
+        $this->renderTimePicker("end-time", __('End Time', 'linkedevents'), false, $event->getEndTime());
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), $imageUrl);

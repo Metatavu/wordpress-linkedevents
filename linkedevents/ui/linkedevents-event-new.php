@@ -52,8 +52,10 @@
       
       protected function renderFormFields() {
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", null);
-        $this->renderDateTimePicker("start", __('Start', 'linkedevents'), null);
-        $this->renderDateTimePicker("end", __('End', 'linkedevents'), null);
+        $this->renderDatePicker("start-date", __('Start Date', 'linkedevents'), true);
+        $this->renderTimePicker("start-time", __('Start Time', 'linkedevents'), false);
+        $this->renderDatePicker("end-date", __('End Date', 'linkedevents'), false);
+        $this->renderTimePicker("end-time", __('End Time', 'linkedevents'), false);
         $this->renderEventLocation(null);
         $this->renderEventKeywords(null);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), null);

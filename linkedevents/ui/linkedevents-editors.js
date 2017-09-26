@@ -335,10 +335,31 @@
     $('.linkedevents-image-selector').linkedeventsImageSelector();
     $('.linkedevents-geoinput').linkedeventsGeoInput();
     
+    var locale = $('input[name="locale"]').val();
+    if (locale !== 'fi') {
+      locale = 'en';
+    }
+    
     flatpickr('.linkedevents-datetimepicker', {
+      "locale": locale,
+      "allowInput": true,
       "altInput": true,
-      "dateFormat": "U",
       "enableTime": true,
+      "time_24hr": true
+    });
+    
+    flatpickr('.linkedevents-timepicker', {
+      "locale": locale,
+      "allowInput": true,
+      "noCalendar": true,
+      "enableTime" : true,
+      "time_24hr": true
+    });
+    
+    flatpickr('.linkedevents-datepicker', {
+      "locale": locale,
+      "allowInput": true,
+      "altInput": true,
       "time_24hr": true
     });
   });
