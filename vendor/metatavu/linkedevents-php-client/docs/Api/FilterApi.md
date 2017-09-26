@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **keywordCreate**
-> \Metatavu\LinkedEvents\Model\Place keywordCreate($keywordObject)
+> \Metatavu\LinkedEvents\Model\Keyword keywordCreate($keywordObject)
 
 Creates new keyword
 
@@ -46,11 +46,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **keywordObject** | [**\Metatavu\LinkedEvents\Model\Keyword**](../Model/\Metatavu\LinkedEvents\Model\Keyword.md)|  | [optional]
+ **keywordObject** | [**\Metatavu\LinkedEvents\Model\Keyword**](../Model/Keyword.md)|  | [optional]
 
 ### Return type
 
-[**\Metatavu\LinkedEvents\Model\Place**](../Model/Place.md)
+[**\Metatavu\LinkedEvents\Model\Keyword**](../Model/Keyword.md)
 
 ### Authorization
 
@@ -329,7 +329,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Identifier for the keyword to be updated |
- **keywordObject** | [**\Metatavu\LinkedEvents\Model\Keyword**](../Model/\Metatavu\LinkedEvents\Model\Keyword.md)| Keyword object that should replace the existing keyword | [optional]
+ **keywordObject** | [**\Metatavu\LinkedEvents\Model\Keyword**](../Model/Keyword.md)| Keyword object that should replace the existing keyword | [optional]
 
 ### Return type
 
@@ -374,7 +374,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **placeObject** | [**\Metatavu\LinkedEvents\Model\Place**](../Model/\Metatavu\LinkedEvents\Model\Place.md)|  | [optional]
+ **placeObject** | [**\Metatavu\LinkedEvents\Model\Place**](../Model/Place.md)|  | [optional]
 
 ### Return type
 
@@ -565,7 +565,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Identifier for the place to be updated |
- **placeObject** | [**\Metatavu\LinkedEvents\Model\Place**](../Model/\Metatavu\LinkedEvents\Model\Place.md)| Place object that should replace the existing place. | [optional]
+ **placeObject** | [**\Metatavu\LinkedEvents\Model\Place**](../Model/Place.md)| Place object that should replace the existing place. | [optional]
 
 ### Return type
 

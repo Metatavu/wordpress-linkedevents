@@ -59,13 +59,13 @@ class Event implements ArrayAccess
         'location' => '\Metatavu\LinkedEvents\Model\IdRef',
         'keywords' => '\Metatavu\LinkedEvents\Model\IdRef[]',
         'inLanguage' => '\Metatavu\LinkedEvents\Model\Language[]',
-        'superEvent' => 'string',
+        'superEvent' => '\Metatavu\LinkedEvents\Model\IdRef',
         'superEventType' => 'string',
         'eventStatus' => 'string',
         'publicationStatus' => 'string',
         'externalLinks' => '\Metatavu\LinkedEvents\Model\Eventlink[]',
         'offers' => '\Metatavu\LinkedEvents\Model\Offer[]',
-        'subEvents' => 'string[]',
+        'subEvents' => '\Metatavu\LinkedEvents\Model\IdRef[]',
         'customData' => 'string',
         'name' => '\Metatavu\LinkedEvents\Model\EventName',
         'images' => '\Metatavu\LinkedEvents\Model\Image[]',
@@ -81,6 +81,8 @@ class Event implements ArrayAccess
         'locationExtraInfo' => 'object',
         'startTime' => '\DateTime',
         'endTime' => '\DateTime',
+        'hasStartTime' => 'bool',
+        'hasEndTime' => 'bool',
         'audience' => '\Metatavu\LinkedEvents\Model\Keyword[]',
         'dataSource' => 'string',
         'createdBy' => 'string',
@@ -88,9 +90,54 @@ class Event implements ArrayAccess
         'publisher' => 'string'
     ];
 
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'id' => null,
+        'location' => null,
+        'keywords' => null,
+        'inLanguage' => null,
+        'superEvent' => null,
+        'superEventType' => null,
+        'eventStatus' => null,
+        'publicationStatus' => null,
+        'externalLinks' => null,
+        'offers' => null,
+        'subEvents' => null,
+        'customData' => null,
+        'name' => null,
+        'images' => null,
+        'createdTime' => 'date-time',
+        'lastModifiedTime' => 'date-time',
+        'infoUrl' => null,
+        'description' => null,
+        'shortDescription' => null,
+        'context' => null,
+        'type' => null,
+        'datePublished' => 'date-time',
+        'provider' => null,
+        'locationExtraInfo' => null,
+        'startTime' => 'date-time',
+        'endTime' => 'date-time',
+        'hasStartTime' => null,
+        'hasEndTime' => null,
+        'audience' => null,
+        'dataSource' => null,
+        'createdBy' => null,
+        'lastModifiedBy' => null,
+        'publisher' => null
+    ];
+
     public static function swaggerTypes()
     {
         return self::$swaggerTypes;
+    }
+
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
     }
 
     /**
@@ -124,6 +171,8 @@ class Event implements ArrayAccess
         'locationExtraInfo' => 'location_extra_info',
         'startTime' => 'start_time',
         'endTime' => 'end_time',
+        'hasStartTime' => 'has_start_time',
+        'hasEndTime' => 'has_end_time',
         'audience' => 'audience',
         'dataSource' => 'data_source',
         'createdBy' => 'created_by',
@@ -163,6 +212,8 @@ class Event implements ArrayAccess
         'locationExtraInfo' => 'setLocationExtraInfo',
         'startTime' => 'setStartTime',
         'endTime' => 'setEndTime',
+        'hasStartTime' => 'setHasStartTime',
+        'hasEndTime' => 'setHasEndTime',
         'audience' => 'setAudience',
         'dataSource' => 'setDataSource',
         'createdBy' => 'setCreatedBy',
@@ -202,6 +253,8 @@ class Event implements ArrayAccess
         'locationExtraInfo' => 'getLocationExtraInfo',
         'startTime' => 'getStartTime',
         'endTime' => 'getEndTime',
+        'hasStartTime' => 'getHasStartTime',
+        'hasEndTime' => 'getHasEndTime',
         'audience' => 'getAudience',
         'dataSource' => 'getDataSource',
         'createdBy' => 'getCreatedBy',
@@ -266,6 +319,8 @@ class Event implements ArrayAccess
         $this->container['locationExtraInfo'] = isset($data['locationExtraInfo']) ? $data['locationExtraInfo'] : null;
         $this->container['startTime'] = isset($data['startTime']) ? $data['startTime'] : null;
         $this->container['endTime'] = isset($data['endTime']) ? $data['endTime'] : null;
+        $this->container['hasStartTime'] = isset($data['hasStartTime']) ? $data['hasStartTime'] : null;
+        $this->container['hasEndTime'] = isset($data['hasEndTime']) ? $data['hasEndTime'] : null;
         $this->container['audience'] = isset($data['audience']) ? $data['audience'] : null;
         $this->container['dataSource'] = isset($data['dataSource']) ? $data['dataSource'] : null;
         $this->container['createdBy'] = isset($data['createdBy']) ? $data['createdBy'] : null;
@@ -408,7 +463,7 @@ class Event implements ArrayAccess
 
     /**
      * Gets superEvent
-     * @return string
+     * @return \Metatavu\LinkedEvents\Model\IdRef
      */
     public function getSuperEvent()
     {
@@ -417,7 +472,7 @@ class Event implements ArrayAccess
 
     /**
      * Sets superEvent
-     * @param string $superEvent references the aggregate event containing this event
+     * @param \Metatavu\LinkedEvents\Model\IdRef $superEvent references the aggregate event containing this event
      * @return $this
      */
     public function setSuperEvent($superEvent)
@@ -534,7 +589,7 @@ class Event implements ArrayAccess
 
     /**
      * Gets subEvents
-     * @return string[]
+     * @return \Metatavu\LinkedEvents\Model\IdRef[]
      */
     public function getSubEvents()
     {
@@ -543,7 +598,7 @@ class Event implements ArrayAccess
 
     /**
      * Sets subEvents
-     * @param string[] $subEvents for aggregate events this contains references to all sub events. Usually this means that the sub events are part of series. The field 'super_event_type' tells the type of the aggregate event.
+     * @param \Metatavu\LinkedEvents\Model\IdRef[] $subEvents for aggregate events this contains references to all sub events. Usually this means that the sub events are part of series. The field 'super_event_type' tells the type of the aggregate event.
      * @return $this
      */
     public function setSubEvents($subEvents)
@@ -864,6 +919,48 @@ class Event implements ArrayAccess
     public function setEndTime($endTime)
     {
         $this->container['endTime'] = $endTime;
+
+        return $this;
+    }
+
+    /**
+     * Gets hasStartTime
+     * @return bool
+     */
+    public function getHasStartTime()
+    {
+        return $this->container['hasStartTime'];
+    }
+
+    /**
+     * Sets hasStartTime
+     * @param bool $hasStartTime
+     * @return $this
+     */
+    public function setHasStartTime($hasStartTime)
+    {
+        $this->container['hasStartTime'] = $hasStartTime;
+
+        return $this;
+    }
+
+    /**
+     * Gets hasEndTime
+     * @return bool
+     */
+    public function getHasEndTime()
+    {
+        return $this->container['hasEndTime'];
+    }
+
+    /**
+     * Sets hasEndTime
+     * @param bool $hasEndTime
+     * @return $this
+     */
+    public function setHasEndTime($hasEndTime)
+    {
+        $this->container['hasEndTime'] = $hasEndTime;
 
         return $this;
     }

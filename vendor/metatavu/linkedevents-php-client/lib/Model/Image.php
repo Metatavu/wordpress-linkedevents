@@ -67,9 +67,31 @@ class Image implements ArrayAccess
         'license' => 'string'
     ];
 
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'id' => 'int64',
+        'name' => null,
+        'publisher' => null,
+        'createdTime' => 'date-time',
+        'lastModifiedTime' => 'date-time',
+        'createdBy' => null,
+        'lastModifiedBy' => null,
+        'url' => null,
+        'cropping' => null,
+        'license' => null
+    ];
+
     public static function swaggerTypes()
     {
         return self::$swaggerTypes;
+    }
+
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
     }
 
     /**

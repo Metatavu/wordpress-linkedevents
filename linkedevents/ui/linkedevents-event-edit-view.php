@@ -242,6 +242,7 @@
        */
       protected function updateEventStartTime($event) {
         $event->setStartTime($this->getStartTime());
+        $event->setHasStartTime($this->getHasStartTime());
       }
       
       /**
@@ -251,6 +252,7 @@
        */
       protected function updateEventEndTime($event) {
         $event->setEndTime($this->getEndTime());
+        $event->setHasEndTime($this->getHasEndTime());
       }
       
       /**
@@ -344,14 +346,16 @@
        * @return \DateTime event's start time
        */
       private function getStartTime() {
-        $string = $this->getPostString("start");
-        if (!$string) {
-          return null;
-        }
-        
-        $dateTime = new \DateTime();
-        $dateTime->setTimestamp(intval($string));
-        return $dateTime;
+        return $this->parseDateTime($this->getPostString("start-date"), $this->getPostString("start-time"));
+      }
+      
+      /**
+       * Returns whether event has a start time or not
+       * 
+       * @return bool whether event has a start time or not
+       */
+      private function getHasStartTime() {
+        return !!$this->getPostString("start-time");
       }
       
       /**
@@ -360,14 +364,16 @@
        * @return \DateTime event's end time
        */
       private function getEndTime() {
-        $string = $this->getPostString("end");
-        if (!$string) {
-          return null;
-        }
-        
-        $dateTime = new \DateTime();
-        $dateTime->setTimestamp(intval($string));
-        return $dateTime;
+        return $this->parseDateTime($this->getPostString("end-date"), $this->getPostString("end-time"));
+      }
+      
+      /**
+       * Returns whether event has a end time or not
+       * 
+       * @return bool whether event has a end time or not
+       */
+      private function getHasEndTime() {
+        return !!$this->getPostString("end-time");
       }
     }
   }

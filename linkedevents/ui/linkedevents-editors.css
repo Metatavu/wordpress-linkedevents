@@ -1,6 +1,8 @@
 .linkedevents-input,
 .linkedevents-multivalue-autocomplete,
 .linkedevents-autocomplete,
+.linkedevents-datepicker,
+.linkedevents-timepicker,
 .linkedevents-datetimepicker,
 .linkedevents-image-selector input {
   width: 100%;

@@ -68,9 +68,32 @@ class Keyword implements ArrayAccess
         'altLabels' => 'string[]'
     ];
 
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'id' => null,
+        'name' => null,
+        'images' => null,
+        'originId' => null,
+        'createdTime' => 'date-time',
+        'lastModifiedTime' => 'date-time',
+        'aggregate' => null,
+        'dataSource' => null,
+        'createdBy' => null,
+        'lastModifiedBy' => null,
+        'altLabels' => null
+    ];
+
     public static function swaggerTypes()
     {
         return self::$swaggerTypes;
+    }
+
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
     }
 
     /**

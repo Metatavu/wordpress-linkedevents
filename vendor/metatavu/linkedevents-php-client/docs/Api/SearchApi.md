@@ -25,8 +25,8 @@ $pageSize = 56; // int | request that server delivers page_size results in respo
 $type = "type_example"; // string | Comma-delimited list of resource types to search for. Currently allowed values are `event` and `place`. `type=event` must be specified for event date filtering and relevancy sorting.
 $q = "q_example"; // string | Search for events and places matching this string. Mutually exclusive with `input` typeahead search.
 $input = "input_example"; // string | Return autocompletition suggestions for this string. Mutually exclusive with `q` full-text search.
-$start = new \DateTime(); // \DateTime | Search for events beginning or ending after this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
-$end = new \DateTime(); // \DateTime | Search for events beginning or ending before this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
+$start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for events beginning or ending after this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
+$end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for events beginning or ending before this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
 
 try {
     $result = $api_instance->eventSearch($page, $pageSize, $type, $q, $input, $start, $end);

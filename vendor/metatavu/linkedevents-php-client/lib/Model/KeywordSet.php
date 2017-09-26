@@ -67,9 +67,31 @@ class KeywordSet implements ArrayAccess
         'keywords' => '\Metatavu\LinkedEvents\Model\Keyword[]'
     ];
 
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'id' => null,
+        'name' => null,
+        'originId' => null,
+        'createdTime' => 'date-time',
+        'lastModifiedTime' => 'date-time',
+        'dataSource' => null,
+        'lastModifiedBy' => null,
+        'usage' => null,
+        'organization' => null,
+        'keywords' => null
+    ];
+
     public static function swaggerTypes()
     {
         return self::$swaggerTypes;
+    }
+
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
     }
 
     /**
@@ -199,9 +221,12 @@ class KeywordSet implements ArrayAccess
         if ($this->container['name'] === null) {
             $invalid_properties[] = "'name' can't be null";
         }
-        $allowed_values = ["any", "keyword", "audience"];
+        $allowed_values = $this->getUsageAllowableValues();
         if (!in_array($this->container['usage'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'usage', must be one of 'any', 'keyword', 'audience'.";
+            $invalid_properties[] = sprintf(
+                "invalid value for 'usage', must be one of '%s'",
+                implode("', '", $allowed_values)
+            );
         }
 
         if ($this->container['keywords'] === null) {
@@ -225,7 +250,7 @@ class KeywordSet implements ArrayAccess
         if ($this->container['name'] === null) {
             return false;
         }
-        $allowed_values = ["any", "keyword", "audience"];
+        $allowed_values = $this->getUsageAllowableValues();
         if (!in_array($this->container['usage'], $allowed_values)) {
             return false;
         }
@@ -399,9 +424,14 @@ class KeywordSet implements ArrayAccess
      */
     public function setUsage($usage)
     {
-        $allowed_values = array('any', 'keyword', 'audience');
-        if (!is_null($usage) && (!in_array($usage, $allowed_values))) {
-            throw new \InvalidArgumentException("Invalid value for 'usage', must be one of 'any', 'keyword', 'audience'");
+        $allowed_values = $this->getUsageAllowableValues();
+        if (!is_null($usage) && !in_array($usage, $allowed_values)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'usage', must be one of '%s'",
+                    implode("', '", $allowed_values)
+                )
+            );
         }
         $this->container['usage'] = $usage;
 

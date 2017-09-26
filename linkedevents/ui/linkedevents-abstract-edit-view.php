@@ -12,6 +12,10 @@
     
     class AbstractEditView {
       
+      private static $DATE_FORMAT = 'Y-m-d';
+      private static $TIME_FORMAT = 'H:i';
+      private static $TIMEZONE = 'Europe/Helsinki';
+      
       private $pageTitle;
       private $supportedLanguages = ["fi", "sv", "en"];
       private $filterApi;
@@ -37,13 +41,16 @@
         
         wp_register_style('flatpickr', '//cdn.metatavu.io/libs/flatpickr/2.6.1/flatpickr.min.css');
         wp_register_script('flatpickr', '//cdn.metatavu.io/libs/flatpickr/2.6.1/flatpickr.min.js');
+        wp_register_script('flatpickr-fi', '//cdn.metatavu.io/libs/flatpickr/2.6.1/l10n/fi.js');
+                
         wp_register_script('googlemaps', '//maps.google.com/maps/api/js?libraries=places&key=' . $googleMapsKey);
         wp_register_script('locationpicker', '//cdn.metatavu.io/libs/jquery-locationpicker/0.1.12/locationpicker.jquery.min.js');
         
         wp_enqueue_script('flatpickr');
+        wp_enqueue_script('flatpickr-fi');
         wp_enqueue_style('flatpickr');
         
-        wp_enqueue_script('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-editors.js', ['jquery-ui-autocomplete', 'flatpickr']);
+        wp_enqueue_script('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-editors.js', ['jquery-ui-autocomplete', 'flatpickr', 'flatpickr-fi']);
         wp_enqueue_style('linkedevents-editors', plugin_dir_url(__FILE__) . 'linkedevents-editors.css');
         
         wp_enqueue_script('googlemaps', ['jquery']);
@@ -62,6 +69,7 @@
         echo '<hr class="wp-header-end"/>';
         
         echo '<form method="post" action="' . $action . '">';
+        echo '<input type="hidden" value="'. get_locale() . '" name="locale"/>';
         echo '<div id="poststuff">';
         wp_nonce_field();
       }
@@ -150,7 +158,7 @@
           $fieldName = "$name-$language";
           echo '<label>' . $this->getLanguageName($language) . '</label>';
           echo '<input class="linkedevents-input linkedevents-localized-input" type="text" name="' . $fieldName . '" value="' . $value . '" />';
-        }  
+        }
       }
       
       /**
@@ -212,15 +220,33 @@
       }
       
       /**
-       * Renders date-time picker component
+       * Renders date picker component
        * 
        * @param string $name name
        * @param string $label label
        * @param string $value value
        */
-      protected function renderDateTimePicker($name, $label, $value) {
+      protected function renderDatePicker($name, $label, $required, $value = null) {
+        $valueAttr = $value ? ' value="' . $this->getDateTimeDate($value) . '"' : '';
+        $requiredAttr = $required ? ' required="required"' : '';
+        $nameAttr = ' name="' . $name . '"';
         echo '<h3>' . $label . '</h3>';
-        echo '<input class="linkedevents-datetimepicker" name="' . $name . '" value="' . $value . '" type="text">';
+        echo '<input class="linkedevents-datepicker" type="text"' . $nameAttr . $valueAttr . $requiredAttr . '/>';
+      }
+      
+      /**
+       * Renders time picker component
+       * 
+       * @param string $name name
+       * @param string $label label
+       * @param string $value value
+       */
+      protected function renderTimePicker($name, $label, $required, $value = null) {
+        $valueAttr = $value ? 'value="' . $this->getDateTimeTime($value) . '"' : '';
+        $requiredAttr = $required ? ' required="required"' : '';
+        $nameAttr = ' name="' . $name . '"';
+        echo '<h3>' . $label . '</h3>';
+        echo '<input class="linkedevents-timepicker" type="text"' . $nameAttr . $valueAttr . $requiredAttr . '/>';
       }
       
       protected function renderAutocomplete($name, $label, $searchTarget, $value) {
@@ -254,6 +280,12 @@
         return $this->supportedLanguages;
       }
       
+      /**
+       * Returns IdRef array for keyword ids
+       * 
+       * @param type $keywordIds keyword ids
+       * @return \Metatavu\LinkedEvents\Model\IdRef[] keyword IdRefs
+       */
       protected function getKeywordRefs($keywordIds) {
         $result = [];
         
@@ -264,18 +296,42 @@
         return $result;
       }
       
+      /**
+       * Returns reference into the keyword
+       * 
+       * @param string $keywordId keyword id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the keyword
+       */
       protected function getKeywordRef($keywordId) {
         return $this->getIdRef($this->getApiUrl() . "/keyword/$keywordId/");
       }
       
+      /**
+       * Returns reference into the location
+       * 
+       * @param string $locationId location id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the location
+       */
       protected function getPlaceRef($locationId) {
         return $this->getIdRef($this->getApiUrl() . "/place/$locationId/");
       }
       
+      /**
+       * Returns reference into the image
+       * 
+       * @param string $id image id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the image
+       */
       protected function getImageRef($id) {
         return $this->getIdRef($this->getApiUrl() . "/image/$id/");
       }
       
+      /**
+       * Returns IdRef object for id
+       * 
+       * @param string $id id
+       * @return \Metatavu\LinkedEvents\Model\IdRef IdRef
+       */
       protected function getIdRef($id) {
         $idRef = new \Metatavu\LinkedEvents\Model\IdRef();
         $idRef->setId($id);
@@ -296,6 +352,7 @@
        * Extracts id from IdRef
        * 
        * @param \Metatavu\LinkedEvents\Model\IdRef $idRef
+       * @return string id
        */
       protected function extractIdRefId($idRef) {
         if (isset($idRef)) {
@@ -379,6 +436,64 @@
           case 'en':
             return __('English', 'linkedevents');
         }
+      }
+      
+      /**
+       * Returns ISO formatted date
+       * 
+       * @param \DateTime $dateTime
+       * @return string date is ISO format
+       */
+      protected function getDateTimeDate($dateTime) {
+        if (!$dateTime) {
+          return;
+        }
+        
+        return $dateTime->format(self::$DATE_FORMAT);
+      }
+      
+      
+      /**
+       * Returns iso formatted time in Europe / Helsinki timezone
+       * 
+       * @param \DateTime $dateTime
+       * @return string time in Europe / Helsinki timezone
+       */
+      protected function getDateTimeTime($dateTime) {
+        if (!$dateTime) {
+          return null;
+        }
+        
+        if (!$dateTime->getHasTime()) {
+          return null;
+        }
+        
+        $dateTime->setTimezone(new \DateTimeZone(self::$TIMEZONE));
+        return $dateTime->format(self::$TIME_FORMAT);
+      }
+      
+      /**
+       * Parses date time from ISO formatted date and time strings.
+       * 
+       * TimeZone is expected to be Europe/Helsinki
+       * 
+       * @return \DateTime parsed datetime
+       */
+      protected function parseDateTime($dateString, $timeString) {
+        if (!$dateString) {
+          return null;
+        }
+        
+        $timezone = new \DateTimeZone(self::$TIMEZONE);
+        $format = $timeString ? self::$DATE_FORMAT . '\T' . self::$TIME_FORMAT : self::$DATE_FORMAT;
+        $value = $timeString ? $dateString . 'T' . $timeString : $dateString;
+        $result = \DateTime::createFromFormat($format, $value, $timezone);
+        
+        if (!$timeString) {
+          $result->setTime(0, 0);
+        }
+        
+        return $result;
       }
     }
   }
