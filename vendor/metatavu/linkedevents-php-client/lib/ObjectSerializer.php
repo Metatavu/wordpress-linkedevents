@@ -29,6 +29,21 @@
 
 namespace Metatavu\LinkedEvents;
 
+class DateTimeExt extends \DateTime {
+  
+  private $hasTime;
+  
+  public function __construct($time) {
+    parent::__construct($time, null);
+    $this->hasTime = !!strpos($time, 'T');
+  }
+  
+  public function getHasTime() {
+    return $this->hasTime;
+  }
+  
+}
+
 /**
  * ObjectSerializer Class Doc Comment
  *
@@ -256,7 +271,7 @@ class ObjectSerializer
             // be interpreted as a missing field/value. Let's handle
             // this graceful.
             if (!empty($data)) {
-                return new \DateTime($data);
+                return new DateTimeExt($data);
             } else {
                 return null;
             }

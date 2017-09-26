@@ -129,12 +129,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Metatavu/linkedevents-client-php.git",
-                "reference": "44b3f21abc59387a981fca4e1ec5036fce8b91a4"
+                "reference": "a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/44b3f21abc59387a981fca4e1ec5036fce8b91a4",
-                "reference": "44b3f21abc59387a981fca4e1ec5036fce8b91a4",
+                "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec",
+                "reference": "a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec",
                 "shasum": ""
             },
             "require": {
@@ -172,7 +172,7 @@
                 "sdk",
                 "swagger"
             ],
-            "time": "2017-09-24T13:40:58+00:00"
+            "time": "2017-09-26T13:33:22+00:00"
         }
     ],
     "packages-dev": [],
