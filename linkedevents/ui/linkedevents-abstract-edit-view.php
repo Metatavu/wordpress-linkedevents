@@ -254,6 +254,12 @@
         return $this->supportedLanguages;
       }
       
+      /**
+       * Returns IdRef array for keyword ids
+       * 
+       * @param type $keywordIds keyword ids
+       * @return \Metatavu\LinkedEvents\Model\IdRef[] keyword IdRefs
+       */
       protected function getKeywordRefs($keywordIds) {
         $result = [];
         
@@ -264,18 +270,42 @@
         return $result;
       }
       
+      /**
+       * Returns reference into the keyword
+       * 
+       * @param string $keywordId keyword id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the keyword
+       */
       protected function getKeywordRef($keywordId) {
         return $this->getIdRef($this->getApiUrl() . "/keyword/$keywordId/");
       }
       
+      /**
+       * Returns reference into the location
+       * 
+       * @param string $locationId location id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the location
+       */
       protected function getPlaceRef($locationId) {
         return $this->getIdRef($this->getApiUrl() . "/place/$locationId/");
       }
       
+      /**
+       * Returns reference into the image
+       * 
+       * @param string $id image id
+       * @return \Metatavu\LinkedEvents\Model\IdRef reference into the image
+       */
       protected function getImageRef($id) {
         return $this->getIdRef($this->getApiUrl() . "/image/$id/");
       }
       
+      /**
+       * Returns IdRef object for id
+       * 
+       * @param string $id id
+       * @return \Metatavu\LinkedEvents\Model\IdRef IdRef
+       */
       protected function getIdRef($id) {
         $idRef = new \Metatavu\LinkedEvents\Model\IdRef();
         $idRef->setId($id);
@@ -296,6 +326,7 @@
        * Extracts id from IdRef
        * 
        * @param \Metatavu\LinkedEvents\Model\IdRef $idRef
+       * @return string id
        */
       protected function extractIdRefId($idRef) {
         if (isset($idRef)) {
