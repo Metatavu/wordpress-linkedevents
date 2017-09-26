@@ -37,7 +37,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **eventObject** | [**\Metatavu\LinkedEvents\Model\Event**](../Model/\Metatavu\LinkedEvents\Model\Event.md)|  | [optional]
+ **eventObject** | [**\Metatavu\LinkedEvents\Model\Event**](../Model/Event.md)|  | [optional]
 
 ### Return type
 
@@ -114,8 +114,8 @@ $api_instance = new Metatavu\LinkedEvents\Api\EventApi();
 $include = array("include_example"); // string[] | Embed given reference-type fields directly into the response, otherwise they are returned as URI references.
 $text = "text_example"; // string | Search (case insensitive) through all multilingual text fields (name, description, short_description, info_url) of an event (every language). Multilingual fields contain the text that users are expected to care about, thus multilinguality is useful discriminator.
 $lastModifiedSince = "lastModifiedSince_example"; // string | Search for events that have been modified since or at this time.
-$start = new \DateTime(); // \DateTime | Search for events beginning or ending after this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
-$end = new \DateTime(); // \DateTime | Search for events beginning or ending before this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
+$start = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for events beginning or ending after this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
+$end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for events beginning or ending before this time. Dates can be specified using ISO 8601 (\"2016-01-12\") and additionally \"today\".
 $bbox = array("bbox_example"); // string[] | Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator.
 $dataSource = "dataSource_example"; // string | Search for events that come from the specified source system
 $location = array(56); // int[] | Search for events in given locations as specified by id. Multiple ids are separated by comma
@@ -248,7 +248,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Identifier for the event to be updated |
- **eventObject** | [**\Metatavu\LinkedEvents\Model\Event**](../Model/\Metatavu\LinkedEvents\Model\Event.md)| Event object that should replace the existing event, note that some implementations may retain unspecified fields at their original values. | [optional]
+ **eventObject** | [**\Metatavu\LinkedEvents\Model\Event**](../Model/Event.md)| Event object that should replace the existing event, note that some implementations may retain unspecified fields at their original values. | [optional]
 
 ### Return type
 

@@ -40,7 +40,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **imageFile** | **\SplFileObject**|  | [optional]
- **imageObject** | [**\Metatavu\LinkedEvents\Model\ImageUrl**](../Model/\Metatavu\LinkedEvents\Model\ImageUrl.md)|  | [optional]
+ **imageObject** | [**\Metatavu\LinkedEvents\Model\ImageUrl**](../Model/ImageUrl.md)|  | [optional]
 
 ### Return type
 
@@ -181,7 +181,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| Identifier for the image to be updated |
- **imageObject** | [**\Metatavu\LinkedEvents\Model\Image**](../Model/\Metatavu\LinkedEvents\Model\Image.md)| Image object that should replace the existing image, note that some implementations may retain unspecified fields at their original values. | [optional]
+ **imageObject** | [**\Metatavu\LinkedEvents\Model\Image**](../Model/Image.md)| Image object that should replace the existing image, note that some implementations may retain unspecified fields at their original values. | [optional]
 
 ### Return type
 

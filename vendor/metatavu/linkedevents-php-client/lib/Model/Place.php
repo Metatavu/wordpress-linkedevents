@@ -79,9 +79,43 @@ class Place implements ArrayAccess
         'publisher' => 'string'
     ];
 
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'id' => null,
+        'customData' => null,
+        'name' => null,
+        'images' => null,
+        'originId' => null,
+        'createdTime' => 'date-time',
+        'lastModifiedTime' => 'date-time',
+        'infoUrl' => null,
+        'description' => null,
+        'position' => null,
+        'email' => null,
+        'telephone' => null,
+        'contactType' => null,
+        'streetAddress' => null,
+        'addressLocality' => null,
+        'addressRegion' => null,
+        'postalCode' => null,
+        'postOfficeBoxNum' => null,
+        'addressCountry' => null,
+        'deleted' => null,
+        'dataSource' => null,
+        'publisher' => null
+    ];
+
     public static function swaggerTypes()
     {
         return self::$swaggerTypes;
+    }
+
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
     }
 
     /**
