@@ -16,6 +16,9 @@
     
     class EventsTable extends \WP_List_Table {
       
+      private static $DEFAULT_TIMEZONE = 'Europe/Helsinki';
+      private static $DATETIME_FORMAT = 'Y-m-d H:i:s';
+      private static $DATE_FORMAT = 'Y-m-d';
       private $perPage = 10;
       private $eventsApi;
       
@@ -44,7 +47,6 @@
         $this->items = [];
         $itemCount = $events->getMeta()->getCount();
         
-        // TODO: Support localization
         foreach ($events->getData() as $event) {
           $start = $event['startTime'];
           $end = $event['endTime'];
@@ -52,8 +54,8 @@
           $this->items[] = [
             "id" => $event['id'],
             "title" => $event['name']['fi'],
-            "start" => $start ? $start->format('Y-m-d H:i:s') : '',
-            "end" => $end ? $end->format('Y-m-d H:i:s') : ''
+            "start" => $this->formatDateTime($start),
+            "end" =>  $this->formatDateTime($end)
           ];
         }
         
@@ -109,11 +111,11 @@
         return sprintf('%1$s%2$s',
           $title,
           $this->row_actions($actions)
-      );
-    }
+        );
+      }
       
-    private function listEvents($page, $pageSize, $sort = null) {
-      // TODO: error handling
+      private function listEvents($page, $pageSize, $sort = null) {
+        // TODO: error handling
         
         $include = null;
         $text = null;
@@ -132,6 +134,32 @@
         
         $result = $this->eventsApi->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
         return $result;
+      }
+      
+      /**
+       * Returns date time as string
+       * 
+       * @param \DateTime $dateTime date time
+       * @return string formatted date time
+       */
+      private function formatDateTime($dateTime) {
+        if ($dateTime) {
+          $clone = clone $dateTime;
+          $clone->setTimezone($this->getTimezone());
+          return $clone->format($clone->getHasTime() ? self::$DATETIME_FORMAT : self::$DATE_FORMAT);
+        }
+        
+        return null;
+      }
+      
+      /**
+       * Returns time zone
+       * 
+       * @return \DateTimeZone time zone
+       */
+      private function getTimezone() {
+        $result = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("timezone");
+        return new \DateTimeZone($result ? $result : self::$DEFAULT_TIMEZONE);
       }
       
     }
