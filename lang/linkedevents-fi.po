@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Linked Events 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-"
 "linkedevents\n"
-"POT-Creation-Date: 2017-08-28 17:43+0300\n"
-"PO-Revision-Date: 2017-08-28 17:52+0300\n"
+"POT-Creation-Date: 2017-09-27 16:43+0300\n"
+"PO-Revision-Date: 2017-09-27 16:45+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -16,48 +16,48 @@ msgstr ""
 "X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:158
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:183
 msgid "Street address (%s)"
 msgstr "Katuosoite (%s)"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:159
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:184
 msgid "Postal code"
 msgstr "Postinumero"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:160
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:185
 msgid "Address locality (%s)"
 msgstr "Paikkakunta (%s)"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:162
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:187
 msgid "Address region"
 msgstr "Maakunta"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:163
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:188
 msgid "Po box"
 msgstr "Postilokero"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:214
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:223
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:266
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:275
 msgid "Select an image"
 msgstr "Valitse kuva"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:215
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:267
 msgid "Select"
 msgstr "Valitse"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:216
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:268
 msgid "Image could not be loaded"
 msgstr "Kuvaa ei voitu ladata"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:352
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:443
 msgid "Finnish"
 msgstr "Suomi"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:354
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:445
 msgid "Swedish"
 msgstr "Ruotsi"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:356
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:447
 msgid "English"
 msgstr "Englanti"
 
@@ -70,20 +70,29 @@ msgstr "Paikka"
 msgid "Keywords"
 msgstr "Avainsanat"
 
-#: linkedevents/ui/linkedevents-event-edit-view.php:172
+#: linkedevents/ui/linkedevents-event-edit-view.php:200
+msgid "Event start time cannot be empty"
+msgstr "Tapahtuman alkamisaika ei voi tyhjä"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:204
 msgid "Event start time cannot be in the past"
 msgstr "Tapahtuman alkamisaika ei voi olla menneisyydessä"
 
-#: linkedevents/ui/linkedevents-event-edit-view.php:176
+#: linkedevents/ui/linkedevents-event-edit-view.php:209
 msgid "Event start time cannot be after event end time"
 msgstr "Tapahtuman alkamisaika ei voi olla loppumisajan jälkeen"
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:221
+#: linkedevents/ui/linkedevents-event-edit-view.php:232
+msgid "Event location is required"
+msgstr "Tapahtumapaikka on pakollinen"
 
 #: linkedevents/ui/linkedevents-event-edit.php:18
 #: linkedevents/ui/linkedevents-event-edit.php:21
 msgid "Edit Event"
 msgstr "Muokkaa tapahtumaa"
 
-#: linkedevents/ui/linkedevents-event-edit.php:75
+#: linkedevents/ui/linkedevents-event-edit.php:66
 msgid ""
 "Wordpress plugin does not support multiple images. Only the first image will "
 "be used if the event is saved"
@@ -91,39 +100,49 @@ msgstr ""
 "Wordpress lisäosa ei tue useita kuvia. Vain ensimmäinen kuva säilytetään "
 "tapahtuman tallennuksen yhteydessä."
 
-#: linkedevents/ui/linkedevents-event-edit.php:81
-#: linkedevents/ui/linkedevents-event-new.php:51
-#: linkedevents/ui/linkedevents-keyword-edit.php:52
-#: linkedevents/ui/linkedevents-keyword-new.php:48
-#: linkedevents/ui/linkedevents-place-edit.php:61
+#: linkedevents/ui/linkedevents-event-edit.php:72
+#: linkedevents/ui/linkedevents-event-new.php:54
+#: linkedevents/ui/linkedevents-keyword-edit.php:53
+#: linkedevents/ui/linkedevents-keyword-new.php:50
+#: linkedevents/ui/linkedevents-place-edit.php:62
 #: linkedevents/ui/linkedevents-place-new.php:59
 msgid "Name"
 msgstr "Nimi"
 
-#: linkedevents/ui/linkedevents-event-edit.php:82
-#: linkedevents/ui/linkedevents-event-new.php:52
-msgid "Start"
+#: linkedevents/ui/linkedevents-event-edit.php:73
+#: linkedevents/ui/linkedevents-event-new.php:55
+msgid "Start Date"
+msgstr "Alkamispäivämäärä"
+
+#: linkedevents/ui/linkedevents-event-edit.php:74
+#: linkedevents/ui/linkedevents-event-new.php:56
+msgid "Start Time"
 msgstr "Alkamisaika"
 
-#: linkedevents/ui/linkedevents-event-edit.php:83
-#: linkedevents/ui/linkedevents-event-new.php:53
-msgid "End"
+#: linkedevents/ui/linkedevents-event-edit.php:75
+#: linkedevents/ui/linkedevents-event-new.php:57
+msgid "End Date"
+msgstr "Loppumispäivämäärä"
+
+#: linkedevents/ui/linkedevents-event-edit.php:76
+#: linkedevents/ui/linkedevents-event-new.php:58
+msgid "End Time"
 msgstr "Loppumisaika"
 
-#: linkedevents/ui/linkedevents-event-edit.php:86
-#: linkedevents/ui/linkedevents-event-new.php:56
+#: linkedevents/ui/linkedevents-event-edit.php:79
+#: linkedevents/ui/linkedevents-event-new.php:61
 msgid "Event Image"
 msgstr "Kuva"
 
-#: linkedevents/ui/linkedevents-event-edit.php:87
-#: linkedevents/ui/linkedevents-event-new.php:57
-#: linkedevents/ui/linkedevents-place-edit.php:62
+#: linkedevents/ui/linkedevents-event-edit.php:80
+#: linkedevents/ui/linkedevents-event-new.php:62
+#: linkedevents/ui/linkedevents-place-edit.php:63
 #: linkedevents/ui/linkedevents-place-new.php:60
 msgid "Description"
 msgstr "Kuvaus"
 
-#: linkedevents/ui/linkedevents-event-edit.php:88
-#: linkedevents/ui/linkedevents-event-new.php:58
+#: linkedevents/ui/linkedevents-event-edit.php:81
+#: linkedevents/ui/linkedevents-event-new.php:63
 msgid "Short Description"
 msgstr "Lyhyt kuvaus"
 
@@ -140,36 +159,36 @@ msgstr "Paikat"
 msgid "New Event"
 msgstr "Uusi tapahtuma"
 
-#: linkedevents/ui/linkedevents-event-table.php:95
+#: linkedevents/ui/linkedevents-event-table.php:100
+#: linkedevents/ui/linkedevents-keywords-table.php:94
+#: linkedevents/ui/linkedevents-place-table.php:94
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: linkedevents/ui/linkedevents-event-table.php:104
 #: linkedevents/ui/linkedevents-keywords-table.php:87
 #: linkedevents/ui/linkedevents-place-table.php:87
 msgid "Are you sure?"
 msgstr "Oletko varma?"
 
-#: linkedevents/ui/linkedevents-event-table.php:96
+#: linkedevents/ui/linkedevents-event-table.php:105
 msgid "Are you sure that you want to remove event '%s'?"
 msgstr "Oletko varma, että haluat poistaa tapahtuman '%s'?"
 
-#: linkedevents/ui/linkedevents-event-table.php:97
-#: linkedevents/ui/linkedevents-event-table.php:102
+#: linkedevents/ui/linkedevents-event-table.php:106
+#: linkedevents/ui/linkedevents-event-table.php:108
 #: linkedevents/ui/linkedevents-keywords-table.php:89
-#: linkedevents/ui/linkedevents-keywords-table.php:94
+#: linkedevents/ui/linkedevents-keywords-table.php:98
 #: linkedevents/ui/linkedevents-place-table.php:89
-#: linkedevents/ui/linkedevents-place-table.php:94
+#: linkedevents/ui/linkedevents-place-table.php:98
 msgid "Delete"
 msgstr "Poista"
 
-#: linkedevents/ui/linkedevents-event-table.php:98
+#: linkedevents/ui/linkedevents-event-table.php:107
 #: linkedevents/ui/linkedevents-keywords-table.php:90
 #: linkedevents/ui/linkedevents-place-table.php:90
 msgid "Cancel"
 msgstr "Peruuta"
-
-#: linkedevents/ui/linkedevents-event-table.php:101
-#: linkedevents/ui/linkedevents-keywords-table.php:93
-#: linkedevents/ui/linkedevents-place-table.php:93
-msgid "Edit"
-msgstr "Muokkaa"
 
 #: linkedevents/ui/linkedevents-keyword-edit.php:17
 #: linkedevents/ui/linkedevents-keyword-edit.php:20
@@ -190,27 +209,27 @@ msgstr "Oletko varma, että haluat poistaa avainsanan '%s'?"
 msgid "Edit Place"
 msgstr "Muokkaa paikkaa"
 
-#: linkedevents/ui/linkedevents-place-edit.php:63
+#: linkedevents/ui/linkedevents-place-edit.php:64
 #: linkedevents/ui/linkedevents-place-new.php:61
 msgid "Home page"
 msgstr "Kotisivu"
 
-#: linkedevents/ui/linkedevents-place-edit.php:65
+#: linkedevents/ui/linkedevents-place-edit.php:66
 #: linkedevents/ui/linkedevents-place-new.php:62
 msgid "Address"
 msgstr "Osoite"
 
-#: linkedevents/ui/linkedevents-place-edit.php:69
+#: linkedevents/ui/linkedevents-place-edit.php:70
 #: linkedevents/ui/linkedevents-place-new.php:63
 msgid "Email"
 msgstr "Sähköposti"
 
-#: linkedevents/ui/linkedevents-place-edit.php:70
+#: linkedevents/ui/linkedevents-place-edit.php:71
 #: linkedevents/ui/linkedevents-place-new.php:64
 msgid "Telephone"
 msgstr "Puhelinnumero"
 
-#: linkedevents/ui/linkedevents-place-edit.php:71
+#: linkedevents/ui/linkedevents-place-edit.php:72
 #: linkedevents/ui/linkedevents-place-new.php:65
 msgid "Contact type"
 msgstr "Yhteystyyppi"
@@ -229,7 +248,7 @@ msgid "Linked Events Settings"
 msgstr "Linked Events -asetukset"
 
 #. Plugin Name of the plugin/theme
-#: settings/settings-ui.php:22 settings/settings-ui.php:56
+#: settings/settings-ui.php:22 settings/settings-ui.php:57
 msgid "Linked Events"
 msgstr "Linked Events"
 
@@ -258,10 +277,14 @@ msgid "Publisher Organization"
 msgstr "Julkaisijaorganisaation id"
 
 #: settings/settings-ui.php:33
+msgid "Timezone (defaults to Europe/Helsinki)"
+msgstr "Aikavyöhyke (Oletuksena Europe/Helsinki)"
+
+#: settings/settings-ui.php:34
 msgid "Google Maps Key"
 msgstr "Google Maps avain"
 
-#: settings/settings-ui.php:52
+#: settings/settings-ui.php:53
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Sinulla ei ole riittäviä oikeuksia tälle sivulle"
 
@@ -272,3 +295,9 @@ msgstr "Wordpress laajennus Linked Events API:n hallinnointiin"
 #. Author of the plugin/theme
 msgid "Metatavu Oy"
 msgstr "Metatavu Oy"
+
+#~ msgid "Start"
+#~ msgstr "Alkamisaika"
+
+#~ msgid "End"
+#~ msgstr "Loppumisaika"
