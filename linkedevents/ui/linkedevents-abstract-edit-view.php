@@ -14,7 +14,7 @@
       
       private static $DATE_FORMAT = 'Y-m-d';
       private static $TIME_FORMAT = 'H:i';
-      private static $TIMEZONE = 'Europe/Helsinki';
+      private static $DEFAULT_TIMEZONE = 'Europe/Helsinki';
       
       private $pageTitle;
       private $supportedLanguages = ["fi", "sv", "en"];
@@ -383,6 +383,16 @@
       }
       
       /**
+       * Returns time zone
+       * 
+       * @return \DateTimeZone time zone
+       */
+      protected function getTimezone() {
+        $result = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("timezone");
+        return new \DateTimeZone($result ? $result : self::$DEFAULT_TIMEZONE);
+      }
+      
+      /**
        * Finds a keyword by id
        * 
        * @param string $id
@@ -452,12 +462,11 @@
         return $dateTime->format(self::$DATE_FORMAT);
       }
       
-      
       /**
-       * Returns iso formatted time in Europe / Helsinki timezone
+       * Returns iso formatted time in configured time zone
        * 
        * @param \DateTime $dateTime
-       * @return string time in Europe / Helsinki timezone
+       * @return string time in configured time zone
        */
       protected function getDateTimeTime($dateTime) {
         if (!$dateTime) {
@@ -468,14 +477,14 @@
           return null;
         }
         
-        $dateTime->setTimezone(new \DateTimeZone(self::$TIMEZONE));
+        $dateTime->setTimezone($this->getTimezone());
         return $dateTime->format(self::$TIME_FORMAT);
       }
       
       /**
        * Parses date time from ISO formatted date and time strings.
        * 
-       * TimeZone is expected to be Europe/Helsinki
+       * Used TimeZone is the one configured in settings
        * 
        * @return \DateTime parsed datetime
        */
@@ -484,10 +493,10 @@
           return null;
         }
         
-        $timezone = new \DateTimeZone(self::$TIMEZONE);
+        $timeZone = $this->getTimezone();
         $format = $timeString ? self::$DATE_FORMAT . '\T' . self::$TIME_FORMAT : self::$DATE_FORMAT;
         $value = $timeString ? $dateString . 'T' . $timeString : $dateString;
-        $result = \DateTime::createFromFormat($format, $value, $timezone);
+        $result = \DateTime::createFromFormat($format, $value, $timeZone);
         
         if (!$timeString) {
           $result->setTime(0, 0);

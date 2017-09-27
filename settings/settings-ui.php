@@ -30,6 +30,7 @@
         $this->addOption('api', 'text', 'api-key', __( "API Key", 'linkedevents' ));
         $this->addOption('api', 'text', 'datasource', __( "Datasource", 'linkedevents' ));
         $this->addOption('api', 'text', 'publisher', __( "Publisher Organization", 'linkedevents' ));
+        $this->addOption('api', 'text', 'timezone', __( "Timezone (defaults to Europe/Helsinki)", 'linkedevents' ));
         $this->addOption('gmaps', 'text', 'google-maps-key', __( "Google Maps Key", 'linkedevents' ));
       }
 
