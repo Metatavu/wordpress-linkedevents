@@ -21,29 +21,31 @@
       }
       
       public function render() {
-        $language = 'fi';
-        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $validateMessage = $this->validate();
           if ($validateMessage) {
             echo '<div class="notice-error notice">' . $validateMessage . '</div>';
           } else {
             $event = $this->getNewEvent();
-            $this->updateEventName($event, $language);
-            $this->updateEventDescription($event,  $language);
-            $this->updateEventShortDescription($event, $language);
-            $this->updateEventStartTime($event, $language);
-            $this->updateEventPublicationStatus($event, $language);
-            $this->updateEventKeywords($event, $language);
+            $this->updateEventName($event);
+            $this->updateEventDescription($event);
+            $this->updateEventShortDescription($event);
+            $this->updateEventStartTime($event);
+            $this->updateEventPublicationStatus($event);
+            $this->updateEventKeywords($event);
             $this->updateEventImage($event);
-            $this->updateEventLocation($event, $language);
+            $this->updateEventLocation($event);
             $this->updateEventStartTime($event);
             $this->updateEventEndTime($event);
             $newEvent = $this->createEvent($event);
-            $newEventId = $newEvent->getId();
-            $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
-            echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
-            exit;
+            
+            if ($newEvent) {
+              $newEventId = $newEvent->getId();
+              $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
+              echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
+              exit;
+            }
+            
           }
         }
          
@@ -51,6 +53,7 @@
       }
       
       protected function renderFormFields() {
+        $this->renderPublicationStatus(null);
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", null);
         $this->renderDatePicker("start-date", __('Start Date', 'linkedevents'), true);
         $this->renderTimePicker("start-time", __('Start Time', 'linkedevents'), false);

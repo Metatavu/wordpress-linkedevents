@@ -20,6 +20,10 @@
       private static $DATETIME_FORMAT = 'Y-m-d H:i:s';
       private static $DATE_FORMAT = 'Y-m-d';
       private $perPage = 10;
+      
+      /**
+       * @var \Metatavu\LinkedEvents\Client\EventApi
+       */
       private $eventsApi;
       
       public function __construct() {        
@@ -42,7 +46,7 @@
       public function prepare_items() {
         $this->_column_headers = [ $this->get_columns(), $this->get_hidden_columns(), $this->get_sortable_columns() ];
         $this->process_bulk_action();
-        $events = $this->listEvents($this->get_pagenum(), $this->perPage);
+        $events = $this->listEvents($this->get_pagenum(), $this->perPage, true);
         
         $this->items = [];
         $itemCount = $events->getMeta()->getCount();
@@ -55,7 +59,8 @@
             "id" => $event['id'],
             "title" => $event['name']['fi'],
             "start" => $this->formatDateTime($start),
-            "end" =>  $this->formatDateTime($end)
+            "end" =>  $this->formatDateTime($end),
+            "status" => $this->getPublicationStatus($event)
           ];
         }
         
@@ -69,9 +74,10 @@
       public function get_columns() {
         $columns = [
           'id' => 'ID',
-          'title' => 'Title',
-          'start' => 'Start',
-          'end' => 'End'
+          'title' => __('Title', 'linkedevents'),
+          'start' => __('Start', 'linkedevents'),
+          'end' => __('End', 'linkedevents'),
+          'status' => __('Status', 'linkedevents')
         ];
 
         return $columns;
@@ -114,9 +120,16 @@
         );
       }
       
-      private function listEvents($page, $pageSize, $sort = null) {
-        // TODO: error handling
-        
+      /**
+       * Lists events from API
+       * 
+       * @param type $page page
+       * @param type $pageSize events per page
+       * @param type $showAll whether to show also draft events
+       * @param type $sort sort by (optional)
+       * @return \Metatavu\LinkedEvents\Model\Event[] events
+       */
+      private function listEvents($page, $pageSize, $showAll, $sort = null) {
         $include = null;
         $text = null;
         $lastModifiedSince = null;
@@ -132,8 +145,34 @@
         $maxDuration = null;
         $publisher = null;
         
-        $result = $this->eventsApi->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
-        return $result;
+        try {
+          return $this->eventsApi->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
+        } catch (\Metatavu\LinkedEvents\ApiException $e) {
+          echo '<div class="error notice">';
+          if ($e->getResponseBody()) {
+            echo print_r($e->getResponseBody());
+          } else {
+            echo $e;
+          }
+          echo '</div>';
+        }
+      }
+      
+      /**
+       * Returns localized event publication status
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       * @return string localized event publication status
+       */
+      private function getPublicationStatus($event) {
+        $publicationStatus = $event->getPublicationStatus();
+        if ($publicationStatus === 'public') {
+          return __('Public', 'linkedevents');
+        } else if ($publicationStatus === 'draft') {
+          return __('Draft', 'linkedevents');
+        }
+        
+        return $publicationStatus;
       }
       
       /**

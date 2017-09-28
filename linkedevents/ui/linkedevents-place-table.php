@@ -110,7 +110,17 @@
         $text = null;
         $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         
-        return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $dataSource, $text, $sort);
+        try {
+          return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $dataSource, $text, $sort);
+        } catch (\Metatavu\LinkedEvents\ApiException $e) {
+          echo '<div class="error notice">';
+          if ($e->getResponseBody()) {
+            echo print_r($e->getResponseBody());
+          } else {
+            echo $e;
+          }
+          echo '</div>';
+        }
       }
     }
     

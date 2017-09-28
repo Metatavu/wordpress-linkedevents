@@ -11,6 +11,10 @@
   font-size: 1.7em;
 }
 
+.linkedevents-select {
+  width: 100%;    
+}
+
 .linkedevents-image-selector input {
   margin-bottom: 20px;
 }
