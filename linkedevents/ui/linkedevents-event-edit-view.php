@@ -275,7 +275,12 @@
        * @param \Metatavu\LinkedEvents\Model\Event $event
        */
       protected function updateEventEndTime($event) {
-        $event->setEndTime($this->getEndTime());
+        $endTime = $this->getEndTime();
+        if (!$endTime) {
+          $endTime = $this->getStartTime();
+        }
+        
+        $event->setEndTime($endTime);
         $event->setHasEndTime($this->getHasEndTime());
       }
       
