@@ -16,6 +16,10 @@
        * @param \Metatavu\LinkedEvents\Model\Event $event
        */
       public static function notifyDraft($event) {
+        if (self::getNotificationSuppressedForEventId($event->getId())) {
+          return;
+        }
+        
         $users = self::listUsers();
         $emails = [];
         $userIds = [];
@@ -195,6 +199,20 @@
         $notified[] = $eventId;
         
         update_usermeta($userId, 'linkedevents_events_notified', array_unique($notified));
+      }
+      
+      /**
+       * Returns whether notifications are suppressed for the event id
+       * 
+       * @param string $eventId event id
+       */
+      private function getNotificationSuppressedForEventId($eventId) {
+        $eventIds = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("notification-suppressed-events");
+        if (!$eventIds) {
+          $eventIds = [];
+        }
+        
+        return in_array($eventId, $eventIds);
       }
             
     }

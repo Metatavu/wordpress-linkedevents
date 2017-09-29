@@ -20,6 +20,9 @@
         });
       }
       
+      /**
+       * Renders view
+       */
       public function render() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $validateMessage = $this->validate();
@@ -39,8 +42,9 @@
             $this->updateEventEndTime($event);
             $newEvent = $this->createEvent($event);
             
-            if ($newEvent) {
+            if ($newEvent && $newEvent->getId()) {
               $newEventId = $newEvent->getId();
+              $this->addNotificationSuppressedEventId($newEventId);
               $redirectUrl = "admin.php?page=linkedevents-edit-event.php&action=edit&event=$newEventId";
               echo '<script type="text/javascript">window.location="' . $redirectUrl . '";</script>"';
               exit;
@@ -52,6 +56,9 @@
         $this->renderForm('admin.php?page=linkedevents-new-event.php');
       }
       
+      /**
+       * Renders form fields
+       */
       protected function renderFormFields() {
         $this->renderPublicationStatus(null);
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", null);
@@ -64,6 +71,21 @@
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), null);
         $this->renderLocalizedMemo(__('Description', 'linkedevents'), 'description', null);
         $this->renderLocalizedMemo(__('Short Description', 'linkedevents'), 'shortDescription', null);
+      }
+      
+      /**
+       * Suppresses notifications for the event id
+       * 
+       * @param string $eventId event id
+       */
+      private function addNotificationSuppressedEventId($eventId) {
+        $eventIds = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("notification-suppressed-events");
+        if (!$eventIds) {
+          $eventIds = [];
+        }
+        
+        $eventIds[] = $eventId;
+        \Metatavu\LinkedEvents\Wordpress\Settings\Settings::setValue("notification-suppressed-events", $eventIds);
       }
       
     }
