@@ -255,6 +255,27 @@
         echo '<input name="' . $name . '" value="' . $value['value'] . '" type="hidden">';
       }
       
+      /**
+       * Renders select field
+       * 
+       * @param string $name name
+       * @param string $label label
+       * @param object[] $options associative array of value, label, selected -objects describing field options
+       */
+      protected function renderSelect($name, $label, $options) {
+        echo '<h3>' . $label . '</h3>';
+        echo '<select class="linkedevents-select" name="' . $name . '">';
+        
+        foreach ($options as $option) {
+          $valueAttr = 'value="' . $option['value'] . '"';
+          $selectedAttr = $option['selected'] ? ' selected="selected"' : '';
+          
+          echo "<option $valueAttr$selectedAttr>" . $option['label'] . '</option>';
+        }
+        
+        echo '</select>';
+      }
+      
       protected function renderMultivalueAutocomplete($name, $label, $searchTarget, $values) {
         $valuesAttr = htmlspecialchars(json_encode($values));
         echo '<h3>' . $label . '</h3>';

@@ -99,7 +99,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **eventList**
-> \Metatavu\LinkedEvents\Model\InlineResponse200 eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize)
+> \Metatavu\LinkedEvents\Model\InlineResponse200 eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize)
 
 Return a list of events
 
@@ -119,6 +119,7 @@ $end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for eve
 $bbox = array("bbox_example"); // string[] | Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator.
 $dataSource = "dataSource_example"; // string | Search for events that come from the specified source system
 $location = array(56); // int[] | Search for events in given locations as specified by id. Multiple ids are separated by comma
+$showAll = true; // bool | Show all events
 $division = "division_example"; // string | You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type.
 $keyword = "keyword_example"; // string | Search for events with given keywords as specified by id. Multiple ids are separated by comma
 $recurring = "recurring_example"; // string | Search for events based on whether they are part of recurring event set. 'super' specifies recurring, while 'sub' is non-recurring.
@@ -130,7 +131,7 @@ $page = 56; // int | request particular page in paginated results
 $pageSize = 56; // int | request that server delivers page_size results in response
 
 try {
-    $result = $api_instance->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
+    $result = $api_instance->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling EventApi->eventList: ', $e->getMessage(), PHP_EOL;
@@ -150,6 +151,7 @@ Name | Type | Description  | Notes
  **bbox** | [**string[]**](../Model/string.md)| Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. | [optional]
  **dataSource** | **string**| Search for events that come from the specified source system | [optional]
  **location** | [**int[]**](../Model/int.md)| Search for events in given locations as specified by id. Multiple ids are separated by comma | [optional]
+ **showAll** | **bool**| Show all events | [optional]
  **division** | **string**| You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. | [optional]
  **keyword** | **string**| Search for events with given keywords as specified by id. Multiple ids are separated by comma | [optional]
  **recurring** | **string**| Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. | [optional]

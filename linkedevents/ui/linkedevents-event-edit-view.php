@@ -62,6 +62,26 @@
       }
       
       /**
+       * Renders publication status field
+       * 
+       * @param type $publicationStatus publication status
+       */
+      protected function renderPublicationStatus($publicationStatus) {
+        $this->renderSelect('publication-status', __('Publication Status', 'linkedevents'), [
+          [
+            'value' => 'draft',
+            'label' => __('Draft', 'linkedevents'),
+            'selected' => $publicationStatus === 'draft'
+          ], 
+          [
+            'value' => 'public',
+            'label' => __('Public', 'linkedevents'),
+            'selected' => $publicationStatus === 'public'
+          ]
+        ]);
+      }
+      
+      /**
        * Updates event name into model
        * 
        * @param \Metatavu\LinkedEvents\Model\Event $event
@@ -156,9 +176,13 @@
         $event->setKeywords($keywordRefs);
       }
       
+      /**
+       * Updates publication status from the post
+       * 
+       * @param type $event
+       */
       protected function updateEventPublicationStatus($event) {
-        // draft
-        $event->setPublicationStatus("public");
+        $event->setPublicationStatus($this->getPostString("publication-status"));
       }
       
       protected function updateEventLocation($event) {
@@ -251,7 +275,12 @@
        * @param \Metatavu\LinkedEvents\Model\Event $event
        */
       protected function updateEventEndTime($event) {
-        $event->setEndTime($this->getEndTime());
+        $endTime = $this->getEndTime();
+        if (!$endTime) {
+          $endTime = $this->getStartTime();
+        }
+        
+        $event->setEndTime($endTime);
         $event->setHasEndTime($this->getHasEndTime());
       }
       
@@ -266,6 +295,12 @@
         return $event; 
       }
       
+      /**
+       * Creates event into Linked Events
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event event object
+       * @return \Metatavu\LinkedEvents\Model\Event created event object
+       */
       protected function createEvent($event) {
         try {
           return $this->eventsApi->eventCreate($event);

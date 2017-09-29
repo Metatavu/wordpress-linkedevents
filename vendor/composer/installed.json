@@ -125,12 +125,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/Metatavu/linkedevents-client-php.git",
-            "reference": "a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec"
+            "reference": "1b166d2362a8cb2219c4ed68737d4e490fd20846"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec",
-            "reference": "a330fdf5cd28ac4b71b1472ce46febabcbf8f8ec",
+            "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/1b166d2362a8cb2219c4ed68737d4e490fd20846",
+            "reference": "1b166d2362a8cb2219c4ed68737d4e490fd20846",
             "shasum": ""
         },
         "require": {
@@ -145,7 +145,7 @@
             "satooshi/php-coveralls": "~1.0",
             "squizlabs/php_codesniffer": "~2.6"
         },
-        "time": "2017-09-26T13:33:22+00:00",
+        "time": "2017-09-27T15:29:02+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {

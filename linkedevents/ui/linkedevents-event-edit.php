@@ -40,6 +40,7 @@
               $this->updateEventLocation($event);
               $this->updateEventStartTime($event);
               $this->updateEventEndTime($event);
+              $this->updateEventPublicationStatus($event);
               $this->updateEvent($event);
             } catch (\Metatavu\LinkedEvents\ApiException $e) {
               echo '<div class="error notice">';
@@ -69,6 +70,7 @@
           $imageUrl = $images[0]->getUrl();
         }
         
+        $this->renderPublicationStatus($event->getPublicationStatus());
         $this->renderLocalizedTextInput(__('Name', 'linkedevents'), "name", $event->getName());
         $this->renderDatePicker("start-date", __('Start Date', 'linkedevents'), true, $event->getStartTime());
         $this->renderTimePicker("start-time", __('Start Time', 'linkedevents'), false, $event->getStartTime());

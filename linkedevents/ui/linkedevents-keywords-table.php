@@ -109,7 +109,17 @@
         $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         $text = null;
         
-        return $this->filterApi->keywordList($page, $pageSize, null, $showAllKeywords, $dataSource, $text, $sort);
+        try {
+          return $this->filterApi->keywordList($page, $pageSize, null, $showAllKeywords, $dataSource, $text, $sort);
+        } catch (\Metatavu\LinkedEvents\ApiException $e) {
+          echo '<div class="error notice">';
+          if ($e->getResponseBody()) {
+            echo print_r($e->getResponseBody());
+          } else {
+            echo $e;
+          }
+          echo '</div>';
+        }
       }
     }
     
