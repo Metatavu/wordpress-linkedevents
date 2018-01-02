@@ -253,7 +253,7 @@
        */
       protected function validateKeywords() {
         if (!$this->getPostString("keywords")) {
-          return __('Event location is required', 'linkedevents');
+          return __('At least one keyword is required', 'linkedevents');
         }
         
         return null;
