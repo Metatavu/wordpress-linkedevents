@@ -1,60 +1,60 @@
-# Copyright (C) 2017 Linked Events
+# Copyright (C) 2018 Linked Events
 # This file is distributed under the same license as the Linked Events package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Linked Events 0.0.1\n"
+"Project-Id-Version: Linked Events 1.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-"
 "linkedevents\n"
-"POT-Creation-Date: 2017-08-28 14:42:15+00:00\n"
+"POT-Creation-Date: 2018-01-02 11:23:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:158
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:183
 msgid "Street address (%s)"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:159
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:184
 msgid "Postal code"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:160
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:185
 msgid "Address locality (%s)"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:162
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:187
 msgid "Address region"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:163
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:188
 msgid "Po box"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:214
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:223
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:287
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:296
 msgid "Select an image"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:215
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:288
 msgid "Select"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:216
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:289
 msgid "Image could not be loaded"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:352
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:464
 msgid "Finnish"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:354
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:466
 msgid "Swedish"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-abstract-edit-view.php:356
+#: linkedevents/ui/linkedevents-abstract-edit-view.php:468
 msgid "English"
 msgstr ""
 
@@ -67,12 +67,38 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit-view.php:172
+#: linkedevents/ui/linkedevents-event-edit-view.php:70
+msgid "Publication Status"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:73
+#: linkedevents/ui/linkedevents-event-table.php:172
+msgid "Draft"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:78
+#: linkedevents/ui/linkedevents-event-table.php:170
+msgid "Public"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:224
+msgid "Event start time cannot be empty"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:228
 msgid "Event start time cannot be in the past"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit-view.php:176
+#: linkedevents/ui/linkedevents-event-edit-view.php:233
 msgid "Event start time cannot be after event end time"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:245
+msgid "Event location is required"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit-view.php:256
+msgid "At least one keyword is required"
 msgstr ""
 
 #: linkedevents/ui/linkedevents-event-edit.php:18
@@ -80,45 +106,55 @@ msgstr ""
 msgid "Edit Event"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:75
+#: linkedevents/ui/linkedevents-event-edit.php:67
 msgid ""
 "Wordpress plugin does not support multiple images. Only the first image will "
 "be used if the event is saved"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:81
-#: linkedevents/ui/linkedevents-event-new.php:51
-#: linkedevents/ui/linkedevents-keyword-edit.php:52
-#: linkedevents/ui/linkedevents-keyword-new.php:48
-#: linkedevents/ui/linkedevents-place-edit.php:61
+#: linkedevents/ui/linkedevents-event-edit.php:74
+#: linkedevents/ui/linkedevents-event-new.php:64
+#: linkedevents/ui/linkedevents-keyword-edit.php:53
+#: linkedevents/ui/linkedevents-keyword-new.php:50
+#: linkedevents/ui/linkedevents-place-edit.php:62
 #: linkedevents/ui/linkedevents-place-new.php:59
 msgid "Name"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:82
-#: linkedevents/ui/linkedevents-event-new.php:52
-msgid "Start"
+#: linkedevents/ui/linkedevents-event-edit.php:75
+#: linkedevents/ui/linkedevents-event-new.php:65
+msgid "Start Date"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:83
-#: linkedevents/ui/linkedevents-event-new.php:53
-msgid "End"
+#: linkedevents/ui/linkedevents-event-edit.php:76
+#: linkedevents/ui/linkedevents-event-new.php:66
+msgid "Start Time"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:86
-#: linkedevents/ui/linkedevents-event-new.php:56
+#: linkedevents/ui/linkedevents-event-edit.php:77
+#: linkedevents/ui/linkedevents-event-new.php:67
+msgid "End Date"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:78
+#: linkedevents/ui/linkedevents-event-new.php:68
+msgid "End Time"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-edit.php:81
+#: linkedevents/ui/linkedevents-event-new.php:71
 msgid "Event Image"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:87
-#: linkedevents/ui/linkedevents-event-new.php:57
-#: linkedevents/ui/linkedevents-place-edit.php:62
+#: linkedevents/ui/linkedevents-event-edit.php:82
+#: linkedevents/ui/linkedevents-event-new.php:72
+#: linkedevents/ui/linkedevents-place-edit.php:63
 #: linkedevents/ui/linkedevents-place-new.php:60
 msgid "Description"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-edit.php:88
-#: linkedevents/ui/linkedevents-event-new.php:58
+#: linkedevents/ui/linkedevents-event-edit.php:83
+#: linkedevents/ui/linkedevents-event-new.php:73
 msgid "Short Description"
 msgstr ""
 
@@ -135,35 +171,51 @@ msgstr ""
 msgid "New Event"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-table.php:95
+#: linkedevents/ui/linkedevents-event-table.php:77
+msgid "Title"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:78
+msgid "Start"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:79
+msgid "End"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:80
+msgid "Status"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:106
+#: linkedevents/ui/linkedevents-keywords-table.php:94
+#: linkedevents/ui/linkedevents-place-table.php:94
+msgid "Edit"
+msgstr ""
+
+#: linkedevents/ui/linkedevents-event-table.php:110
 #: linkedevents/ui/linkedevents-keywords-table.php:87
 #: linkedevents/ui/linkedevents-place-table.php:87
 msgid "Are you sure?"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-table.php:96
+#: linkedevents/ui/linkedevents-event-table.php:111
 msgid "Are you sure that you want to remove event '%s'?"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-table.php:97
-#: linkedevents/ui/linkedevents-event-table.php:102
+#: linkedevents/ui/linkedevents-event-table.php:112
+#: linkedevents/ui/linkedevents-event-table.php:114
 #: linkedevents/ui/linkedevents-keywords-table.php:89
-#: linkedevents/ui/linkedevents-keywords-table.php:94
+#: linkedevents/ui/linkedevents-keywords-table.php:98
 #: linkedevents/ui/linkedevents-place-table.php:89
-#: linkedevents/ui/linkedevents-place-table.php:94
+#: linkedevents/ui/linkedevents-place-table.php:98
 msgid "Delete"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-event-table.php:98
+#: linkedevents/ui/linkedevents-event-table.php:113
 #: linkedevents/ui/linkedevents-keywords-table.php:90
 #: linkedevents/ui/linkedevents-place-table.php:90
 msgid "Cancel"
-msgstr ""
-
-#: linkedevents/ui/linkedevents-event-table.php:101
-#: linkedevents/ui/linkedevents-keywords-table.php:93
-#: linkedevents/ui/linkedevents-place-table.php:93
-msgid "Edit"
 msgstr ""
 
 #: linkedevents/ui/linkedevents-keyword-edit.php:17
@@ -185,27 +237,27 @@ msgstr ""
 msgid "Edit Place"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-place-edit.php:63
+#: linkedevents/ui/linkedevents-place-edit.php:64
 #: linkedevents/ui/linkedevents-place-new.php:61
 msgid "Home page"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-place-edit.php:65
+#: linkedevents/ui/linkedevents-place-edit.php:66
 #: linkedevents/ui/linkedevents-place-new.php:62
 msgid "Address"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-place-edit.php:69
+#: linkedevents/ui/linkedevents-place-edit.php:70
 #: linkedevents/ui/linkedevents-place-new.php:63
 msgid "Email"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-place-edit.php:70
+#: linkedevents/ui/linkedevents-place-edit.php:71
 #: linkedevents/ui/linkedevents-place-new.php:64
 msgid "Telephone"
 msgstr ""
 
-#: linkedevents/ui/linkedevents-place-edit.php:71
+#: linkedevents/ui/linkedevents-place-edit.php:72
 #: linkedevents/ui/linkedevents-place-new.php:65
 msgid "Contact type"
 msgstr ""
@@ -219,14 +271,49 @@ msgstr ""
 msgid "Are you sure that you want to remove place '%s'?"
 msgstr ""
 
-#: settings/settings-ui.php:22
-msgid "Linked Events Settings"
+#: notifications/notifications-notifier.php:75
+msgid "A new event proposal on %s"
 msgstr ""
 
-#. #-#-#-#-#  wordpress-linkedevents.pot (Linked Events 0.0.1)  #-#-#-#-#
+#: notifications/notifications-notifier.php:90
+msgid "<p>A new event has been proposed for your site %s.</p>"
+msgstr ""
+
+#: notifications/notifications-notifier.php:91
+msgid ""
+"<p>The event is currently in draft mode and does not appear publicly before "
+"approval.</p>"
+msgstr ""
+
+#: notifications/notifications-notifier.php:92
+msgid "<p>Event details:</p>"
+msgstr ""
+
+#: notifications/notifications-notifier.php:93
+msgid "<p>Name: %s<br/>Description: %s</p>"
+msgstr ""
+
+#: notifications/notifications-notifier.php:94
+msgid "<p>Login at <a href=\"%s\">%s</a> to publish or modify the event</p>"
+msgstr ""
+
+#: notifications/notifications-notifier.php:95
+msgid "<hr/><p>This is an automatic message, do not respond</p>"
+msgstr ""
+
+#. #-#-#-#-#  wordpress-linkedevents.pot (Linked Events 1.0.5)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: settings/settings-ui.php:22 settings/settings-ui.php:56
+#: notifications/notifications-profile-settings.php:29
+#: settings/settings-ui.php:22 settings/settings-ui.php:57
 msgid "Linked Events"
+msgstr ""
+
+#: notifications/notifications-profile-settings.php:33
+msgid "Notify about draft events"
+msgstr ""
+
+#: settings/settings-ui.php:22
+msgid "Linked Events Settings"
 msgstr ""
 
 #: settings/settings-ui.php:27
@@ -254,10 +341,14 @@ msgid "Publisher Organization"
 msgstr ""
 
 #: settings/settings-ui.php:33
+msgid "Timezone (defaults to Europe/Helsinki)"
+msgstr ""
+
+#: settings/settings-ui.php:34
 msgid "Google Maps Key"
 msgstr ""
 
-#: settings/settings-ui.php:52
+#: settings/settings-ui.php:53
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
