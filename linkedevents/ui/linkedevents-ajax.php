@@ -32,7 +32,7 @@
     $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
     
     $search = $_GET['q'];
-    $keywordResponse = $filterApi->keywordList(null, null, null, null, null, $search);
+    $keywordResponse = $filterApi->keywordList(null, null, null, true, null, $search);
     $keywords = $keywordResponse->getData();
     $responce = [];
     
