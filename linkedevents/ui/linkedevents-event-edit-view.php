@@ -25,16 +25,19 @@
        * @param \Metatavu\LinkedEvents\Model\Event $event
        */
       protected function renderEventLocation($event) {
-        $value = null;
+        $value = $_REQUEST['location'];
         $label = null;
         
-        if ($event) {
+        if (!$value && $event) {
           $location = $event->getLocation();
           $value = $this->extractIdRefId($location);
+        }
+
+        if ($value) {
           $place = $this->findPlace($value);
           $label = $place->getName()->getFi();
         }
-        
+
         $this->renderAutocomplete("location", __('Location', 'linkedevents'), 'linkedevents_places', [
           label => $label,
           value => $value
@@ -48,8 +51,13 @@
        */
       protected function renderEventKeywords($event) {
         $values = [];
-        $keywordIds = isset($event) ? $this->extractIdRefIds($event->getKeywords()) : [];
-        
+        $requestValues = $_REQUEST['keywords'];
+        if (isset($requestValues)) {
+          $keywordIds = $requestValues ? explode(",", $requestValues) : [];
+        } else {
+          $keywordIds = isset($event) ? $this->extractIdRefIds($event->getKeywords()) : [];
+        }
+
         foreach ($keywordIds as $keywordId) {
           $keyword = $this->findKeyword($keywordId);
           $values[] = [
