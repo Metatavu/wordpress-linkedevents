@@ -124,13 +124,13 @@
        * 
        * @param string $label field label
        * @param string $name field name
-       * @param \ArrayAccess $values localized values as associative array with locale as key
+       * @param \ArrayAccess $defaultValues localized default values as associative array with locale as key
        */
-      protected function renderLocalizedMemo($label, $name, $values) {
+      protected function renderLocalizedMemo($label, $name, $defaultValues) {
         echo '<h3>' . $label . '</h3>';
         foreach ($this->getSupportedLanguages() as $language) {
-          $value = $values ? $values[$language] : null;
           $fieldName = "$name-$language";
+          $value = $this->getDefaultedValue($fieldName, $defaultValues ? $defaultValues[$language] : null);
           echo '<label>' . $this->getLanguageName($language) . '</label>';
           wp_editor($value, $fieldName, [
             'media_buttons' => false,
@@ -149,13 +149,13 @@
        * 
        * @param string $label field label
        * @param string $name field name
-       * @param \ArrayAccess $values localized values as associative array with locale as key
+       * @param \ArrayAccess $defaultValues localized default values as associative array with locale as key
        */
-      protected function renderLocalizedTextInput($label, $name, $values) {
+      protected function renderLocalizedTextInput($label, $name, $defaultValues) {
         echo '<h3>' . $label . '</h3>';
         foreach ($this->getSupportedLanguages() as $language) {
-          $value = $values ? $values[$language] : null;
           $fieldName = "$name-$language";
+          $value = $this->getDefaultedValue($fieldName, $defaultValues ? $defaultValues[$language] : null);
           echo '<label>' . $this->getLanguageName($language) . '</label>';
           echo '<input class="linkedevents-input linkedevents-localized-input" type="text" name="' . $fieldName . '" value="' . $value . '" />';
         }
@@ -224,14 +224,14 @@
        * 
        * @param string $name name
        * @param string $label label
-       * @param string $value value
+       * @param string $defaultValue default value
        */
-      protected function renderDatePicker($name, $label, $required, $value = null) {
-        $valueAttr = $value ? ' value="' . $this->getDateTimeDate($value) . '"' : '';
+      protected function renderDatePicker($name, $label, $required, $defaultValue = null) {
+        $value = $this->getDefaultedValue($name, $this->getDateTimeDate($defaultValue));
         $requiredAttr = $required ? ' required="required"' : '';
         $nameAttr = ' name="' . $name . '"';
         echo '<h3>' . $label . '</h3>';
-        echo '<input class="linkedevents-datepicker" type="text"' . $nameAttr . $valueAttr . $requiredAttr . '/>';
+        echo sprintf('<input class="linkedevents-datepicker" type="text" value="%s"' . $nameAttr . $requiredAttr . '/>', $value);
       }
       
       /**
@@ -239,16 +239,23 @@
        * 
        * @param string $name name
        * @param string $label label
-       * @param string $value value
+       * @param string $defaultValue default value
        */
-      protected function renderTimePicker($name, $label, $required, $value = null) {
-        $valueAttr = $value ? 'value="' . $this->getDateTimeTime($value) . '"' : '';
+      protected function renderTimePicker($name, $label, $required, $defaultValue = null) {
+        $value = $this->getDefaultedValue($name, $this->getDateTimeTime($defaultValue));
         $requiredAttr = $required ? ' required="required"' : '';
         $nameAttr = ' name="' . $name . '"';
         echo '<h3>' . $label . '</h3>';
-        echo '<input class="linkedevents-timepicker" type="text"' . $nameAttr . $valueAttr . $requiredAttr . '/>';
+        echo sprintf('<input class="linkedevents-timepicker" type="text" value="%s"' . $nameAttr . $requiredAttr . '/>', $value);
       }
       
+      /**
+       * Renders autocomplete component
+       * 
+       * @param string $name name
+       * @param string $label label
+       * @param string $searchTarget search target
+       */
       protected function renderAutocomplete($name, $label, $searchTarget, $value) {
         echo '<h3>' . $label . '</h3>';
         echo '<input data-search-target="' . $searchTarget . '" data-name="' . $name. '" size="30" value="' . $value['label'] . '" class="linkedevents-autocomplete" type="text">';
@@ -283,7 +290,15 @@
         echo '<input name="' . $name . '" type="hidden"/>';
       }
       
-      protected function renderImageSelector($name, $label, $value) {
+      /**
+       * Renders image selector component
+       * 
+       * @param String $name name
+       * @param String $label label
+       * @param String $defaultValue default value 
+       */
+      protected function renderImageSelector($name, $label, $defaultValue) {
+        $value = $this->getDefaultedValue($name, $defaultValue);
         $selectorTitle = __('Select an image', 'linkedevents');
         $selectorButton = __('Select', 'linkedevents');
         $brokenImageText = __('Image could not be loaded', 'linkedevents');
@@ -524,6 +539,22 @@
         }
         
         return $result;
+      }
+
+      /**
+       * Returns value from request and defaults to given value if value does not exist on the request
+       * 
+       * @param String $fieldName http field name
+       * @param String $defaultValue default value as string
+       * @return String Selected value
+       */
+      protected function getDefaultedValue($fieldName, $defaultValue) {
+        $value = $_REQUEST[$fieldName];
+        if ($value === null) {
+          $value = $defaultValue;
+        }
+
+        return $value;
       }
     }
   }
