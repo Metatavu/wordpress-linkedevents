@@ -120,6 +120,18 @@
         );
       }
       
+      public function search_box( $text, $input_id ) {
+      ?>
+        <form method="POST">
+          <p class="search-box">
+            <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
+            <input type="search" id="<?php echo $input_id ?>" name="search-events" value="<?php _admin_search_query(); ?>" />
+            <?php submit_button( $text, 'button', '', false, array('id' => 'search-submit') ); ?>
+            </p>
+        </form>
+      <?php
+      }
+      
       /**
        * Lists events from API
        * 
@@ -131,7 +143,7 @@
        */
       private function listEvents($page, $pageSize, $showAll, $sort = null) {
         $include = null;
-        $text = null;
+        $text = isset($_REQUEST['search-events']) ? $_REQUEST['search-events'] : null;
         $lastModifiedSince = null;
         $start = null;
         $end = null;
