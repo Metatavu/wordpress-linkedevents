@@ -253,7 +253,6 @@ class EventApi
      * @param string[] $bbox Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. (optional)
      * @param string $dataSource Search for events that come from the specified source system (optional)
      * @param int[] $location Search for events in given locations as specified by id. Multiple ids are separated by comma (optional)
-     * @param bool $showAll Show all events (optional)
      * @param string $division You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. (optional)
      * @param string $keyword Search for events with given keywords as specified by id. Multiple ids are separated by comma (optional)
      * @param string $recurring Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. (optional)
@@ -263,12 +262,16 @@ class EventApi
      * @param string $sort Sort the returned events in the given order. Possible sorting criteria are &#39;start_time&#39;, &#39;end_time&#39;, &#39;days_left&#39; and &#39;last_modified_time&#39;. The default ordering is &#39;-last_modified_time&#39;. (optional)
      * @param int $page request particular page in paginated results (optional)
      * @param int $pageSize request that server delivers page_size results in response (optional)
+     * @param string $addressLocalityFi Search for events in given address localities (fi). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $addressLocalitySv Search for events in given address localities (sv). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $addressLocalityEn Search for events in given address localities (en). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $publicationStatus Filter events by publication status (either draft or public) (optional)
      * @throws \Metatavu\LinkedEvents\ApiException on non-2xx response
      * @return \Metatavu\LinkedEvents\Model\InlineResponse200
      */
-    public function eventList($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $showAll = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null)
+    public function eventList($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
     {
-        list($response) = $this->eventListWithHttpInfo($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
+        list($response) = $this->eventListWithHttpInfo($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize, $addressLocalityFi, $addressLocalitySv, $addressLocalityEn, $publicationStatus);
         return $response;
     }
 
@@ -285,7 +288,6 @@ class EventApi
      * @param string[] $bbox Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. (optional)
      * @param string $dataSource Search for events that come from the specified source system (optional)
      * @param int[] $location Search for events in given locations as specified by id. Multiple ids are separated by comma (optional)
-     * @param bool $showAll Show all events (optional)
      * @param string $division You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. (optional)
      * @param string $keyword Search for events with given keywords as specified by id. Multiple ids are separated by comma (optional)
      * @param string $recurring Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. (optional)
@@ -295,10 +297,14 @@ class EventApi
      * @param string $sort Sort the returned events in the given order. Possible sorting criteria are &#39;start_time&#39;, &#39;end_time&#39;, &#39;days_left&#39; and &#39;last_modified_time&#39;. The default ordering is &#39;-last_modified_time&#39;. (optional)
      * @param int $page request particular page in paginated results (optional)
      * @param int $pageSize request that server delivers page_size results in response (optional)
+     * @param string $addressLocalityFi Search for events in given address localities (fi). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $addressLocalitySv Search for events in given address localities (sv). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $addressLocalityEn Search for events in given address localities (en). Multiple localities can be entered by separating them by a comma (optional)
+     * @param string $publicationStatus Filter events by publication status (either draft or public) (optional)
      * @throws \Metatavu\LinkedEvents\ApiException on non-2xx response
      * @return array of \Metatavu\LinkedEvents\Model\InlineResponse200, HTTP status code, HTTP response headers (array of strings)
      */
-    public function eventListWithHttpInfo($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $showAll = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null)
+    public function eventListWithHttpInfo($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
     {
         if (!is_null($bbox) && (count($bbox) > 4)) {
             throw new \InvalidArgumentException('invalid value for "$bbox" when calling EventApi.eventList, number of items must be less than or equal to 4.');
@@ -361,10 +367,6 @@ class EventApi
             $queryParams['location'] = $this->apiClient->getSerializer()->toQueryValue($location);
         }
         // query params
-        if ($showAll !== null) {
-            $queryParams['show_all'] = $this->apiClient->getSerializer()->toQueryValue($showAll);
-        }
-        // query params
         if ($division !== null) {
             $queryParams['division'] = $this->apiClient->getSerializer()->toQueryValue($division);
         }
@@ -399,6 +401,22 @@ class EventApi
         // query params
         if ($pageSize !== null) {
             $queryParams['page_size'] = $this->apiClient->getSerializer()->toQueryValue($pageSize);
+        }
+        // query params
+        if ($addressLocalityFi !== null) {
+            $queryParams['address_locality_fi'] = $this->apiClient->getSerializer()->toQueryValue($addressLocalityFi);
+        }
+        // query params
+        if ($addressLocalitySv !== null) {
+            $queryParams['address_locality_sv'] = $this->apiClient->getSerializer()->toQueryValue($addressLocalitySv);
+        }
+        // query params
+        if ($addressLocalityEn !== null) {
+            $queryParams['address_locality_en'] = $this->apiClient->getSerializer()->toQueryValue($addressLocalityEn);
+        }
+        // query params
+        if ($publicationStatus !== null) {
+            $queryParams['publication_status'] = $this->apiClient->getSerializer()->toQueryValue($publicationStatus);
         }
 
         // for model (json/xml)
