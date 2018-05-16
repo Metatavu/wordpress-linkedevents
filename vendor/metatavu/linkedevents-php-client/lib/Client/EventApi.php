@@ -253,6 +253,7 @@ class EventApi
      * @param string[] $bbox Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. (optional)
      * @param string $dataSource Search for events that come from the specified source system (optional)
      * @param int[] $location Search for events in given locations as specified by id. Multiple ids are separated by comma (optional)
+     * @param bool $showAll Show all events (optional) (optional)
      * @param string $division You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. (optional)
      * @param string $keyword Search for events with given keywords as specified by id. Multiple ids are separated by comma (optional)
      * @param string $recurring Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. (optional)
@@ -269,9 +270,9 @@ class EventApi
      * @throws \Metatavu\LinkedEvents\ApiException on non-2xx response
      * @return \Metatavu\LinkedEvents\Model\InlineResponse200
      */
-    public function eventList($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
+    public function eventList($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $showAll = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
     {
-        list($response) = $this->eventListWithHttpInfo($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize, $addressLocalityFi, $addressLocalitySv, $addressLocalityEn, $publicationStatus);
+        list($response) = $this->eventListWithHttpInfo($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize, $addressLocalityFi, $addressLocalitySv, $addressLocalityEn, $publicationStatus);
         return $response;
     }
 
@@ -288,6 +289,7 @@ class EventApi
      * @param string[] $bbox Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. (optional)
      * @param string $dataSource Search for events that come from the specified source system (optional)
      * @param int[] $location Search for events in given locations as specified by id. Multiple ids are separated by comma (optional)
+     * @param bool $showAll Show all events (optional) (optional)
      * @param string $division You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. (optional)
      * @param string $keyword Search for events with given keywords as specified by id. Multiple ids are separated by comma (optional)
      * @param string $recurring Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. (optional)
@@ -304,7 +306,7 @@ class EventApi
      * @throws \Metatavu\LinkedEvents\ApiException on non-2xx response
      * @return array of \Metatavu\LinkedEvents\Model\InlineResponse200, HTTP status code, HTTP response headers (array of strings)
      */
-    public function eventListWithHttpInfo($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
+    public function eventListWithHttpInfo($include = null, $text = null, $lastModifiedSince = null, $start = null, $end = null, $bbox = null, $dataSource = null, $location = null, $showAll = null, $division = null, $keyword = null, $recurring = null, $minDuration = null, $maxDuration = null, $publisher = null, $sort = null, $page = null, $pageSize = null, $addressLocalityFi = null, $addressLocalitySv = null, $addressLocalityEn = null, $publicationStatus = null)
     {
         if (!is_null($bbox) && (count($bbox) > 4)) {
             throw new \InvalidArgumentException('invalid value for "$bbox" when calling EventApi.eventList, number of items must be less than or equal to 4.');
@@ -365,6 +367,10 @@ class EventApi
         }
         if ($location !== null) {
             $queryParams['location'] = $this->apiClient->getSerializer()->toQueryValue($location);
+        }
+        // query params
+        if ($showAll !== null) {
+            $queryParams['show_all'] = $this->apiClient->getSerializer()->toQueryValue($showAll);
         }
         // query params
         if ($division !== null) {

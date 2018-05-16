@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "01d2067db97ced9e35ad39c244e346f1",
+    "content-hash": "24ec44ff1db5bbd1adcf7724d24c9e7b",
     "packages": [
         {
             "name": "composer/installers",
@@ -128,16 +128,16 @@
         },
         {
             "name": "metatavu/linkedevents-php-client",
-            "version": "0.0.8",
+            "version": "0.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Metatavu/linkedevents-client-php.git",
-                "reference": "db2b5734a86c7fefdbd9e6b575b2cd6eaf7530e5"
+                "reference": "175388bd653d600feebc9630ba8b70927bbbfcfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/db2b5734a86c7fefdbd9e6b575b2cd6eaf7530e5",
-                "reference": "db2b5734a86c7fefdbd9e6b575b2cd6eaf7530e5",
+                "url": "https://api.github.com/repos/Metatavu/linkedevents-client-php/zipball/175388bd653d600feebc9630ba8b70927bbbfcfb",
+                "reference": "175388bd653d600feebc9630ba8b70927bbbfcfb",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,7 @@
                 "sdk",
                 "swagger"
             ],
-            "time": "2018-05-16T09:45:24+00:00"
+            "time": "2018-05-16T10:56:21+00:00"
         }
     ],
     "packages-dev": [],
