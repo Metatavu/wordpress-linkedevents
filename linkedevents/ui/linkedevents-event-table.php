@@ -42,11 +42,27 @@
         
         $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
       }
+
+      /**
+       * Returns free text search text if any specified 
+       * @return string free text search text if any specified
+       */
+      public function getText() {
+        return isset($_REQUEST['s']) ? $_REQUEST['s'] : null;
+      }
+    
+      /**
+       * Returns status filter if any specified 
+       * @return string status filter if any specified
+       */
+      public function getStatus() {
+        return isset($_REQUEST['status']) ? $_REQUEST['status'] : null;
+      }
       
       public function prepare_items() {
         $this->_column_headers = [ $this->get_columns(), $this->get_hidden_columns(), $this->get_sortable_columns() ];
         $this->process_bulk_action();
-        $events = $this->listEvents($this->get_pagenum(), $this->perPage, true);
+        $events = $this->listEvents($this->get_pagenum(), $this->perPage, true, $this->getText(), $this->getStatus());
         
         $this->items = [];
         $itemCount = $events->getMeta()->getCount();
@@ -120,16 +136,42 @@
         );
       }
       
+      /**
+       * Renders search box
+       */
       public function search_box( $text, $input_id ) {
+        $status = $this->getStatus();
+
       ?>
-        <form method="POST">
+        <form method="get" class="search-form">
           <p class="search-box">
             <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
-            <input type="search" id="<?php echo $input_id ?>" name="search-events" value="<?php _admin_search_query(); ?>" />
+            <input type="search" id="<?php echo esc_attr( $input_id ); ?>" class="wp-filter-search" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php esc_attr_e( 'Search events...', 'linkedevents'); ?>"/>
             <?php submit_button( $text, 'button', '', false, array('id' => 'search-submit') ); ?>
-            </p>
+            <input type="hidden" value="linked-events.php" name="page"/>
+            <?php if ($status) { 
+              echo '<input type="hidden" value="' . $status . '" name="status"/>';
+            } ?>
+          </p>
         </form>
       <?php
+      }
+
+      /**
+       * @param string $which
+       */
+      protected function extra_tablenav($which) {
+        if ($which === 'top') {
+          $status = $this->getStatus();
+          $currentAttrs = 'class="current" aria-current="page"';
+          $url = '?page=linked-events.php';
+
+          echo '<div class="alignleft actions"><ul class="subsubsub">';
+          echo sprintf('<li class="all"><a href="%s"%s>%s</a> |</li>', $url, !$status ? $currentAttrs : '', __("All", 'linkedevents'));
+          echo sprintf('<li class="publish"><a href="%s"%s>%s</a> |</li>', $url . '&status=draft', $status === 'draft' ? $currentAttrs : '', __("Drafts", 'linkedevents'));
+          echo sprintf('<li class="draft"><a href="%s"%s>%s</span></a></li>', $url . '&status=public', $status === 'public' ? $currentAttrs : '', __("Published", 'linkedevents'));
+          echo '</ul></div>';
+        }
       }
       
       /**
@@ -138,12 +180,12 @@
        * @param type $page page
        * @param type $pageSize events per page
        * @param type $showAll whether to show also draft events
+       * @param String $text search by free text
        * @param type $sort sort by (optional)
        * @return \Metatavu\LinkedEvents\Model\Event[] events
        */
-      private function listEvents($page, $pageSize, $showAll, $sort = null) {
+      private function listEvents($page, $pageSize, $showAll, $text, $publicationStatus, $sort = null) {
         $include = null;
-        $text = isset($_REQUEST['search-events']) ? $_REQUEST['search-events'] : null;
         $lastModifiedSince = null;
         $start = null;
         $end = null;
@@ -156,9 +198,34 @@
         $minDuration = null;
         $maxDuration = null;
         $publisher = null;
-        
+        $addressLocalityFi = null;
+        $addressLocalitySv = null; 
+        $addressLocalityEn = null; 
+
         try {
-          return $this->eventsApi->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
+          return $this->eventsApi->eventList(
+            $include, 
+            $text, 
+            $lastModifiedSince, 
+            $start, 
+            $end, 
+            $bbox, 
+            $dataSource, 
+            $location,
+            $showAll,
+            $division, 
+            $keyword,
+            $recurring, 
+            $minDuration, 
+            $maxDuration, 
+            $publisher, 
+            $sort,
+            $page, 
+            $pageSize, 
+            $addressLocalityFi, 
+            $addressLocalitySv, 
+            $addressLocalityEn, 
+            $publicationStatus);
         } catch (\Metatavu\LinkedEvents\ApiException $e) {
           echo '<div class="error notice">';
           if ($e->getResponseBody()) {
