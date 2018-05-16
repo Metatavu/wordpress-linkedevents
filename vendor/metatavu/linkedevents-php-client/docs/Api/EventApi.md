@@ -99,7 +99,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **eventList**
-> \Metatavu\LinkedEvents\Model\InlineResponse200 eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize)
+> \Metatavu\LinkedEvents\Model\InlineResponse200 eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize, $addressLocalityFi, $addressLocalitySv, $addressLocalityEn, $publicationStatus)
 
 Return a list of events
 
@@ -119,7 +119,7 @@ $end = new \DateTime("2013-10-20T19:20:30+01:00"); // \DateTime | Search for eve
 $bbox = array("bbox_example"); // string[] | Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator.
 $dataSource = "dataSource_example"; // string | Search for events that come from the specified source system
 $location = array(56); // int[] | Search for events in given locations as specified by id. Multiple ids are separated by comma
-$showAll = true; // bool | Show all events
+$showAll = true; // bool | Show all events (optional)
 $division = "division_example"; // string | You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type.
 $keyword = "keyword_example"; // string | Search for events with given keywords as specified by id. Multiple ids are separated by comma
 $recurring = "recurring_example"; // string | Search for events based on whether they are part of recurring event set. 'super' specifies recurring, while 'sub' is non-recurring.
@@ -129,9 +129,13 @@ $publisher = "publisher_example"; // string | Search for events published by the
 $sort = "sort_example"; // string | Sort the returned events in the given order. Possible sorting criteria are 'start_time', 'end_time', 'days_left' and 'last_modified_time'. The default ordering is '-last_modified_time'.
 $page = 56; // int | request particular page in paginated results
 $pageSize = 56; // int | request that server delivers page_size results in response
+$addressLocalityFi = "addressLocalityFi_example"; // string | Search for events in given address localities (fi). Multiple localities can be entered by separating them by a comma
+$addressLocalitySv = "addressLocalitySv_example"; // string | Search for events in given address localities (sv). Multiple localities can be entered by separating them by a comma
+$addressLocalityEn = "addressLocalityEn_example"; // string | Search for events in given address localities (en). Multiple localities can be entered by separating them by a comma
+$publicationStatus = "publicationStatus_example"; // string | Filter events by publication status (either draft or public)
 
 try {
-    $result = $api_instance->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize);
+    $result = $api_instance->eventList($include, $text, $lastModifiedSince, $start, $end, $bbox, $dataSource, $location, $showAll, $division, $keyword, $recurring, $minDuration, $maxDuration, $publisher, $sort, $page, $pageSize, $addressLocalityFi, $addressLocalitySv, $addressLocalityEn, $publicationStatus);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling EventApi->eventList: ', $e->getMessage(), PHP_EOL;
@@ -151,7 +155,7 @@ Name | Type | Description  | Notes
  **bbox** | [**string[]**](../Model/string.md)| Search for events that are within this bounding box. Decimal coordinates are given in order west, south, east, north. Period is used as decimal separator. | [optional]
  **dataSource** | **string**| Search for events that come from the specified source system | [optional]
  **location** | [**int[]**](../Model/int.md)| Search for events in given locations as specified by id. Multiple ids are separated by comma | [optional]
- **showAll** | **bool**| Show all events | [optional]
+ **showAll** | **bool**| Show all events (optional) | [optional]
  **division** | **string**| You may filter places by specific OCD division id, or by division name. The latter query checks all divisions with the name, regardless of division type. | [optional]
  **keyword** | **string**| Search for events with given keywords as specified by id. Multiple ids are separated by comma | [optional]
  **recurring** | **string**| Search for events based on whether they are part of recurring event set. &#39;super&#39; specifies recurring, while &#39;sub&#39; is non-recurring. | [optional]
@@ -161,6 +165,10 @@ Name | Type | Description  | Notes
  **sort** | **string**| Sort the returned events in the given order. Possible sorting criteria are &#39;start_time&#39;, &#39;end_time&#39;, &#39;days_left&#39; and &#39;last_modified_time&#39;. The default ordering is &#39;-last_modified_time&#39;. | [optional]
  **page** | **int**| request particular page in paginated results | [optional]
  **pageSize** | **int**| request that server delivers page_size results in response | [optional]
+ **addressLocalityFi** | **string**| Search for events in given address localities (fi). Multiple localities can be entered by separating them by a comma | [optional]
+ **addressLocalitySv** | **string**| Search for events in given address localities (sv). Multiple localities can be entered by separating them by a comma | [optional]
+ **addressLocalityEn** | **string**| Search for events in given address localities (en). Multiple localities can be entered by separating them by a comma | [optional]
+ **publicationStatus** | **string**| Filter events by publication status (either draft or public) | [optional]
 
 ### Return type
 
