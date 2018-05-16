@@ -23,6 +23,7 @@
       
       public function renderEventList() {
         $table = new EventsTable();
+        $table->search_box('Search', 'search' );
         $table->prepare_items();
         $table->display();
       }
