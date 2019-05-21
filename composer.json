@@ -1,5 +1,5 @@
 {
-  "name":"Metatavu/wordpress-linkedevents",
+  "name":"metatavu/wordpress-linkedevents",
   "description":"Wordpress plugin for managing linkedevents API",
   "keywords":[
     "wordpress",
@@ -10,6 +10,29 @@
   "type":"wordpress-plugin",
   "require":{
     "metatavu/linkedevents-php-client":"0.0.10",
-    "composer/installers":"^1.2"
+    "composer/installers":"^1.2",
+    "gamajo/template-loader": "^1.3"
+  },
+  "require-dev": {
+    "coenjacobs/mozart": "^0.3.0"
+  },
+  "extra": {
+    "mozart": {
+        "dep_namespace": "Metatavu\\LinkedEvents\\Dependencies\\",
+        "dep_directory": "/dependencies/",
+        "classmap_directory": "/dependencies/classes/",
+        "classmap_prefix": "LinkedEvents_",
+        "packages": [
+          "gamajo/template-loader"
+        ]
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+        "\"vendor/bin/mozart\" compose"
+    ],
+    "post-update-cmd": [
+        "\"vendor/bin/mozart\" compose"
+    ]
   }
 }
