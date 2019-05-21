@@ -1,0 +1,50 @@
+{
+  "translation-revision-date": "2019-01-05 00:00:00+0000",
+  "domain": "linkedevents",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "linkedevents",
+        "plural-forms": "nplurals=2; plural=n != 1;",
+        "lang": "fi"
+      },
+      
+      "Start": [
+        "Alkuaika"
+      ],
+
+      "Show events beginning or ending after this time. Date can be today or specified date": [
+        "Näytä tapahtumat, jotka alkavat tai päättyvät tämän ajan jälkeen. Päivämäärä voi olla nykyinen päivä tai jokin määrätty päivä"
+      ],
+
+      "End": [
+        "Loppuaika"
+      ],
+
+      "Show events beginning or ending before this time": [
+        "Näytä tapahtumat, jotka alkavat tai päättyvät ennen tätä aikaa. Päivämäärä voi olla nykyinen päivä tai jokin määrätty päivä"
+      ],
+
+      "Show all": [
+        "Ei rajausta"
+      ],
+      
+      "Today": [
+        "Tänään"
+      ],
+
+      "Date": [
+        "Päivämäärä"
+      ],
+
+      "Bounding Box": [
+        "Rajaa koordinaateilla"
+      ],
+
+      "Show events that are within this bounding box. Coordinates are given in order west, south, east, north. Period is used as decimal separator.": [
+        "Näytä tapahtumat, jotka ovat annettujen koordinaattien sisällä. Koordinaatit annetaan järjestyksessä länsi, etelä, itä, pohjainen. Piste toimii desimaalierottimena."
+      ]
+
+    }
+  }
+}

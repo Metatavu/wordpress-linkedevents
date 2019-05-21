@@ -11,7 +11,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
    * Class for handling Gutenberg blocks
    */
   class Blocks {
-    
+
+    private static $DATE_FORMAT = 'Y-m-d';
+    private static $DEFAULT_TIMEZONE = 'Europe/Helsinki';
+
     /**
      * Constructor
      */
@@ -31,23 +34,20 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       wp_localize_script('linkedevents-blocks', 'linkedEventsBlocks', [ ]);
 
       register_block_type('linkedevents/list-block', [
-        'attributes' => [ ],
+        'attributes' => [ 
+          "filter-start" => [
+            'type' => 'string'
+          ],
+          "filter-end" => [
+            'type' => 'string'
+          ],
+          "filter-bbox" => [
+            'type' => 'string'
+          ]
+        ],
         'editor_script' => 'linkedevents-blocks',
         'render_callback' => [ $this, "renderListBlock" ]
       ]);
-    }
-
-    /**
-     * Save post action handler
-     * 
-     * @param int $postId The post ID.
-     * @param \WP_Post $post The post object.
-     * @param bool $update Whether this is an existing post being updated or not.
-     */
-    public function onSavePost($pageId, $post, $update) {
-      if (has_blocks($post->post_content)) {
-        
-      }
     }
     
     /**
@@ -81,17 +81,18 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
      *   @type string $publicationStatus Filter events by publication status (either draft or public) (optional)
      * }
      */
+
     public function renderListBlock($attributes) {
       $result = '';
       $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
 
       $include = null;
-      $text = $attributes["text"];
+      $text = null;
       $lastModifiedSince = null;
-      $start = $attributes["start"];
-      $end = $attributes["end"];
-      $bbox = null; // TODO:
-      $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource"); // TODO
+      $start = $this->parseDateFilter($attributes["filter-start"]);
+      $end = $this->parseDateFilter($attributes["filter-end"]);
+      $bbox = $this->parseBBoxFilter($attributes["filter-bbox"]);
+      $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
       $location = $attributes["location"];
       $showAll = false; // TODO
       $division = null;
@@ -176,6 +177,46 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       ];
 
       return $categories;
+    }
+
+    /**
+     * Parses bbox from filter value.
+     * 
+     * @return string[] parsed bbox
+     */
+    private function parseBBoxFilter($string) {
+      if (!$string) {
+        return null;
+      }
+
+      return explode(",", preg_replace('/\s+/', '', $string));
+    }
+    
+    /**
+     * Parses date from date filter value.
+     * 
+     * @return \DateTime parsed datetime
+     */
+    private function parseDateFilter($dateString) {
+      if (!$dateString) {
+        return null;
+      }
+      
+      if ($dateString == "today") {
+        $result = new \DateTime(); 
+      } else {
+        $dateString = \substr($dateString, 0, 10);
+        $format = self::$DATE_FORMAT;
+        $result = \DateTime::createFromFormat($format, $dateString);
+      }
+
+      if (!$result) {
+        error_log("Failed to parse: " .$dateString);
+        return null;
+      }
+
+      $result->setTime(0, 0);
+      return $result;
     }
 
   }
