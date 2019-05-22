@@ -43,6 +43,14 @@
 
       "Show events that are within this bounding box. Coordinates are given in order west, south, east, north. Period is used as decimal separator.": [
         "Näytä tapahtumat, jotka ovat annettujen koordinaattien sisällä. Koordinaatit annetaan järjestyksessä länsi, etelä, itä, pohjainen. Piste toimii desimaalierottimena."
+      ],
+
+      "Locations": [
+        "Paikat"
+      ],
+
+      "Show events in given locations": [
+        "Näytä tapahtumia annetuista paikoista"
       ]
 
     }

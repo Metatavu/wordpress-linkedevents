@@ -165,7 +165,15 @@ declare module "wp" {
     options: WPSelectControlOption[]
   }
 
-  export interface WpTooltipProps {
+  export interface WPCheckboxControlProps {
+    heading?: string,
+		label?: string,
+		help?: string,
+		checked?: boolean
+		onChange: (isChecked: boolean) => void
+  }
+
+  export interface WPTooltipProps {
     text: string
   }
 
@@ -173,7 +181,8 @@ declare module "wp" {
     TextControl: React.SFC<WPTextControlProps>,
     DatePicker: React.SFC<WPDatePickerProps>,
     SelectControl: React.SFC<WPSelectControlProps>,
-    Tooltip: React.SFC<WpTooltipProps>,
+    Tooltip: React.SFC<WPTooltipProps>,
+    CheckboxControl: React.SFC<WPCheckboxControlProps>,
 
     Circle: any,
     G: any,
@@ -186,7 +195,6 @@ declare module "wp" {
     BaseControl: any,
     Button: any,
     ButtonGroup: any,
-    CheckboxControl: any,
     ClipboardButton: any,
     ColorIndicator: any,
     ColorPalette: any,

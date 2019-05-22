@@ -26,6 +26,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-bbox": {
       type: 'string'
+    },
+    "filter-location": {
+      type: 'string'
     }
   },
 

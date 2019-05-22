@@ -13,7 +13,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
   class Blocks {
 
     private static $DATE_FORMAT = 'Y-m-d';
-    private static $DEFAULT_TIMEZONE = 'Europe/Helsinki';
+    private static $LANGUAGES = ["fi", "sv", "en"];
 
     /**
      * Constructor
@@ -31,7 +31,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       wp_set_script_translations("linkedevents-blocks", "linkedevents", dirname(__FILE__) . '/lang/');
       add_filter("block_categories", [ $this, "blockCategoriesFilter"], 10, 2);
 
-      wp_localize_script('linkedevents-blocks', 'linkedEventsBlocks', [ ]);
+      wp_localize_script('linkedevents-blocks', 'listBlockOptions', [ 
+        "apiUrl" => \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url"),
+        "language" => $this->getCurrentLanguage()
+      ]);
 
       register_block_type('linkedevents/list-block', [
         'attributes' => [ 
@@ -42,6 +45,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             'type' => 'string'
           ],
           "filter-bbox" => [
+            'type' => 'string'
+          ],
+          "filter-location" => [
             'type' => 'string'
           ]
         ],
@@ -81,7 +87,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
      *   @type string $publicationStatus Filter events by publication status (either draft or public) (optional)
      * }
      */
-
     public function renderListBlock($attributes) {
       $result = '';
       $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
@@ -93,8 +98,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $end = $this->parseDateFilter($attributes["filter-end"]);
       $bbox = $this->parseBBoxFilter($attributes["filter-bbox"]);
       $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
-      $location = $attributes["location"];
-      $showAll = false; // TODO
+      $location = $this->parseLocation($attributes["filter-location"]);
+      $showAll = false;
       $division = null;
       $keyword = null;
       $recurring = null;
@@ -180,11 +185,32 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
     }
 
     /**
+     * Resoles place name in current locale 
+     */
+    private function getCurrentLanguage() {
+      $locale = get_locale();
+      return substr($locale, 0, 2);
+    }
+
+    /**
      * Parses bbox from filter value.
      * 
      * @return string[] parsed bbox
      */
     private function parseBBoxFilter($string) {
+      if (!$string) {
+        return null;
+      }
+
+      return explode(",", preg_replace('/\s+/', '', $string));
+    }
+
+    /**
+     * Parses location from filter value.
+     * 
+     * @return string[] parsed location
+     */
+    private function parseLocation($string) {
       if (!$string) {
         return null;
       }
