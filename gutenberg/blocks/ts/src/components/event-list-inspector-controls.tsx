@@ -20,7 +20,6 @@ interface Props {
  * Interface describing component state
  */
 interface State {
-  version: number
 }
 
 /**
@@ -36,7 +35,6 @@ class EventList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      version: 0
     };
   }
 
