@@ -54,6 +54,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "filter-keywords" => [
             'type' => 'string'
+          ],
+          "filter-recurring" => [
+            'type' => 'string'
           ]
         ],
         'editor_script' => 'linkedevents-blocks',
@@ -107,7 +110,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $showAll = false;
       $division = $attributes["filter-division"];
       $keyword = $attributes["filter-keywords"];
-      $recurring = null;
+      $recurring = $attributes["filter-recurring"];
       $minDuration = null;
       $maxDuration = null;
       $publisher = null;

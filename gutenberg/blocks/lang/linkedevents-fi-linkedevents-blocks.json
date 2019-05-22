@@ -26,7 +26,7 @@
       ],
 
       "Show all": [
-        "Ei rajausta"
+        "Näytä kaikki"
       ],
       
       "Today": [
@@ -67,8 +67,23 @@
 
       "Show events with specified keywords": [
         "Näytä tapahtumia annetuilla avainsanoilla"
-      ]
+      ],
 
+      "Recurring": [
+        "Toistuvuus"
+      ],
+
+      "Show events based on whether they are part of recurring event set": [
+        "Näytä tapahtumat perustuen siihen, ovatko ne osa toistuvaa tapahtumakokonaisuutta"
+      ],
+
+      "Only recurring": [
+        "Vain toistuvat"
+      ],
+
+      "Only non-recurring": [
+        "Vain kertaluontoiset"
+      ]
     }
   }
 }
