@@ -1,0 +1,139 @@
+{
+  "translation-revision-date": "2019-01-05 00:00:00+0000",
+  "domain": "linkedevents",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "linkedevents",
+        "plural-forms": "nplurals=2; plural=n != 1;",
+        "lang": "fi"
+      },
+      
+      "Start": [
+        "Alkuaika"
+      ],
+
+      "Show events beginning or ending after this time. Date can be today or specified date": [
+        "Näytä tapahtumat, jotka alkavat tai päättyvät tämän ajan jälkeen. Päivämäärä voi olla nykyinen päivä tai jokin määrätty päivä"
+      ],
+
+      "End": [
+        "Loppuaika"
+      ],
+
+      "Show events beginning or ending before this time": [
+        "Näytä tapahtumat, jotka alkavat tai päättyvät ennen tätä aikaa. Päivämäärä voi olla nykyinen päivä tai jokin määrätty päivä"
+      ],
+
+      "Show all": [
+        "Näytä kaikki"
+      ],
+      
+      "Today": [
+        "Tänään"
+      ],
+
+      "Date": [
+        "Päivämäärä"
+      ],
+
+      "Bounding Box": [
+        "Rajaa koordinaateilla"
+      ],
+
+      "Show events that are within this bounding box. Coordinates are given in order west, south, east, north. Period is used as decimal separator.": [
+        "Näytä tapahtumat, jotka ovat annettujen koordinaattien sisällä. Koordinaatit annetaan järjestyksessä länsi, etelä, itä, pohjainen. Piste toimii desimaalierottimena."
+      ],
+
+      "Locations": [
+        "Paikat"
+      ],
+
+      "Show events in given locations": [
+        "Näytä tapahtumia annetuista paikoista"
+      ],
+
+      "Division": [
+        "Osasto"
+      ],
+
+      "You may filter places by specific OCD division id, or by division name": [
+        "Voit suodattaa paikkoja erityisellä OCD-tunnuksella tai osaston nimellä"
+      ],
+
+      "Keywords": [
+        "Avainsanat"
+      ],
+
+      "Show events with specified keywords": [
+        "Näytä tapahtumia annetuilla avainsanoilla"
+      ],
+
+      "Recurring": [
+        "Toistuvuus"
+      ],
+
+      "Show events based on whether they are part of recurring event set": [
+        "Näytä tapahtumat perustuen siihen, ovatko ne osa toistuvaa tapahtumakokonaisuutta"
+      ],
+
+      "Only recurring": [
+        "Vain toistuvat"
+      ],
+
+      "Only non-recurring": [
+        "Vain kertaluontoiset"
+      ],
+
+      "Duration (min - max)": [
+        "Kesto (minimi - maksimi)"
+      ],
+
+      "Filter events by their duration (in seconds)": [
+        "Suodata tapahtumia keston mukaan (sekunneissa)"
+      ],
+
+      "Sort": [
+        "Järjestys"
+      ],
+
+      "Sort the returned events in the given order": [
+        "Järjestä tapahtumat annettuun järjestykseen"
+      ],
+
+      "Last modification time": [
+        "Viimeinen muokkaushetki"
+      ],
+
+      "Start time": [
+        "Alkuaika"
+      ],
+
+      "End time": [
+        "Loppuaika"
+      ],
+
+      "Days left": [
+        "Päiviä jäljellä"
+      ],
+
+      "Max results": [
+        "Enimmäismäärä tuloksia"
+      ],
+
+      "Show maximum number of results in list": [
+        "Näytä enintään annettu määrä tuloksia"
+      ],
+
+      "Address locality (fi)": [
+        "Postitoimipaikka (FI)"
+      ],
+
+      "You may filter events by place address locality name (finnish)": [
+        "Voit suodattaa tapahtumia tapahtumapaikan osoitteen postitoimipaikan mukaan (suomeksi)"
+      ]
+    }
+  }
+}
+
+

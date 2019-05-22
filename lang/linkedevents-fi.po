@@ -5,16 +5,26 @@ msgstr ""
 "Project-Id-Version: Linked Events 0.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-"
 "linkedevents\n"
-"POT-Creation-Date: 2018-05-16 11:25:33+00:00\n"
-"PO-Revision-Date: 2018-05-16 14:25+0300\n"
+"POT-Creation-Date: 2019-05-22 05:51:30+00:00\n"
+"PO-Revision-Date: 2019-05-22 08:53+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gutenberg/blocks/blocks.php:175
+msgid "No events found"
+msgstr "Tapahtumia ei löytynyt"
+
+#: gutenberg/blocks/blocks.php:205
+#, fuzzy
+#| msgid "Linked Events"
+msgid "LinkedEvents"
+msgstr "Linked Events"
 
 #: linkedevents/ui/linkedevents-abstract-edit-view.php:183
 msgid "Street address (%s)"
