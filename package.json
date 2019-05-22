@@ -1,5 +1,5 @@
 {
-  "name": "wordpress-kunta-api-core-grunt",
+  "name": "grunt",
   "description": "Grunt tasks for Wordpress LinkedEvents plugin",
   "version": "1.0.0",
   "author": {
