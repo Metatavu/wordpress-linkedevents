@@ -68,6 +68,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderDurationFilter() }
         { this.renderSort() }
         { this.renderPageSize() }
+        { this.renderAddressLocalityFi() }
       </InspectorControls>
     );
   }
@@ -115,6 +116,15 @@ class EventList extends React.Component<Props, State> {
     const title = __("Division", "linkedevents");
     const hint = __("You may filter places by specific OCD division id, or by division name", "linkedevents");
     return this.renderTextControlFilter(title, hint, "division");
+  }
+
+  /**
+   * Renders address locality filter
+   */
+  private renderAddressLocalityFi = () => {
+    const title = __("Address locality (fi)", "linkedevents");
+    const hint = __("You may filter events by place address locality name (finnish)", "linkedevents");
+    return this.renderTextControlFilter(title, hint, "locality-fi");
   }
 
   /**

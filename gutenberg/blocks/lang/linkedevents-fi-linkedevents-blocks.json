@@ -123,6 +123,14 @@
 
       "Show maximum number of results in list": [
         "Näytä enintään annettu määrä tuloksia"
+      ],
+
+      "Address locality (fi)": [
+        "Postitoimipaikka (FI)"
+      ],
+
+      "You may filter events by place address locality name (finnish)": [
+        "Voit suodattaa tapahtumia tapahtumapaikan osoitteen postitoimipaikan mukaan (suomeksi)"
       ]
     }
   }
