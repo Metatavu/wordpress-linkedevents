@@ -62,6 +62,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderEndFilter() }
         { this.renderBBoxFilter() }
         { this.renderLocationFilter() }
+        { this.renderDivisionFilter() }
       </InspectorControls>
     );
   }
@@ -100,6 +101,15 @@ class EventList extends React.Component<Props, State> {
     const title = __("Locations", "linkedevents");
     const hint = __("Show events in given locations", "linkedevents");
     return this.renderSearchableChecklistFilter(title, hint, "location", this.searchPlaces, this.findPlace);
+  }
+
+  /**
+   * Renders division filter
+   */
+  private renderDivisionFilter = () => {
+    const title = __("Division", "linkedevents");
+    const hint = __("You may filter places by specific OCD division id, or by division name", "linkedevents");
+    return this.renderTextControlFilter(title, hint, "division");
   }
 
   /**

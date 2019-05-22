@@ -49,6 +49,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "filter-location" => [
             'type' => 'string'
+          ],
+          "filter-division" => [
+            'type' => 'string'
           ]
         ],
         'editor_script' => 'linkedevents-blocks',
@@ -100,7 +103,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
       $location = $this->parseLocation($attributes["filter-location"]);
       $showAll = false;
-      $division = null;
+      $division = $attributes["filter-division"];
       $keyword = null;
       $recurring = null;
       $minDuration = null;

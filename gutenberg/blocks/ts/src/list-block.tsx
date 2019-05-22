@@ -29,6 +29,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-location": {
       type: 'string'
+    },
+    "filter-division": {
+      type: 'string'
     }
   },
 

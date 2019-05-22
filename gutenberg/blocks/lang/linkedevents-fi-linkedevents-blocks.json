@@ -51,8 +51,18 @@
 
       "Show events in given locations": [
         "Näytä tapahtumia annetuista paikoista"
+      ],
+
+      "Division": [
+        "Osasto"
+      ],
+
+      "You may filter places by specific OCD division id, or by division name": [
+        "Voit suodattaa paikkoja erityisellä OCD-tunnuksella tai osaston nimellä"
       ]
 
     }
   }
 }
+
+
