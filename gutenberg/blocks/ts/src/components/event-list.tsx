@@ -34,16 +34,6 @@ class EventList extends React.Component<Props, State> {
   }
 
   /**
-   * Component did update life-cycle event
-   * 
-   * @param prevProps previous props
-   * @param prevState previous state
-   */
-  public componentDidUpdate(prevProps: Props, prevState: State) {
-    
-  }
-
-  /**
    * Component render method
    */
   public render() {
