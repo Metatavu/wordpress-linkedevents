@@ -35,6 +35,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-keywords": {
       type: 'string'
+    },
+    "filter-recurring": {
+      type: 'string'
     }
   },
 
@@ -44,20 +47,20 @@ registerBlockType('linkedevents/list-block', {
   edit: ((params: WPBlockTypeEditParams) => {
     const { isSelected } = params;
 
+    const getAttribute = (attribute: string): string => {
+      return params.attributes[attribute];
+    }
+
     const setAttribute = (attribute: string, value: string) => {
       const attributes: { [key: string]: string } = {}; 
       attributes[attribute] = value; 
       params.setAttributes(attributes);
     }
 
-    const getAttribute = (attribute: string): string => {
-      return params.attributes[attribute];
-    }
-
     return (
       <div>
         { isSelected ? <EventListInspectorControls getAttribute={ getAttribute } setAttribute={ (attribute: string, value: string) => setAttribute(attribute, value)  }/> : null }
-        <EventList/>
+        <EventList attributes={ params.attributes }/>
       </div>
     );
   }),

@@ -8,13 +8,13 @@ const { __ } = wp.i18n;
  * Interface describing component props
  */
 interface Props {
+  attributes: any
 }
 
 /**
  * Interface describing component state
  */
 interface State {
-  version: number
 }
 
 /**
@@ -30,7 +30,6 @@ class EventList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      version: 0
     };
   }
 
@@ -51,8 +50,8 @@ class EventList extends React.Component<Props, State> {
     return (
       <div>
         <wp.components.ServerSideRender block="linkedevents/list-block" 
-          attributes={{ }} 
-          urlQueryArgs={{ preview: true, version: this.state.version }} />
+          attributes={ this.props.attributes } 
+          urlQueryArgs={{ preview: true }} />
       </div>
     );
   }
