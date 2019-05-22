@@ -32,6 +32,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-division": {
       type: 'string'
+    },
+    "filter-keywords": {
+      type: 'string'
     }
   },
 

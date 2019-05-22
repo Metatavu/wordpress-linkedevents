@@ -63,6 +63,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderBBoxFilter() }
         { this.renderLocationFilter() }
         { this.renderDivisionFilter() }
+        { this.renderKeywordFilter() }
       </InspectorControls>
     );
   }
@@ -113,6 +114,15 @@ class EventList extends React.Component<Props, State> {
   }
 
   /**
+   * Renders keyword filter
+   */
+  private renderKeywordFilter = () => {
+    const title = __("Keywords", "linkedevents");
+    const hint = __("Show events with specified keywords", "linkedevents");
+    return this.renderSearchableChecklistFilter(title, hint, "keywords", this.searchKeywords, this.findKeyword);
+  }
+
+  /**
    * Searches places by free text
    * 
    * @param search search query
@@ -138,6 +148,42 @@ class EventList extends React.Component<Props, State> {
    */
   private findPlace = async (id: string): Promise<SearchableChecklistItem> => {
     const result = await this.fetchFromLinkedEvents(`/place/${id}`);
+    if (!result || !result.id) {
+      return null;
+    }
+    
+    return {
+      id: result.id,
+      text: this.getLocalizedValue(result.name)
+    };
+  } 
+
+  /**
+   * Searches keywords by free text
+   * 
+   * @param search search query
+   * @returns found keywords
+   */
+  private searchKeywords = async (search: string): Promise<SearchableChecklistItem[]> => {
+    const text = encodeURIComponent(search) ;
+    const result = await this.fetchFromLinkedEvents(`/keyword/?text=${text}`);
+
+    return result.data.map((item: any) => {
+      return {
+        id: item.id,
+        text: this.getLocalizedValue(item.name)
+      };
+    });
+  } 
+
+  /**
+   * Finds a keyword by id from the API
+   * 
+   * @param id keyword id
+   * @return keyword or null if not found
+   */
+  private findKeyword = async (id: string): Promise<SearchableChecklistItem> => {
+    const result = await this.fetchFromLinkedEvents(`/keyword/${id}`);
     if (!result || !result.id) {
       return null;
     }

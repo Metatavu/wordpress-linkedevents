@@ -59,6 +59,14 @@
 
       "You may filter places by specific OCD division id, or by division name": [
         "Voit suodattaa paikkoja erityisellä OCD-tunnuksella tai osaston nimellä"
+      ],
+
+      "Keywords": [
+        "Avainsanat"
+      ],
+
+      "Show events with specified keywords": [
+        "Näytä tapahtumia annetuilla avainsanoilla"
       ]
 
     }

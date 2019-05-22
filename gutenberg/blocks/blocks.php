@@ -20,7 +20,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
      */
     public function __construct() {
       add_action('init', [$this, "onInit"]);
-      add_action('save_post', [$this, "onSavePost"], 10, 3);
     }
 
     /**
@@ -51,6 +50,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             'type' => 'string'
           ],
           "filter-division" => [
+            'type' => 'string'
+          ],
+          "filter-keywords" => [
             'type' => 'string'
           ]
         ],
@@ -101,10 +103,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $end = $this->parseDateFilter($attributes["filter-end"]);
       $bbox = $this->parseBBoxFilter($attributes["filter-bbox"]);
       $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
-      $location = $this->parseLocation($attributes["filter-location"]);
+      $location = $this->parseIds($attributes["filter-location"]);
       $showAll = false;
       $division = $attributes["filter-division"];
-      $keyword = null;
+      $keyword = $attributes["filter-keywords"];
       $recurring = null;
       $minDuration = null;
       $maxDuration = null;
@@ -116,7 +118,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalitySv = null; 
       $addressLocalityEn = null; 
       $publicationStatus = null;
-
+      
       try {
         $events = $eventsApi->eventList(
           $include, 
@@ -209,11 +211,11 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
     }
 
     /**
-     * Parses location from filter value.
+     * Parses ids from filter value.
      * 
      * @return string[] parsed location
      */
-    private function parseLocation($string) {
+    private function parseIds($string) {
       if (!$string) {
         return null;
       }
