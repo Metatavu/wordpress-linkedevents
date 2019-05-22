@@ -67,6 +67,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderRecurringFilter() }
         { this.renderDurationFilter() }
         { this.renderSort() }
+        { this.renderPageSize() }
       </InspectorControls>
     );
   }
@@ -165,6 +166,14 @@ class EventList extends React.Component<Props, State> {
       value: "days_left",
       label: __("Days left", "linkedevents")
     }]);
+  }
+  /**
+   * Renders location filter
+   */
+  private renderPageSize = () => {
+    const title = __("Max results", "linkedevents");
+    const hint = __("Show maximum number of results in list", "linkedevents");
+    return this.renderTextControl(title, hint, "page-size");
   }
 
   /**
@@ -429,6 +438,17 @@ class EventList extends React.Component<Props, State> {
    * @param attribute attribute for storing filter value
    */
   private renderTextControlFilter = (title: string, hint: string, attribute: string) => {
+    return this.renderTextControl(title, hint, `filter-${attribute}`);
+  }
+
+  /**
+   * Renders text control
+   * 
+   * @param title title
+   * @param hint hint text
+   * @param attribute attribute for storing value
+   */
+  private renderTextControl = (title: string, hint: string, attribute: string) => {
     const { TextControl, Tooltip } = wp.components;
 
     return (
@@ -436,7 +456,7 @@ class EventList extends React.Component<Props, State> {
         <Tooltip text={ hint } >
           <label> { title } </label>
         </Tooltip>
-        <TextControl value={ this.props.getAttribute(`filter-${attribute}`) } onChange={(value: string) => this.props.setAttribute(`filter-${attribute}`, value) }></TextControl>
+        <TextControl value={ this.props.getAttribute(attribute) } onChange={(value: string) => this.props.setAttribute(attribute, value) }></TextControl>
       </div>
     );
   }

@@ -115,6 +115,14 @@
 
       "Days left": [
         "Päiviä jäljellä"
+      ],
+
+      "Max results": [
+        "Enimmäismäärä tuloksia"
+      ],
+
+      "Show maximum number of results in list": [
+        "Näytä enintään annettu määrä tuloksia"
       ]
     }
   }

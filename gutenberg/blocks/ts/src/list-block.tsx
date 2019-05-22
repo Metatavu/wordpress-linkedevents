@@ -47,6 +47,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "sort": {
       type: 'string'
+    },
+    "page-size": {
+      type: 'string'
     }
   },
 
