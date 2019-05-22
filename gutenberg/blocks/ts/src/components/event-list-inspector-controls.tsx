@@ -65,6 +65,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderDivisionFilter() }
         { this.renderKeywordFilter() }
         { this.renderRecurringFilter() }
+        { this.renderDurationFilter() }
       </InspectorControls>
     );
   }
@@ -140,6 +141,38 @@ class EventList extends React.Component<Props, State> {
       value: "sub",
       label: __("Only non-recurring", "linkedevents")
     }]);
+  }
+
+  /**
+   * Renders duration filter
+   */
+  private renderDurationFilter = () => {
+    const title = __("Duration (min - max)", "linkedevents");
+    const hint = __("Filter events by their duration (in seconds)", "linkedevents");
+
+    const { TextControl, Tooltip } = wp.components;
+
+    return (
+      <div>
+        <Tooltip text={ hint } >
+          <label> { title } </label>
+        </Tooltip>
+        
+        <div>
+          <div style={{ width: "calc(50% - 5px)", display: "inline-block" }}>
+            <TextControl value={ this.props.getAttribute(`filter-min-duration`) } onChange={(value: string) => this.props.setAttribute(`filter-min-duration`, value) }></TextControl>
+          </div>
+          <div style={{ width: "10px", display: "inline-block", textAlign: "center" }}>
+            -
+          </div>
+          <div style={{ width: "calc(50% - 5px)", display: "inline-block" }}>
+            <TextControl value={ this.props.getAttribute(`filter-max-duration`) } onChange={(value: string) => this.props.setAttribute(`filter-max-duration`, value) }></TextControl>
+          </div>
+        </div>
+
+      </div>
+    );
+
   }
 
   /**

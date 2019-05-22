@@ -57,6 +57,12 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "filter-recurring" => [
             'type' => 'string'
+          ],
+          "filter-min-duration" => [
+            'type' => 'string'
+          ],
+          "filter-max-duration" => [
+            'type' => 'string'
           ]
         ],
         'editor_script' => 'linkedevents-blocks',
@@ -111,8 +117,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $division = $attributes["filter-division"];
       $keyword = $attributes["filter-keywords"];
       $recurring = $attributes["filter-recurring"];
-      $minDuration = null;
-      $maxDuration = null;
+      $minDuration = $this->parseInt($attributes["filter-min-duration"]);
+      $maxDuration = $this->parseInt($attributes["filter-max-duration"]);
       $publisher = null;
       $sort = null;
       $page = null; // TODO;
@@ -121,7 +127,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalitySv = null; 
       $addressLocalityEn = null; 
       $publicationStatus = null;
-      
+
       try {
         $events = $eventsApi->eventList(
           $include, 
@@ -226,6 +232,19 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       return explode(",", preg_replace('/\s+/', '', $string));
     }
     
+    /**
+     * Parses int from filter value
+     * 
+     * @return int int value
+     */
+    private function parseInt($string) {
+      if  (!$string) {
+        return null;
+      }
+
+      return \intval($string);
+    }
+
     /**
      * Parses date from date filter value.
      * 

@@ -83,6 +83,14 @@
 
       "Only non-recurring": [
         "Vain kertaluontoiset"
+      ],
+
+      "Duration (min - max)": [
+        "Kesto (minimi - maksimi)"
+      ],
+
+      "Filter events by their duration (in seconds)": [
+        "Suodata tapahtumia keston mukaan (sekunneissa)"
       ]
     }
   }

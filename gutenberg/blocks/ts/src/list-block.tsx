@@ -38,6 +38,12 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-recurring": {
       type: 'string'
+    },
+    "filter-min-duration": {
+      type: 'string'
+    },
+    "filter-max-duration": {
+      type: 'string'
     }
   },
 
