@@ -91,6 +91,30 @@
 
       "Filter events by their duration (in seconds)": [
         "Suodata tapahtumia keston mukaan (sekunneissa)"
+      ],
+
+      "Sort": [
+        "Järjestys"
+      ],
+
+      "Sort the returned events in the given order": [
+        "Järjestä tapahtumat annettuun järjestykseen"
+      ],
+
+      "Last modification time": [
+        "Viimeinen muokkaushetki"
+      ],
+
+      "Start time": [
+        "Alkuaika"
+      ],
+
+      "End time": [
+        "Loppuaika"
+      ],
+
+      "Days left": [
+        "Päiviä jäljellä"
       ]
     }
   }

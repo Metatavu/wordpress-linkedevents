@@ -63,6 +63,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "filter-max-duration" => [
             'type' => 'string'
+          ],
+          "sort" => [
+            'type' => 'string'
           ]
         ],
         'editor_script' => 'linkedevents-blocks',
@@ -120,7 +123,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $minDuration = $this->parseInt($attributes["filter-min-duration"]);
       $maxDuration = $this->parseInt($attributes["filter-max-duration"]);
       $publisher = null;
-      $sort = null;
+      $sort = $attributes["sort"];
       $page = null; // TODO;
       $pageSize = null; // TODO
       $addressLocalityFi = null;

@@ -44,6 +44,9 @@ registerBlockType('linkedevents/list-block', {
     },
     "filter-max-duration": {
       type: 'string'
+    },
+    "sort": {
+      type: 'string'
     }
   },
 

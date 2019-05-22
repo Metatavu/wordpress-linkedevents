@@ -66,6 +66,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderKeywordFilter() }
         { this.renderRecurringFilter() }
         { this.renderDurationFilter() }
+        { this.renderSort() }
       </InspectorControls>
     );
   }
@@ -140,6 +141,29 @@ class EventList extends React.Component<Props, State> {
     }, {
       value: "sub",
       label: __("Only non-recurring", "linkedevents")
+    }]);
+  }
+
+  
+  /**
+   * Renders recurring filter
+   */
+  private renderSort = () => {
+    const title = __("Sort", "linkedevents");
+    const hint = __("Sort the returned events in the given order", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "sort", [{
+      value: null,
+      label: __("Last modification time", "linkedevents")
+    }, {
+      value: "start_time",
+      label: __("Start time", "linkedevents")
+    }, {
+      value: "end_time",
+      label: __("End time", "linkedevents")
+    }, {
+      value: "days_left",
+      label: __("Days left", "linkedevents")
     }]);
   }
 
@@ -373,6 +397,18 @@ class EventList extends React.Component<Props, State> {
    * @param options options
    */
   private renderSelectControlFilter = (title: string, hint: string, attribute: string, options: WPSelectControlOption[]) => {
+    return this.renderSelectControl(title, hint, `filter-${attribute}`, options);
+  }
+
+  /**
+   * Renders select control
+   * 
+   * @param title filter title
+   * @param hint filter hint text
+   * @param attribute attribute for storing value
+   * @param options options
+   */
+  private renderSelectControl = (title: string, hint: string, attribute: string, options: WPSelectControlOption[]) => {
     const { SelectControl, Tooltip } = wp.components;
 
     return (
@@ -380,7 +416,7 @@ class EventList extends React.Component<Props, State> {
         <Tooltip text={ hint } >
           <label> { title } </label>
         </Tooltip>
-        <SelectControl value={ this.props.getAttribute(`filter-${attribute}`) } onChange={(value: string) => this.props.setAttribute(`filter-${attribute}`, value) } options={ options }></SelectControl>
+        <SelectControl value={ this.props.getAttribute(attribute) } onChange={(value: string) => this.props.setAttribute(attribute, value) } options={ options }></SelectControl>
       </div>
     );
   }
