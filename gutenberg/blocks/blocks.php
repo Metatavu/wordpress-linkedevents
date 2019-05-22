@@ -171,6 +171,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $result = ob_get_contents();
           ob_end_clean();
 
+          if (empty($result) && $_GET["preview"]) {
+            return __("No events found", "linkedevents");
+          }
+
         } else {
           $result .= '<div class="error notice">Invalid response</div>';
         }
