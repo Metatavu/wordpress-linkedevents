@@ -93,6 +93,8 @@ Delete action can be used to delete event
 
 ![Event management delete](https://static.metatavu.io/wordpress-linkedevents/event-management-delete.png)
 
+Menu also contains similar lists for controlling keywords and places.
+
 ## Configuration
 
 ### Installation
