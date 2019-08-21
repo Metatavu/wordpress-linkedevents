@@ -97,6 +97,36 @@ Menu also contains similar lists for controlling keywords and places.
 
 ## Configuration
 
+Plugin configuration can be done from the administration panel settings menu.
+
+![Configuration menu](https://static.metatavu.io/wordpress-linkedevents/configuration-menu.png)
+
+View opening from the menu contains all the settings for the plugin
+
+![Configuration view](https://static.metatavu.io/wordpress-linkedevents/configuration-view.png)
+
+Here is a brief summary for each option
+
+##### API URL
+
+API URL for the LinkedEvents server. This option is required for all installation
+
+##### Datasource	
+
+Datasource for events. This option is required only for installation using event management functions.
+
+##### Publisher Organization	
+
+Publisher organization for events. This option is required only for installation using event management functions.
+
+##### Timezone	
+
+Used timezone when displaying event dates. Defaults to Europe/Helsinki
+
+##### Google Maps Key
+
+Google maps API key. This option is required only for installation using event management functions.
+
 ### Installation
 
 ### Theming
