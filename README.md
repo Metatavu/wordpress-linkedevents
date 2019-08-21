@@ -7,6 +7,7 @@ Key features:
   - Support for managing events from Wordpress admin view
   - Gutenberg block for listing evesnt from API
   - Fully translated to english and finnish
+  - Developer-friendly theming support
   
 ## Installation
 
@@ -134,3 +135,14 @@ Used timezone when displaying event dates. Defaults to Europe/Helsinki
 Google maps API key. This option is required only for installation using event management functions.
 
 ### Theming
+
+#### Events list theming
+
+Gutenberg event list has a theming support. 
+
+By default plugin renders very basic event list but you can customize how the list is rendered by adding linkedevents/events.php into you theme.
+
+Example theme can be found from the GitHub repository [wordpress-linkedevents-example-theme](https://github.com/Metatavu/wordpress-linkedevents-example-theme)
+
+
+
