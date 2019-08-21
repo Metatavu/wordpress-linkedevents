@@ -66,10 +66,20 @@
         return new \Metatavu\LinkedEvents\Client\SearchApi($client);
       }
       
+      /**
+       * Returns new LinkedEvents client
+       * 
+       * @return \Metatavu\LinkedEvents\ApiClient new LinkedEvents client
+       */
       private function getClient() {
         return new \Metatavu\LinkedEvents\ApiClient(self::getConfiguration());
       }
       
+      /**
+       * Returns LinkedEvents client configuration
+       * 
+       * @return \Metatavu\LinkedEvents\Configuration LinkedEvents client configuration
+       */
       private function getConfiguration() {
         $result = \Metatavu\LinkedEvents\Configuration::getDefaultConfiguration();
         $result->setHost(\Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url"));

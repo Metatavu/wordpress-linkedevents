@@ -2,8 +2,11 @@
 namespace Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks;
 
 require_once(__DIR__ . '/../../templates/template-loader.php');
+require_once(__DIR__ . '/../../linkedevents/id-ref-controller.php');
 
 defined ( 'ABSPATH' ) || die ( 'No script kiddies please!' );
+
+use \Metatavu\LinkedEvents\Wordpress\IdRefController;
 
 if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) ) {
 
@@ -113,7 +116,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
     public function renderListBlock($attributes) {
       $result = '';
       $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
-
+      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    
       $include = null;
       $text = null;
       $lastModifiedSince = null;
@@ -162,9 +166,26 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $addressLocalityEn, 
           $publicationStatus);
 
+        $locationIds = array_unique(array_filter(array_map(function ($event) {
+          if (!$event["location"]) {
+            return null;
+          }
+
+          return IdRefController::extractIdRefId($event["location"]);
+        }, $events->getData())));
+
+        $locations = [];
+
+        foreach ($locationIds as $locationId) {
+          $refId = IdRefController::getPlaceRef($locationId);
+          $place = $filterApi->placeRetrieve($locationId);
+          $locations[$refId->getId()] = $place;
+        }
+
         if ($events->valid()) {
           $templateData = [
-            "events" => $events->getData()
+            "events" => $events->getData(),
+            "locations" => $locations
           ];
 
           $templateLoader = new \Metatavu\LinkedEvents\TemplateLoader();
