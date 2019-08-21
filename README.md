@@ -8,7 +8,7 @@ Key features:
   - Gutenberg block for listing evesnt from API
   - Fully translated to english and finnish
   
-### Installation
+## Installation
 
     1. Upload folder into /wp-content/plugins -directory
     2. Activate the plugin in 'Plugins' menu
