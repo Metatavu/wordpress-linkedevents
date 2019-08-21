@@ -69,6 +69,30 @@ Filter events by their duration (in seconds)
 
 ### Event administration
 
+Plugin adds functionality to manage events directly from Wordpress admin view. All admin functions can be found from the admin dashboard menu Events
+
+![Event management menu](https://static.metatavu.io/wordpress-linkedevents/event-management-menu.png)
+
+Management view events list contains list of events from the API. Events can be filtered by their status (published, draft or all)
+
+![Event management status](https://static.metatavu.io/wordpress-linkedevents/event-management-status.png)
+
+Event list also has a free-text search and pagination support
+
+![Event management search](https://static.metatavu.io/wordpress-linkedevents/event-management-search.png)
+
+When hovering over the event with mouse, available actions for specific event are displayed. 
+
+![Event management actions](https://static.metatavu.io/wordpress-linkedevents/event-management-actions.png)
+
+Edit action opens an event edit view. Edit view can be used to directly modify the event in the API.
+
+![Event management edit](https://static.metatavu.io/wordpress-linkedevents/event-management-edit.png)
+
+Delete action can be used to delete event
+
+![Event management delete](https://static.metatavu.io/wordpress-linkedevents/event-management-delete.png)
+
 ## Configuration
 
 ### Installation
