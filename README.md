@@ -142,6 +142,32 @@ Gutenberg event list has a theming support.
 
 By default plugin renders very basic event list but you can customize how the list is rendered by adding linkedevents/events.php into you theme.
 
+Theming can be enabled by adding linkedevents -folder into your theme and adding events.php file inside it. 
+
+The events.php file can be used to render the event how ever the theme developer wishes it. All events are exposed in variable $data->events. 
+
+The events list objects are [Event](https://github.com/Metatavu/linkedevents-client-php/blob/master/lib/Model/Event.php) -instances from [linkedevents-client-php](https://github.com/Metatavu/linkedevents-client-php) -library
+
+events.php can contain any php code. Here is a small example that renders event name, time and description inside article tag: 
+    
+    foreach ($data->events as $event) {
+      $result = "";
+      $result .= '<article>';
+      $result .= '<div>';
+
+      $eventName = $event["name"]["fi"];
+      $eventLink = $event["externalLinks"][0]["link"];
+      $eventDescription = $event["description"]["fi"];
+      $eventTime = $event["startTime"]->format("l jS F Y G:ia");
+      $result .= sprintf('<a href="%s">%s</a>', $eventLink, $eventName);
+      $result .= sprintf('<p>%s</p>', $eventTime);
+      $result .= sprintf('<p>%s</p>', html_entity_decode($eventDescription));
+
+      $result .= '</div>';
+      $result .= '</article>';
+      echo $result;
+    }
+
 Example theme can be found from the GitHub repository [wordpress-linkedevents-example-theme](https://github.com/Metatavu/wordpress-linkedevents-example-theme)
 
 
