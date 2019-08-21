@@ -7,6 +7,12 @@ Key features:
   - Support for managing events from Wordpress admin view
   - Gutenberg block for listing evesnt from API
   - Fully translated to english and finnish
+  
+### Installation
+
+    1. Upload folder into /wp-content/plugins -directory
+    2. Activate the plugin in 'Plugins' menu
+    3. Configure settings (see Configuration section for details)
 
 ## Usage
 
@@ -126,11 +132,5 @@ Used timezone when displaying event dates. Defaults to Europe/Helsinki
 ##### Google Maps Key
 
 Google maps API key. This option is required only for installation using event management functions.
-
-### Installation
-
-    1. Upload folder into /wp-content/plugins -directory
-    2. Activate the plugin in 'Plugins' menu
-    3. Configure settings (see Configuration section for details)
 
 ### Theming
