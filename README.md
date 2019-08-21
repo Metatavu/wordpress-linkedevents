@@ -129,4 +129,8 @@ Google maps API key. This option is required only for installation using event m
 
 ### Installation
 
+    1. Upload folder into /wp-content/plugins -directory
+    2. Activate the plugin in 'Plugins' menu
+    3. Configure settings (see Configuration section for details)
+
 ### Theming
