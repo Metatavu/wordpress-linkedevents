@@ -20,7 +20,7 @@ Key features:
 
 Gutenberg event list block can be used to list events from the LinkedEvents API.
 
-### Basic usage
+#### Basic usage
 
 The plugin adds new block category LinkedEvents into Gutenberg. The category contains option for adding a list:
 
