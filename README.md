@@ -5,8 +5,8 @@ This is a Wordpress plugin that adds features for using LinkedEvents API data wi
 Key features:
 
   - Support for managing events from Wordpress admin view
-  - Gutenberg block for listing evesnt from API
-  - Fully translated to english and finnish
+  - Gutenberg block for listing events from API
+  - Fully translated to English and Finnish
   - Developer-friendly theming support
   
 ## Installation
