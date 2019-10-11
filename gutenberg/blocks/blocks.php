@@ -51,6 +51,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "textPlaceholder" => [
             'type' => 'string'
+          ],
+          "dateFilterVisible" => [
+            'type' => 'boolean'
           ]
         ]
       ]);

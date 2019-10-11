@@ -131,6 +131,22 @@
 
       "You may filter events by place address locality name (finnish)": [
         "Voit suodattaa tapahtumia tapahtumapaikan osoitteen postitoimipaikan mukaan (suomeksi)"
+      ],
+
+      "Hidden": [
+        "Piilotettu"
+      ],
+
+      "Visible": [
+        "Näkyvissä"
+      ],
+
+      "Date filter visible": [
+        "Aikarajaus näkyvissä"
+      ],
+
+      "Whether to show the date filter in search widget or not": [
+        "Näytetäänkö päivämäärän suodatin hakuwidgetissä vai ei"
       ]
     }
   }
