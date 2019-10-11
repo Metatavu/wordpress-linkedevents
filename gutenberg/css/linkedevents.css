@@ -1,0 +1,17 @@
+.linkedevents-events-search-label {
+  font-weight: bold;
+  width: 100%;
+}
+
+.linkedevents-events-search {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.linkedevents-events-search-input {
+  flex-grow: 1;
+}
+
+.linkedevents-events-search-button {
+  margin-left: 10px;
+}

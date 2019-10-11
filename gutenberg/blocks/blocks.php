@@ -32,10 +32,27 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       wp_register_script('linkedevents-blocks', plugins_url( 'js/linkedevents-blocks.js', __FILE__ ), ['wp-blocks', 'wp-element', 'wp-i18n']);      
       wp_set_script_translations("linkedevents-blocks", "linkedevents", dirname(__FILE__) . '/lang/');
       add_filter("block_categories", [ $this, "blockCategoriesFilter"], 10, 2);
+      wp_enqueue_style('linkedevents', plugin_dir_url(dirname(__FILE__)) . 'css/linkedevents.css');
 
       wp_localize_script('linkedevents-blocks', 'listBlockOptions', [ 
         "apiUrl" => \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url"),
         "language" => $this->getCurrentLanguage()
+      ]);
+
+      register_block_type('linkedevents/event-search-block', [
+        'editor_script' => 'linkedevents-blocks',
+        'render_callback' => [ $this, "renderEventSearchBlock" ],
+        'attributes' => [ 
+          "label" => [
+            'type' => 'string'
+          ],
+          "buttonText" => [
+            'type' => 'string'
+          ],
+          "textPlaceholder" => [
+            'type' => 'string'
+          ]
+        ]
       ]);
 
       register_block_type('linkedevents/list-block', [
@@ -81,6 +98,33 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         'render_callback' => [ $this, "renderListBlock" ]
       ]);
     }
+
+    /**
+     * Renders an event search block
+     * 
+     * @return string the form HTML
+     */
+    public function renderEventSearchBlock($attributes) {
+      global $wp;
+      static $instanceId = 0;
+
+      $label = $attributes["label"];
+      $textPlaceholder = $attributes["textPlaceholder"];
+      $buttonText = $attributes["buttonText"];
+
+      $inputId = 'linkedevents-events-search-input-' . ++$instanceId;
+      $actionUrl = $_SERVER['REQUEST_URI'];
+
+      $text = $this->getSearchParam("text");
+
+      $labelHtml = sprintf('<label class="linkedevents-events-search-label">%s</label>', $label);
+      $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-search-input" name="les-text" value="%s" placeholder="%s" />', $inputId, esc_attr($text), esc_attr($textPlaceholder));
+      $buttonHtml = sprintf('<button type="submit" class="linkedevents-events-search-button">%s</button>', $buttonText);
+
+      $html = sprintf('%s%s%s', $labelHtml, $inputHtml, $buttonHtml);
+
+      return sprintf('<form class="linkedevents-events-search" role="search" method="get" action="%s">%s</form>', esc_url($actionUrl), $html);
+    }
     
     /**
      * Renders a list block
@@ -117,9 +161,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $result = '';
       $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
       $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
-    
+      
       $include = null;
-      $text = null;
+      $text = $this->getSearchParam("text");
       $lastModifiedSince = null;
       $start = $this->parseDateFilter($attributes["filter-start"]);
       $end = $this->parseDateFilter($attributes["filter-end"]);
@@ -230,6 +274,17 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       ];
 
       return $categories;
+    }
+
+    /**
+     * Returns search parameter value from request
+     * 
+     * @param string $name name of the parameter
+     * @return string parameter or null if not found 
+     */
+    private function getSearchParam($name) {
+      $result = strip_tags($_REQUEST["les-$name"]);
+      return $result ? $result : null;
     }
 
     /**
