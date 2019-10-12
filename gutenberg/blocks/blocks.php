@@ -54,6 +54,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "dateFilterVisible" => [
             'type' => 'boolean'
+          ],
+          "dateFilterLabel" => [
+            'type' => 'string'
           ]
         ]
       ]);
@@ -115,6 +118,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $textPlaceholder = $attributes["textPlaceholder"];
       $buttonText = $attributes["buttonText"];
       $dateFilterVisible = $attributes["dateFilterVisible"];
+      $dateFilterLabel = $attributes["dateFilterLabel"];
 
       $actionUrl = $_SERVER['REQUEST_URI'];
 
@@ -131,7 +135,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $startPlaceHolder = __("Start Time", "linkedevents");
         $endDateId = sprintf('linkedevents-events-search-date-end-%d', $instanceId);
         $endPlaceHolder = __("End Time", "linkedevents");
-        $dateFilterLabelHtml = sprintf("<label>%s</label>", __("Date", "linkedevents"));
+        $dateFilterLabelHtml = sprintf("<label>%s</label>", $dateFilterLabel);
         $startInputHtml = $this->renderDateInput($startDateId, "les-start", $start, "linkedevents-events-date-input");
         $endInputHtml = $this->renderDateInput($endDateId, "les-end", $end, "linkedevents-events-date-input");
         $dateInputsHtml = sprintf('%s<span class="linkedevents-events-date-sep">-</span>%s', $startInputHtml, $endInputHtml);

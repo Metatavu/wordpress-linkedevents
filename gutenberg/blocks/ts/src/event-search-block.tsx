@@ -20,6 +20,9 @@ const attributes: any = {
   },
   "dateFilterVisible": {
     type: 'boolean'
+  },
+  "dateFilterLabel": {
+    type: "string"
   }
 };
 

@@ -67,7 +67,7 @@ class EventSearch extends React.Component<Props, State> {
           <RichText
             className="linkedevents-event-search-widget-button"
             aria-label={ __( 'Button text' ) }
-            placeholder={ __( 'Add button text…' ) }
+            placeholder={ __( 'Add button text...' ) }
             withoutInteractiveFormatting
             value={ this.props.getAttribute("buttonText") }
             onChange={ ( buttonText: string ) => this.props.setAttribute("buttonText", buttonText ) }
@@ -82,6 +82,7 @@ class EventSearch extends React.Component<Props, State> {
    * Render date filter is visible
    */
   private renderDateFilter = () => {
+    const { RichText } = wp.editor;
     const dateFilterVisible = this.props.getAttribute("dateFilterVisible");
 
     if (!dateFilterVisible) {
@@ -90,7 +91,16 @@ class EventSearch extends React.Component<Props, State> {
 
     return (
       <div>
-        <label className="linkedevents-event-search-widget-filter-label"> { __("Date", "linkedevents") } </label>
+        <div className="linkedevents-event-search-widget-filter-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-filter-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("dateFilterLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("dateFilterLabel", text ) }
+          />
+        </div>
         <input
           className="linkedevents-event-search-widget-date-input"
           type="date"
