@@ -1,17 +1,24 @@
 .linkedevents-events-search-label {
   font-weight: bold;
   width: 100%;
+  display: block;
 }
 
-.linkedevents-events-search {
-  display: flex;
-  flex-wrap: wrap;
+.linkedevents-events-text-input {
+  width: 100%;
 }
 
-.linkedevents-events-search-input {
-  flex-grow: 1;
+.linkedevents-events-date-sep {
+  font-size: 12px;
+  width: 12px;
+  display: inline-block;
+  text-align: center;
+}
+
+.linkedevents-events-date-input {
+  width: calc(50% - 6px);
 }
 
 .linkedevents-events-search-button {
-  margin-left: 10px;
+  margin-top: 10px;
 }

@@ -114,17 +114,33 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $label = $attributes["label"];
       $textPlaceholder = $attributes["textPlaceholder"];
       $buttonText = $attributes["buttonText"];
+      $dateFilterVisible = $attributes["dateFilterVisible"];
 
-      $inputId = 'linkedevents-events-search-input-' . ++$instanceId;
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
+      $start = $this->getSearchParam("start");
+      $end = $this->getSearchParam("end");
 
       $labelHtml = sprintf('<label class="linkedevents-events-search-label">%s</label>', $label);
-      $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-search-input" name="les-text" value="%s" placeholder="%s" />', $inputId, esc_attr($text), esc_attr($textPlaceholder));
-      $buttonHtml = sprintf('<button type="submit" class="linkedevents-events-search-button">%s</button>', $buttonText);
+      $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-text-input" name="les-text" value="%s" placeholder="%s" />', 'linkedevents-events-search-input-' . esc_attr(++$instanceId), esc_attr($text), esc_attr($textPlaceholder));
+      $filterHtmls = "";
 
-      $html = sprintf('%s%s%s', $labelHtml, $inputHtml, $buttonHtml);
+      if ($dateFilterVisible) {
+        $startDateId = sprintf('linkedevents-events-search-date-start-%d', $instanceId);
+        $startPlaceHolder = __("Start Time", "linkedevents");
+        $endDateId = sprintf('linkedevents-events-search-date-end-%d', $instanceId);
+        $endPlaceHolder = __("End Time", "linkedevents");
+        $dateFilterLabelHtml = sprintf("<label>%s</label>", __("Date", "linkedevents"));
+        $startInputHtml = $this->renderDateInput($startDateId, "les-start", $start, "linkedevents-events-date-input");
+        $endInputHtml = $this->renderDateInput($endDateId, "les-end", $end, "linkedevents-events-date-input");
+        $dateInputsHtml = sprintf('%s<span class="linkedevents-events-date-sep">-</span>%s', $startInputHtml, $endInputHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $dateFilterLabelHtml, $dateInputsHtml);
+      }
+      
+      $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);
+
+      $html = sprintf('%s%s%s%s', $labelHtml, $inputHtml, $filterHtmls, $buttonHtml);
 
       return sprintf('<form class="linkedevents-events-search" role="search" method="get" action="%s">%s</form>', esc_url($actionUrl), $html);
     }
@@ -168,8 +184,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $include = null;
       $text = $this->getSearchParam("text");
       $lastModifiedSince = null;
-      $start = $this->parseDateFilter($attributes["filter-start"]);
-      $end = $this->parseDateFilter($attributes["filter-end"]);
+      $start = $this->parseDateFilter($this->getSearchParam("start", $attributes["filter-start"]));
+      $end = $this->parseDateFilter($this->getSearchParam("end", $attributes["filter-end"]));
       $bbox = $this->parseBBoxFilter($attributes["filter-bbox"]);
       $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
       $location = $this->parseIds($attributes["filter-location"]);
@@ -280,14 +296,29 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
     }
 
     /**
+     * Renders date input field
+     * 
+     * @param string $id field id
+     * @param string $name field name
+     * @param string $value field value
+     * @param string $class field class
+     * 
+     * @return string generated HTML
+     */
+    private function renderDateInput($id, $name, $value, $class) {
+      return sprintf('<input name="%s" id="%s" value="%s" class="%s" type="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"/>', esc_attr($name), esc_attr($id), esc_attr($value ? $value : ""), esc_attr($class));
+    }
+
+    /**
      * Returns search parameter value from request
      * 
      * @param string $name name of the parameter
      * @return string parameter or null if not found 
      */
-    private function getSearchParam($name) {
+    private function getSearchParam($name, $default = null) {
       $result = strip_tags($_REQUEST["les-$name"]);
-      return $result ? $result : null;
+      $result = $result ? trim($result) : null;
+      return $result ? $result : $default;
     }
 
     /**
