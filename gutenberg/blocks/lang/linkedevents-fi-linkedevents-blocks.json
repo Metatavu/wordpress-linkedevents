@@ -147,6 +147,14 @@
 
       "Whether to show the date filter in search widget or not": [
         "Näytetäänkö päivämäärän suodatin hakuwidgetissä vai ei"
+      ],
+
+      "Sort visible": [
+        "Järjestys näkyvissä"
+      ],
+
+      "Whether to show sort select in search widget": [
+        "Näytetäänkö järjestys-valinta hakuwidgetissä"
       ]
     }
   }

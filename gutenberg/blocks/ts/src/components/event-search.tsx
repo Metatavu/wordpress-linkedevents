@@ -1,5 +1,5 @@
 import React from 'react';
-import { wp } from 'wp';
+import { wp, WPSelectControlOption } from 'wp';
 import EventSearchInspectorControls from './event-search-inspector-controls';
 
 declare var wp: wp;
@@ -63,6 +63,7 @@ class EventSearch extends React.Component<Props, State> {
           />
         </div>
         { this.renderDateFilter() }
+        { this.renderSort() }
         <div className="linkedevents-event-search-widget-button-container">
           <RichText
             className="linkedevents-event-search-widget-button"
@@ -91,9 +92,9 @@ class EventSearch extends React.Component<Props, State> {
 
     return (
       <div>
-        <div className="linkedevents-event-search-widget-filter-label-container">
+        <div className="linkedevents-event-search-widget-option-label-container">
           <RichText
-            className="linkedevents-event-search-widget-filter-label"
+            className="linkedevents-event-search-widget-option-label"
             aria-label={ __( 'Label text' ) }
             placeholder={ __( 'Add label text...' ) }
             withoutInteractiveFormatting
@@ -112,6 +113,49 @@ class EventSearch extends React.Component<Props, State> {
           type="date"
           placeholder={ __("End time", "linkedevents") }
         />
+      </div>
+    );
+  }
+
+  /**
+   * Render date filter is visible
+   */
+  private renderSort = () => {
+    const { RichText } = wp.editor;
+    const { SelectControl } = wp.components;
+    const sortVisible = this.props.getAttribute("sortVisible");
+
+    if (!sortVisible) {
+      return null;
+    }
+
+    const options: WPSelectControlOption[] = [{
+      value: null,
+      label: __("Last modification time", "linkedevents")
+    }, {
+      value: "start_time",
+      label: __("Start time", "linkedevents")
+    }, {
+      value: "end_time",
+      label: __("End time", "linkedevents")
+    }, {
+      value: "days_left",
+      label: __("Days left", "linkedevents")
+    }];
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("sortLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("sortLabel", text ) }
+          />
+        </div>
+        <SelectControl options={ options }></SelectControl>
       </div>
     );
   }

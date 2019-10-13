@@ -23,6 +23,12 @@ const attributes: any = {
   },
   "dateFilterLabel": {
     type: "string"
+  },
+  "sortVisible": {
+    type: 'boolean'
+  },
+  "sortLabel": {
+    type: "string"
   }
 };
 

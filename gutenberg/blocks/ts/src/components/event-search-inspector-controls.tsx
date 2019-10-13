@@ -53,6 +53,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     return (
       <InspectorControls>
         { this.renderDateFilterVisible() }
+        { this.renderSortVisible() }
       </InspectorControls>
     );
   }
@@ -65,6 +66,22 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     const hint = __("Whether to show the date filter in search widget or not", "linkedevents");
 
     return this.renderSelectControl(title, hint, "dateFilterVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
+  /**
+   * Renders select for selecting whether sort is visible or not
+   */
+  private renderSortVisible = () => {
+    const title = __("Sort visible", "linkedevents");
+    const hint = __("Whether to show sort select in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "sortVisible", [{
       value: "",
       label: __("Hidden", "linkedevents")
     }, {

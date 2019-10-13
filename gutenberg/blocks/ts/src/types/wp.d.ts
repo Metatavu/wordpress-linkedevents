@@ -140,18 +140,18 @@ declare module "wp" {
     help?: string, 
     className?: string, 
     instanceId?: string, 
-    onChange: (value: string) => void,
+    onChange?: (value: string) => void,
   }
 
   export interface WPDatePickerProps {
     currentDate: MomentInput,
     isInvalidDate?: (value: string) => boolean,
-    onChange: (value: string) => void
+    onChange?: (value: string) => void
   } 
 
   export interface WPSelectControlOption {
     label: string, 
-    value: string
+    value: string | null
   }
 
   export interface WPSelectControlProps {
@@ -161,7 +161,7 @@ declare module "wp" {
     className?: string, 
     instanceId?: string, 
     multiple?: boolean,
-    onChange: (value: string | string[]) => void,
+    onChange?: (value: string | string[]) => void,
     options: WPSelectControlOption[]
   }
 
@@ -170,7 +170,7 @@ declare module "wp" {
 		label?: string,
 		help?: string,
 		checked?: boolean
-		onChange: (isChecked: boolean) => void
+		onChange?: (isChecked: boolean) => void
   }
 
   export interface WPTooltipProps {

@@ -57,6 +57,12 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "dateFilterLabel" => [
             'type' => 'string'
+          ],
+          "sortVisible" => [
+            'type' => 'boolean'
+          ],
+          "sortLabel" => [
+            'type' => 'string'
           ]
         ]
       ]);
@@ -119,12 +125,15 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $buttonText = $attributes["buttonText"];
       $dateFilterVisible = $attributes["dateFilterVisible"];
       $dateFilterLabel = $attributes["dateFilterLabel"];
+      $sortVisible = $attributes["sortVisible"];
+      $sortLabel = $attributes["sortLabel"];
 
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
       $start = $this->getSearchParam("start");
       $end = $this->getSearchParam("end");
+      $sort = $this->getSearchParam("sort");
 
       $labelHtml = sprintf('<label class="linkedevents-events-search-label">%s</label>', $label);
       $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-text-input" name="les-text" value="%s" placeholder="%s" />', 'linkedevents-events-search-input-' . esc_attr(++$instanceId), esc_attr($text), esc_attr($textPlaceholder));
@@ -141,7 +150,30 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $dateInputsHtml = sprintf('%s<span class="linkedevents-events-date-sep">-</span>%s', $startInputHtml, $endInputHtml);
         $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $dateFilterLabelHtml, $dateInputsHtml);
       }
-      
+
+      if ($sortVisible) {
+        $sortId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $sortLabelHtml = sprintf("<label>%s</label>", $sortLabel);
+        
+        $sortSelectHtml = $this->renderSelectInput($sortId, "les-sort", $sort, "linkedevents-events-sort", [
+          [
+            "value" => null,
+            "label" => __("Last modification time", "linkedevents")
+          ], [
+            "value" => "start_time",
+            "label" => __("Start time", "linkedevents")
+          ], [
+            "value" => "end_time",
+            "label" => __("End time", "linkedevents")
+          ], [
+            "value" => "days_left",
+            "label" => __("Days left", "linkedevents")
+          ]
+        ]);
+
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $sortLabelHtml, $sortSelectHtml);
+      }
+
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);
 
       $html = sprintf('%s%s%s%s', $labelHtml, $inputHtml, $filterHtmls, $buttonHtml);
@@ -200,7 +232,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $minDuration = $this->parseInt($attributes["filter-min-duration"]);
       $maxDuration = $this->parseInt($attributes["filter-max-duration"]);
       $publisher = null;
-      $sort = $attributes["sort"];
+      $sort = $this->getSearchParam("sort", $attributes["sort"]);
       $page = null; 
       $pageSize = $this->parseInt($attributes["page-size"]);
       $addressLocalityFi = $attributes["filter-locality-fi"];
@@ -313,6 +345,25 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       return sprintf('<input name="%s" id="%s" value="%s" class="%s" type="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"/>', esc_attr($name), esc_attr($id), esc_attr($value ? $value : ""), esc_attr($class));
     }
 
+    /**
+     * Renders select field
+     * 
+     * @param string $id field id
+     * @param string $name field name
+     * @param string $value field value
+     * @param string $class field class
+     * @param array options options
+     * 
+     * @return string generated HTML
+     */
+    private function renderSelectInput($id, $name, $value, $class, $options) {
+      $optionsHtml = implode("", array_map(function ($option) use ($value) {
+        return sprintf('<option value="%s"%s>%s</option>', esc_html($option["value"]), $option["value"] == $value ? ' selected="selected"' : "", esc_attr($option["label"]));
+      }, $options));
+
+      return sprintf('<select name="%s" id="%s" class="%s">%s</select>', esc_attr($name), esc_attr($id), esc_attr($class), $optionsHtml);
+    }
+    
     /**
      * Returns search parameter value from request
      * 
