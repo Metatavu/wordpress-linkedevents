@@ -13,7 +13,7 @@ const { registerBlockType } = wp.blocks;
  * Registers block type
  */
 registerBlockType('linkedevents/list-block', {
-  title: __( 'LinkedEvents list', 'linkedevents' ),
+  title: __( 'Event list', 'linkedevents' ),
   icon: ListIcon,
   category: 'linkedevents',
 

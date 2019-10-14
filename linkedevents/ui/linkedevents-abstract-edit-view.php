@@ -17,7 +17,7 @@
       private static $DEFAULT_TIMEZONE = 'Europe/Helsinki';
       
       private $pageTitle;
-      private $supportedLanguages = ["fi", "sv", "en"];
+      private $supportedLanguages;
       private $filterApi;
       private $imageApi;
         
@@ -30,6 +30,7 @@
       }
       
       protected function initializeForm() {
+        $this->supportedLanguages = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getSupportedLangauges();
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
         $this->imageApi = \Metatavu\LinkedEvents\Wordpress\Api::getImageApi();
         $googleMapsKey = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("google-maps-key");

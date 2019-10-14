@@ -18,6 +18,9 @@ module.exports = {
       include: [
         path.resolve(__dirname, "src")
       ]
+    }, {
+      test: /\.scss$/,
+      use: [ "style-loader", "css-loader", "sass-loader"]
     }]
   },
   resolve: {

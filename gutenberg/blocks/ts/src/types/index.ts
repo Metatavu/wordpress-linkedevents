@@ -1,7 +1,7 @@
 /**
  * List block options object
  */
-export interface ListBlockOptions {
+export interface LinkedEventsOptions {
   apiUrl: string,
   language: string
 }

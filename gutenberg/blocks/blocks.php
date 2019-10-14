@@ -32,10 +32,45 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       wp_register_script('linkedevents-blocks', plugins_url( 'js/linkedevents-blocks.js', __FILE__ ), ['wp-blocks', 'wp-element', 'wp-i18n']);      
       wp_set_script_translations("linkedevents-blocks", "linkedevents", dirname(__FILE__) . '/lang/');
       add_filter("block_categories", [ $this, "blockCategoriesFilter"], 10, 2);
+      wp_enqueue_style('linkedevents', plugin_dir_url(dirname(__FILE__)) . 'css/linkedevents.css');
 
-      wp_localize_script('linkedevents-blocks', 'listBlockOptions', [ 
+      wp_localize_script('linkedevents-blocks', 'linkedEventsOptions', [ 
         "apiUrl" => \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url"),
         "language" => $this->getCurrentLanguage()
+      ]);
+
+      register_block_type('linkedevents/event-search-block', [
+        'editor_script' => 'linkedevents-blocks',
+        'render_callback' => [ $this, "renderEventSearchBlock" ],
+        'attributes' => [ 
+          "label" => [
+            'type' => 'string'
+          ],
+          "buttonText" => [
+            'type' => 'string'
+          ],
+          "textPlaceholder" => [
+            'type' => 'string'
+          ],
+          "dateFilterVisible" => [
+            'type' => 'boolean'
+          ],
+          "dateFilterLabel" => [
+            'type' => 'string'
+          ],
+          "sortVisible" => [
+            'type' => 'boolean'
+          ],
+          "sortLabel" => [
+            'type' => 'string'
+          ],
+          "keywordsVisible" => [
+            'type' => 'boolean'
+          ],
+          "keywordsLabel" => [
+            'type' => 'string'
+          ]
+        ]
       ]);
 
       register_block_type('linkedevents/list-block', [
@@ -81,6 +116,94 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         'render_callback' => [ $this, "renderListBlock" ]
       ]);
     }
+
+    /**
+     * Renders an event search block
+     * 
+     * @return string the form HTML
+     */
+    public function renderEventSearchBlock($attributes) {
+      global $wp;
+      static $instanceId = 0;
+
+      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+
+      $label = $attributes["label"];
+      $textPlaceholder = $attributes["textPlaceholder"];
+      $buttonText = $attributes["buttonText"];
+      $dateFilterVisible = $attributes["dateFilterVisible"];
+      $dateFilterLabel = $attributes["dateFilterLabel"];
+      $sortVisible = $attributes["sortVisible"];
+      $sortLabel = $attributes["sortLabel"];
+      $keywordsVisible = $attributes["keywordsVisible"];
+      $keywordsLabel = $attributes["keywordsLabel"];
+      $actionUrl = $_SERVER['REQUEST_URI'];
+
+      $text = $this->getSearchParam("text");
+      $start = $this->getSearchParam("start");
+      $end = $this->getSearchParam("end");
+      $sort = $this->getSearchParam("sort");
+      $keywordIds = $this->getSearchParams("keywords", []);
+
+      $labelHtml = sprintf('<label class="linkedevents-events-search-label">%s</label>', $label);
+      $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-text-input" name="les-text" value="%s" placeholder="%s" />', 'linkedevents-events-search-input-' . esc_attr(++$instanceId), esc_attr($text), esc_attr($textPlaceholder));
+      $filterHtmls = "";
+
+      if ($dateFilterVisible) {
+        $startDateId = sprintf('linkedevents-events-search-date-start-%d', $instanceId);
+        $startPlaceHolder = __("Start Time", "linkedevents");
+        $endDateId = sprintf('linkedevents-events-search-date-end-%d', $instanceId);
+        $endPlaceHolder = __("End Time", "linkedevents");
+        $dateFilterLabelHtml = sprintf("<label>%s</label>", $dateFilterLabel);
+        $startInputHtml = $this->renderDateInput($startDateId, "les-start", $start, "linkedevents-events-date-input");
+        $endInputHtml = $this->renderDateInput($endDateId, "les-end", $end, "linkedevents-events-date-input");
+        $dateInputsHtml = sprintf('%s<span class="linkedevents-events-date-sep">-</span>%s', $startInputHtml, $endInputHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $dateFilterLabelHtml, $dateInputsHtml);
+      }
+
+      if ($sortVisible) {
+        $sortId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $sortLabelHtml = sprintf("<label>%s</label>", $sortLabel);
+        
+        $sortSelectHtml = $this->renderSelectInput($sortId, "les-sort", $sort, "linkedevents-events-sort", [
+          [
+            "value" => null,
+            "label" => __("Last modification time", "linkedevents")
+          ], [
+            "value" => "start_time",
+            "label" => __("Start time", "linkedevents")
+          ], [
+            "value" => "end_time",
+            "label" => __("End time", "linkedevents")
+          ], [
+            "value" => "days_left",
+            "label" => __("Days left", "linkedevents")
+          ]
+        ]);
+
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $sortLabelHtml, $sortSelectHtml);
+      }
+
+      if ($keywordsVisible) {
+        $keywordsId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $keywordsLabelHtml = sprintf("<label>%s</label>", $keywordsLabel);
+        
+        $keywordsSelectHtml = $this->renderChecklistInput($keywordsId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($keyword) {
+          return [
+            "value" => $keyword->getId(),
+            "label" => $this->getLocalizedValue($keyword->getName())
+          ];
+        }, $filterApi->keywordList()->getData()));
+
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $keywordsLabelHtml, $keywordsSelectHtml);
+      }
+
+      $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);
+
+      $html = sprintf('%s%s%s%s', $labelHtml, $inputHtml, $filterHtmls, $buttonHtml);
+
+      return sprintf('<form class="linkedevents-events-search" role="search" method="get" action="%s">%s</form>', esc_url($actionUrl), $html);
+    }
     
     /**
      * Renders a list block
@@ -117,23 +240,23 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $result = '';
       $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
       $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
-    
+      
       $include = null;
-      $text = null;
+      $text = $this->getSearchParam("text");
       $lastModifiedSince = null;
-      $start = $this->parseDateFilter($attributes["filter-start"]);
-      $end = $this->parseDateFilter($attributes["filter-end"]);
+      $start = $this->parseDateFilter($this->getSearchParam("start", $attributes["filter-start"]));
+      $end = $this->parseDateFilter($this->getSearchParam("end", $attributes["filter-end"]));
       $bbox = $this->parseBBoxFilter($attributes["filter-bbox"]);
       $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
       $location = $this->parseIds($attributes["filter-location"]);
       $showAll = false;
       $division = $attributes["filter-division"];
-      $keyword = $attributes["filter-keywords"];
+      $keywords = $this->getSearchParamsCDT("keywords", $attributes["filter-keywords"]);
       $recurring = $attributes["filter-recurring"];
       $minDuration = $this->parseInt($attributes["filter-min-duration"]);
       $maxDuration = $this->parseInt($attributes["filter-max-duration"]);
       $publisher = null;
-      $sort = $attributes["sort"];
+      $sort = $this->getSearchParam("sort", $attributes["sort"]);
       $page = null; 
       $pageSize = $this->parseInt($attributes["page-size"]);
       $addressLocalityFi = $attributes["filter-locality-fi"];
@@ -153,7 +276,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $location,
           $showAll,
           $division, 
-          $keyword,
+          $keywords,
           $recurring, 
           $minDuration, 
           $maxDuration, 
@@ -230,6 +353,126 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       ];
 
       return $categories;
+    }
+
+    /**
+     * Renders date input field
+     * 
+     * @param string $id field id
+     * @param string $name field name
+     * @param string $value field value
+     * @param string $class field class
+     * 
+     * @return string generated HTML
+     */
+    private function renderDateInput($id, $name, $value, $class) {
+      return sprintf('<input name="%s" id="%s" value="%s" class="%s" type="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"/>', esc_attr($name), esc_attr($id), esc_attr($value ? $value : ""), esc_attr($class));
+    }
+
+    /**
+     * Renders select field
+     * 
+     * @param string $id field id
+     * @param string $name field name
+     * @param string $value field value
+     * @param string $class field class
+     * @param array options options
+     * 
+     * @return string generated HTML
+     */
+    private function renderSelectInput($id, $name, $value, $class, $options) {
+      $optionsHtml = implode("", array_map(function ($option) use ($value) {
+        return sprintf('<option value="%s"%s>%s</option>', esc_html($option["value"]), $option["value"] == $value ? ' selected="selected"' : "", esc_attr($option["label"]));
+      }, $options));
+
+      return sprintf('<select name="%s" id="%s" class="%s">%s</select>', esc_attr($name), esc_attr($id), esc_attr($class), $optionsHtml);
+    }
+
+    /**
+     * Renders select field
+     * 
+     * @param string $idPrefix field id prefix
+     * @param string $name field name
+     * @param string[] values selected values
+     * @param string $wrapperClass input field wrapper class
+     * @param string $inputClass input field class
+     * @param array options options
+     * 
+     * @return string generated HTML
+     */
+    private function renderChecklistInput($idPrefix, $name, $values, $wrapperClass, $inputClass, $options) {
+      return implode("", array_map(function ($option, $index) use ($values, $idPrefix, $name, $value, $wrapperClass, $inputClass) {
+        $id = "$idPrefix-$index";
+        $checked = in_array($option["value"], $values);
+        return sprintf('<div class="%s"><input type="checkbox" name="%s[]" id="%s" value="%s" class="%s"%s/><label for="%s">%s</label></div>', esc_attr($wrapperClass), esc_attr($name), esc_attr($id), esc_attr($option["value"]), esc_attr($inputClass), $checked ? ' checked=checked' : "", esc_attr($id), esc_html($option["label"]));
+      }, $options, array_keys($options)));
+    }
+    
+    /**
+     * Returns search parameter value from request
+     * 
+     * @param string $name name of the parameter
+     * @param string default default value
+     * @return string parameter or default if not found 
+     */
+    private function getSearchParam($name, $default = null) {
+      $result = strip_tags($_REQUEST["les-$name"]);
+      $result = $result ? trim($result) : null;
+      return $result ? $result : $default;
+    }
+    
+    /**
+     * Returns search parameter values from request
+     * 
+     * @param string $name name of the parameter
+     * @param string default default value
+     * @return string[] parameters or default if not found 
+     */
+    private function getSearchParams($name, $default) {
+      $result = $_REQUEST["les-$name"];
+      return is_array($result) ? $result : $default;
+    }
+    
+    /**
+     * Returns search parameter values from request as CDT
+     * 
+     * @param string $name name of the parameter
+     * @param string default default value
+     * @return string parameter values from request as CDT
+     */
+    private function getSearchParamsCDT($name, $default) {
+      $result = implode(",", $this->getSearchParams($name, []));
+      return $result ? $result : $default;
+    }
+
+    /**
+     * Returns localized value with given language
+     * 
+     * @param array $values values
+     * @param string $locale locale, if null given method finds best match for current locale 
+     * @return string value or empty string if not defined
+     */
+    private function getLocalizedValue($values, $locale = null) {
+      if ($locale == null) {
+        $sortedLocales = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getSupportedLangauges();
+        $currentLocale = $this->getCurrentLanguage();
+
+        usort($sortedLocales, function ($supportedLocale) use ($currentLocale) {
+          return $supportedLocale == $currentLocale ? -1 : 0;
+        });
+      
+        foreach ($sortedLocales as $sortedLocale) {
+          $result = $this->getLocalizedValue($values, $sortedLocale);
+          if ($result) {
+            return $result;
+          }
+        }
+
+        return "";
+      }
+
+      $result = $values[$locale];
+      return $result ? $result : "";
     }
 
     /**
