@@ -1,6 +1,6 @@
 import React from 'react';
 import { wp, WPBlockTypeEditParams } from 'wp';
-import ListIcon from "./list-icon";
+import EventSearchIcon from "./events-search-icon";
 import "./event-search-block.scss";
 import EventSearch from './components/event-search';
 
@@ -42,8 +42,8 @@ const attributes: any = {
  * Registers block type
  */
 registerBlockType('linkedevents/event-search-block', {
-  title: __( 'LinkedEvents event search', 'linkedevents' ),
-  icon: ListIcon,
+  title: __( 'Event search', 'linkedevents' ),
+  icon: EventSearchIcon,
   category: 'linkedevents',
   attributes: attributes,
 

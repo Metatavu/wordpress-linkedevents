@@ -8,6 +8,14 @@
         "plural-forms": "nplurals=2; plural=n != 1;",
         "lang": "fi"
       },
+
+      "Event list": [
+        "Tapahtumalista"
+      ],
+
+      "Event search": [
+        "Tapahtumahaku"
+      ],
       
       "Start": [
         "Alkuaika"
@@ -155,6 +163,14 @@
 
       "Whether to show sort select in search widget": [
         "Näytetäänkö järjestys-valinta hakuwidgetissä"
+      ],
+
+      "Keywords visible": [
+        "Avainsanat näkyvissä"
+      ],
+
+      "Whether to show keywords in search widget": [
+        "Näytetäänkö avainsanat hakuwidgetissä"
       ]
     }
   }
