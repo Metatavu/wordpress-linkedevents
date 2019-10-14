@@ -169,7 +169,8 @@ declare module "wp" {
     heading?: string,
 		label?: string,
 		help?: string,
-		checked?: boolean
+    checked?: boolean,
+    className?: string,
 		onChange?: (isChecked: boolean) => void
   }
 

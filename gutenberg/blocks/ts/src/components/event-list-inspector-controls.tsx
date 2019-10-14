@@ -1,11 +1,13 @@
 import React from 'react';
 import { wp, WPSelectControlOption } from 'wp';
 import moment from "moment";
-import { ListBlockOptions } from '../types';
+import { LinkedEventsOptions } from '../types';
 import SearchableChecklist, { SearchableChecklistItem } from './searchable-checklist';
+import { LinkedEventsApi } from '../linkedevents/api';
+import LinkedEventsUtils from '../linkedevents/utils';
 
 declare var wp: wp;
-declare var listBlockOptions: ListBlockOptions;
+declare var linkedEventsOptions: LinkedEventsOptions;
 const { __ } = wp.i18n;
 
 /**
@@ -27,6 +29,8 @@ interface State {
  */
 class EventList extends React.Component<Props, State> {
 
+  private linkedEventsApi: LinkedEventsApi;
+
   /*
    * Constructor
    * 
@@ -34,8 +38,8 @@ class EventList extends React.Component<Props, State> {
    */
   constructor(props: Props) {
     super(props);
-    this.state = {
-    };
+    this.state = { };
+    this.linkedEventsApi = new LinkedEventsApi(linkedEventsOptions.apiUrl);
   }
 
   /**
@@ -223,13 +227,12 @@ class EventList extends React.Component<Props, State> {
    * @returns found places
    */
   private searchPlaces = async (search: string): Promise<SearchableChecklistItem[]> => {
-    const text = encodeURIComponent(search) ;
-    const result = await this.fetchFromLinkedEvents(`/place/?text=${text}`);
+    const result = await this.linkedEventsApi.listPlaces(search);
 
-    return result.data.map((place: any) => {
+    return result.map((place: any) => {
       return {
         id: place.id,
-        text: this.getLocalizedValue(place.name)
+        text: LinkedEventsUtils.getLocalizedValue(place.name)
       };
     });
   } 
@@ -241,14 +244,14 @@ class EventList extends React.Component<Props, State> {
    * @return place or null if not found
    */
   private findPlace = async (id: string): Promise<SearchableChecklistItem> => {
-    const result = await this.fetchFromLinkedEvents(`/place/${id}`);
+    const result = await this.linkedEventsApi.findPlace(id);
     if (!result || !result.id) {
       return null;
     }
     
     return {
       id: result.id,
-      text: this.getLocalizedValue(result.name)
+      text: LinkedEventsUtils.getLocalizedValue(result.name)
     };
   } 
 
@@ -259,13 +262,14 @@ class EventList extends React.Component<Props, State> {
    * @returns found keywords
    */
   private searchKeywords = async (search: string): Promise<SearchableChecklistItem[]> => {
-    const text = encodeURIComponent(search) ;
-    const result = await this.fetchFromLinkedEvents(`/keyword/?text=${text}`);
+    const result = await this.linkedEventsApi.listKeywords({
+      text: search
+    });
 
-    return result.data.map((item: any) => {
+    return result.map((item: any) => {
       return {
         id: item.id,
-        text: this.getLocalizedValue(item.name)
+        text: LinkedEventsUtils.getLocalizedValue(item.name)
       };
     });
   } 
@@ -277,60 +281,15 @@ class EventList extends React.Component<Props, State> {
    * @return keyword or null if not found
    */
   private findKeyword = async (id: string): Promise<SearchableChecklistItem> => {
-    const result = await this.fetchFromLinkedEvents(`/keyword/${id}`);
+    const result = await this.linkedEventsApi.findKeyword(id);
     if (!result || !result.id) {
       return null;
     }
     
     return {
       id: result.id,
-      text: this.getLocalizedValue(result.name)
+      text: LinkedEventsUtils.getLocalizedValue(result.name)
     };
-  } 
-
-  /**
-   * Returns most appropriate localized value
-   * 
-   * @param localized localized item
-   * @returns most appropriate localized value
-   */
-  private getLocalizedValue(localized: { [key: string]: string }): string | null {
-    const result = localized[this.getCurrentLanguage()];
-    if (result) {
-      return result;
-    }
-
-    const languages: string[] = Object.keys(localized);
-    if (!languages || !languages.length) {
-      return null;
-    }
-
-    return localized[languages[0]];
-  }
-
-  /**
-   * Makes an query into the LinkedEvents API
-   * 
-   * @param url query URL without the server part
-   * @returns result
-   */
-  private fetchFromLinkedEvents = async (url: string) => {
-    const result = await (await fetch(`${listBlockOptions.apiUrl}/${url}`, {
-      headers: {
-        "Accept": "application/json"
-      }
-    })).json();
-
-    return result;
-  }
-
-  /**
-   * Returns current language
-   * 
-   * @returns current language
-   */
-  private getCurrentLanguage(): string {
-    return listBlockOptions.language;
   }
 
   /**

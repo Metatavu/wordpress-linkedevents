@@ -14,6 +14,15 @@
     class Settings {
 
       /**
+       * Returns array of supported language
+       * 
+       * @return array array of supported language
+       */
+      public static function getSupportedLangauges() {
+        return ["fi", "sv", "en"];
+      }
+
+      /**
        * Returns setting value
        * 
        * @param string $name setting name

@@ -29,6 +29,12 @@ const attributes: any = {
   },
   "sortLabel": {
     type: "string"
+  },
+  "keywordsVisible": {
+    type: 'boolean'
+  },
+  "keywordsLabel": {
+    type: "string"
   }
 };
 

@@ -8,6 +8,20 @@
   width: 100%;
 }
 
+.linkedevents-events-keyword-container {
+  line-height: 25px;
+}
+
+.linkedevents-events-keyword-container input[type="checkbox"] {
+  vertical-align: top;
+  margin-right: 5px;
+}
+
+.linkedevents-events-keyword-container label {
+  vertical-align: top;
+  font-size: 15px;
+}
+
 .linkedevents-events-date-sep {
   font-size: 12px;
   width: 12px;
