@@ -76,6 +76,13 @@ Show maximum number of results in list
 #### Duration (min - max)
 Filter events by their duration (in seconds)
 
+### Gutenberg event search block
+
+Event search block can be used to search event from LinkedEvent API in conjunction with the event list block.
+
+![Gutenberg search preview](https://static.metatavu.io/wordpress-linkedevents/gutenberg-search-preview.png)
+
+
 ### Event administration
 
 Plugin adds functionality to manage events directly from Wordpress admin view. All admin functions can be found from the admin dashboard menu Events
