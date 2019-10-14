@@ -23,11 +23,11 @@ Gutenberg event list block can be used to list events from the LinkedEvents API.
 
 #### Basic usage
 
-The plugin adds new block category LinkedEvents into Gutenberg. The category contains option for adding an event list and an event search widgets:
+The plugin adds new block category LinkedEvents into Gutenberg. The category contains option for adding an event list and an event search blocks:
 
 ![Gutenberg list add](https://static.metatavu.io/wordpress-linkedevents/gutenberg-list-add-2.png)
 
-The block can be added to the page by clicking the list item. When added to the page, the plugin display a preview of the events list in page. 
+The block can be added to the page by clicking the item. When added to the page, the plugin display a preview of the block in page. 
 
 ![Gutenberg list preview](https://static.metatavu.io/wordpress-linkedevents/gutenberg-list-preview.png)
 
