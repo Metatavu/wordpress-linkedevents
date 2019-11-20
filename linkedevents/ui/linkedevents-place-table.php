@@ -35,11 +35,18 @@
         
         $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
       }
-      
+      /**
+       * Returns free text search text if any specified 
+       * @return string free text search text if any specified
+       */
+      public function getText() {
+        return isset($_REQUEST['s']) ? $_REQUEST['s'] : null;
+      }
+    
       public function prepare_items() {
         $this->_column_headers = [ $this->get_columns(), $this->get_hidden_columns(), $this->get_sortable_columns() ];
         $this->process_bulk_action();
-        $places = $this->listPlaces($this->get_pagenum(), $this->perPage);
+        $places = $this->listPlaces($this->get_pagenum(), $this->perPage, true, $this->getText());
         
         $this->items = [];
         $itemCount = $places->getMeta()->getCount();
@@ -103,15 +110,48 @@
           $this->row_actions($actions)
         );
       }
-      
-      private function listPlaces($page, $pageSize, $sort = null) {
-        $showAllPlaces = true;
+
+      /**
+       * Renders search box
+       */
+      public function search_box( $text, $input_id ) {
+
+      ?>
+        <form method="get" class="search-form">
+          <p class="search-box">
+            <label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
+            <input type="search" id="<?php echo esc_attr( $input_id ); ?>" class="wp-filter-search" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php esc_attr_e( 'Search places...', 'linkedevents'); ?>"/>
+            <?php submit_button( $text, 'button', '', false, array('id' => 'search-submit') ); ?>
+            <input type="hidden" value="linkedevents-places.php" name="page"/>
+          </p>
+        </form>
+      <?php
+      }
+      /**
+       * Lists events from API
+       * 
+       * @param type $page page
+       * @param type $pageSize events per page
+       * @param type $showAll whether to show also draft events
+       * @param String $text search by free text
+       * @param type $sort sort by (optional)
+       * @return \Metatavu\LinkedEvents\Model\Place[] events
+       */
+
+      private function listPlaces($page, $pageSize, $showAllPlaces, $text, $sort = null) {
         $division = null;
-        $text = null;
+        $showAllPlaces = true;
         $dataSource = \Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("datasource");
         
         try {
-          return $this->filterApi->placeList($page, $pageSize, $showAllPlaces, $division, $dataSource, $text, $sort);
+          return $this->filterApi->placeList(
+            $page, 
+            $pageSize, 
+            $showAllPlaces, 
+            $division, 
+            $dataSource, 
+            $text, 
+            $sort);
         } catch (\Metatavu\LinkedEvents\ApiException $e) {
           echo '<div class="error notice">';
           if ($e->getResponseBody()) {

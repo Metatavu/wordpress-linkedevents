@@ -30,6 +30,7 @@
       
       public function renderPlaceList() {
         $table = new PlacesTable();
+        $table->search_box(__('Search', 'linkedevents'), 'search' );
         $table->prepare_items();
         $table->display();
       }
