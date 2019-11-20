@@ -43,18 +43,10 @@
         return isset($_REQUEST['s']) ? $_REQUEST['s'] : null;
       }
     
-      /**
-       * Returns status filter if any specified 
-       * @return string status filter if any specified
-       */
-      public function getStatus() {
-        return isset($_REQUEST['status']) ? $_REQUEST['status'] : null;
-      }
-      
       public function prepare_items() {
         $this->_column_headers = [ $this->get_columns(), $this->get_hidden_columns(), $this->get_sortable_columns() ];
         $this->process_bulk_action();
-        $places = $this->listPlaces($this->get_pagenum(), $this->perPage, true, $this->getText(), $this->getStatus());
+        $places = $this->listPlaces($this->get_pagenum(), $this->perPage, true, $this->getText());
         
         $this->items = [];
         $itemCount = $places->getMeta()->getCount();
@@ -123,7 +115,6 @@
        * Renders search box
        */
       public function search_box( $text, $input_id ) {
-        $status = $this->getStatus();
 
       ?>
         <form method="get" class="search-form">
@@ -132,9 +123,6 @@
             <input type="search" id="<?php echo esc_attr( $input_id ); ?>" class="wp-filter-search" name="s" value="<?php _admin_search_query(); ?>" placeholder="<?php esc_attr_e( 'Search places...', 'linkedevents'); ?>"/>
             <?php submit_button( $text, 'button', '', false, array('id' => 'search-submit') ); ?>
             <input type="hidden" value="linkedevents-places.php" name="page"/>
-            <?php if ($status) { 
-              echo '<input type="hidden" value="' . $status . '" name="status"/>';
-            } ?>
           </p>
         </form>
       <?php
