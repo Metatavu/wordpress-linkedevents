@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * EventTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Describes the actual events. Linked events API supports organizing events into hierarchies. This is implemented with collection events called \&quot;super events\&quot;. Super events are normal event objects, that reference contained events in \&quot;sub_events\&quot; property. Currently there are two major use cases: events such as \&quot;Helsinki Festival\&quot;, which consist of unique events over a span of time and recurring events such as theatrical productions with multiple showings. It is implementation dependent how the grouping of events is done. It should be noted that grouping might be automatic based on eg. event name and thus group unrelated events together and miss related events. Users of data are advised to prepare for this.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testEvent()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyId()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLocation()
     {
-
     }
 
     /**
@@ -103,7 +96,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyKeywords()
     {
-
     }
 
     /**
@@ -111,7 +103,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyInLanguage()
     {
-
     }
 
     /**
@@ -119,7 +110,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertySuperEvent()
     {
-
     }
 
     /**
@@ -127,7 +117,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertySuperEventType()
     {
-
     }
 
     /**
@@ -135,7 +124,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyEventStatus()
     {
-
     }
 
     /**
@@ -143,7 +131,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPublicationStatus()
     {
-
     }
 
     /**
@@ -151,7 +138,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyExternalLinks()
     {
-
     }
 
     /**
@@ -159,7 +145,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyOffers()
     {
-
     }
 
     /**
@@ -167,7 +152,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertySubEvents()
     {
-
     }
 
     /**
@@ -175,7 +159,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCustomData()
     {
-
     }
 
     /**
@@ -183,7 +166,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyName()
     {
-
     }
 
     /**
@@ -191,7 +173,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyImages()
     {
-
     }
 
     /**
@@ -199,7 +180,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedTime()
     {
-
     }
 
     /**
@@ -207,7 +187,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedTime()
     {
-
     }
 
     /**
@@ -215,7 +194,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyInfoUrl()
     {
-
     }
 
     /**
@@ -223,7 +201,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDescription()
     {
-
     }
 
     /**
@@ -231,7 +208,20 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyShortDescription()
     {
+    }
 
+    /**
+     * Test attribute "context"
+     */
+    public function testPropertyContext()
+    {
+    }
+
+    /**
+     * Test attribute "type"
+     */
+    public function testPropertyType()
+    {
     }
 
     /**
@@ -239,7 +229,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDatePublished()
     {
-
     }
 
     /**
@@ -247,7 +236,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyProvider()
     {
-
     }
 
     /**
@@ -255,7 +243,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLocationExtraInfo()
     {
-
     }
 
     /**
@@ -263,7 +250,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyStartTime()
     {
-
     }
 
     /**
@@ -271,7 +257,20 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyEndTime()
     {
+    }
 
+    /**
+     * Test attribute "hasStartTime"
+     */
+    public function testPropertyHasStartTime()
+    {
+    }
+
+    /**
+     * Test attribute "hasEndTime"
+     */
+    public function testPropertyHasEndTime()
+    {
     }
 
     /**
@@ -279,7 +278,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAudience()
     {
-
     }
 
     /**
@@ -287,7 +285,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDataSource()
     {
-
     }
 
     /**
@@ -295,7 +292,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedBy()
     {
-
     }
 
     /**
@@ -303,7 +299,6 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedBy()
     {
-
     }
 
     /**
@@ -311,7 +306,5 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPublisher()
     {
-
     }
-
 }

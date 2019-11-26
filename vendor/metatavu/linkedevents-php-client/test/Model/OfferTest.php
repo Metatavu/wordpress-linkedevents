@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * OfferTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description information record for this event. The prices are not in a structured format and the format depends on information source. An exception to this is the case of free event. These are indicated using is_free flag, which is searchable.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffer()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPrice()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyInfoUrl()
     {
-
     }
 
     /**
@@ -103,7 +96,6 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDescription()
     {
-
     }
 
     /**
@@ -111,7 +103,5 @@ class OfferTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyIsFree()
     {
-
     }
-
 }

@@ -4,7 +4,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,18 +26,18 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
-use \LinkedEvents\Configuration;
-use \LinkedEvents\ApiClient;
-use \LinkedEvents\ApiException;
-use \LinkedEvents\ObjectSerializer;
+use \Metatavu\LinkedEvents\Configuration;
+use \Metatavu\LinkedEvents\ApiClient;
+use \Metatavu\LinkedEvents\ApiException;
+use \Metatavu\LinkedEvents\ObjectSerializer;
 
 /**
  * EventApiTest Class Doc Comment
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -49,7 +49,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -57,7 +56,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -65,7 +63,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -73,7 +70,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -84,7 +80,16 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventCreate()
     {
+    }
 
+    /**
+     * Test case for eventDelete
+     *
+     * Delete an event.
+     *
+     */
+    public function testEventDelete()
+    {
     }
 
     /**
@@ -95,7 +100,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventList()
     {
-
     }
 
     /**
@@ -106,7 +110,6 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventRetrieve()
     {
-
     }
 
     /**
@@ -117,7 +120,5 @@ class EventApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testEventUpdate()
     {
-
     }
-
 }

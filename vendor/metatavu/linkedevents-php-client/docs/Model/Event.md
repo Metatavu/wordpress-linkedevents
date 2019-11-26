@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **externalLinks** | [**\Metatavu\LinkedEvents\Model\Eventlink[]**](Eventlink.md) | See external link definition | [optional] 
 **offers** | [**\Metatavu\LinkedEvents\Model\Offer[]**](Offer.md) | See offer definition | [optional] 
 **subEvents** | [**\Metatavu\LinkedEvents\Model\IdRef[]**](IdRef.md) | for aggregate events this contains references to all sub events. Usually this means that the sub events are part of series. The field &#39;super_event_type&#39; tells the type of the aggregate event. | [optional] 
-**customData** | **string** | Key value field for custom data. FIXME: is there 6Aika-wide use case for this? | [optional] 
+**customData** | **object** | Key value field for custom data. FIXME: is there 6Aika-wide use case for this? | [optional] 
 **name** | [**\Metatavu\LinkedEvents\Model\EventName**](EventName.md) |  | [optional] 
 **images** | [**\Metatavu\LinkedEvents\Model\Image[]**](Image.md) |  | [optional] 
 **createdTime** | [**\DateTime**](\DateTime.md) | Creation time for the event entry. | [optional] 

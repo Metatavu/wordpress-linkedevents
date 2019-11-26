@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * PlaceAddressLocalityTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Describes where the address is located, typically this would be name of the city
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlaceAddressLocality()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyFi()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertySv()
     {
-
     }
 
     /**
@@ -103,7 +96,5 @@ class PlaceAddressLocalityTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyEn()
     {
-
     }
-
 }

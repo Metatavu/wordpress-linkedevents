@@ -4,7 +4,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,18 +26,18 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
-use \LinkedEvents\Configuration;
-use \LinkedEvents\ApiClient;
-use \LinkedEvents\ApiException;
-use \LinkedEvents\ObjectSerializer;
+use \Metatavu\LinkedEvents\Configuration;
+use \Metatavu\LinkedEvents\ApiClient;
+use \Metatavu\LinkedEvents\ApiException;
+use \Metatavu\LinkedEvents\ObjectSerializer;
 
 /**
  * FilterApiTest Class Doc Comment
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -49,7 +49,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -57,7 +56,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -65,7 +63,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -73,7 +70,26 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
+    }
 
+    /**
+     * Test case for keywordCreate
+     *
+     * Creates new keyword.
+     *
+     */
+    public function testKeywordCreate()
+    {
+    }
+
+    /**
+     * Test case for keywordDelete
+     *
+     * Delete a keyword.
+     *
+     */
+    public function testKeywordDelete()
+    {
     }
 
     /**
@@ -84,7 +100,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeywordList()
     {
-
     }
 
     /**
@@ -95,7 +110,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeywordRetrieve()
     {
-
     }
 
     /**
@@ -106,7 +120,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeywordSetList()
     {
-
     }
 
     /**
@@ -117,7 +130,36 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeywordSetRetrieve()
     {
+    }
 
+    /**
+     * Test case for keywordUpdate
+     *
+     * Update a keyword.
+     *
+     */
+    public function testKeywordUpdate()
+    {
+    }
+
+    /**
+     * Test case for placeCreate
+     *
+     * Creates new place.
+     *
+     */
+    public function testPlaceCreate()
+    {
+    }
+
+    /**
+     * Test case for placeDelete
+     *
+     * Delete a place.
+     *
+     */
+    public function testPlaceDelete()
+    {
     }
 
     /**
@@ -128,7 +170,6 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlaceList()
     {
-
     }
 
     /**
@@ -139,7 +180,15 @@ class FilterApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlaceRetrieve()
     {
-
     }
 
+    /**
+     * Test case for placeUpdate
+     *
+     * Update a place.
+     *
+     */
+    public function testPlaceUpdate()
+    {
+    }
 }

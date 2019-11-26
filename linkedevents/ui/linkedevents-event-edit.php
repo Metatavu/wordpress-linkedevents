@@ -41,6 +41,7 @@
               $this->updateEventStartTime($event);
               $this->updateEventEndTime($event);
               $this->updateEventPublicationStatus($event);
+              $this->updateCustomData($event);
               $this->updateEvent($event);
             } catch (\Metatavu\LinkedEvents\ApiException $e) {
               echo '<div class="error notice">';
@@ -79,6 +80,7 @@
         $this->renderEventLocation($event);
         $this->renderEventKeywords($event);
         $this->renderImageSelector('image', __('Event Image', 'linkedevents'), $imageUrl);
+        $this->renderCustomDataInput('custom_data', $event->getCustomData());
         $this->renderLocalizedMemo(__('Description', 'linkedevents'), 'description', $event->getDescription());
         $this->renderLocalizedMemo(__('Short Description', 'linkedevents'), 'shortDescription', $event->getShortDescription());
       }
