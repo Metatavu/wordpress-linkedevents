@@ -66,7 +66,7 @@ class Event implements ArrayAccess
         'externalLinks' => '\Metatavu\LinkedEvents\Model\Eventlink[]',
         'offers' => '\Metatavu\LinkedEvents\Model\Offer[]',
         'subEvents' => '\Metatavu\LinkedEvents\Model\IdRef[]',
-        'customData' => 'string',
+        'customData' => 'object',
         'name' => '\Metatavu\LinkedEvents\Model\EventName',
         'images' => '\Metatavu\LinkedEvents\Model\Image[]',
         'createdTime' => '\DateTime',
@@ -610,7 +610,7 @@ class Event implements ArrayAccess
 
     /**
      * Gets customData
-     * @return string
+     * @return object
      */
     public function getCustomData()
     {
@@ -619,7 +619,7 @@ class Event implements ArrayAccess
 
     /**
      * Sets customData
-     * @param string $customData Key value field for custom data. FIXME: is there 6Aika-wide use case for this?
+     * @param object $customData Key value field for custom data. FIXME: is there 6Aika-wide use case for this?
      * @return $this
      */
     public function setCustomData($customData)

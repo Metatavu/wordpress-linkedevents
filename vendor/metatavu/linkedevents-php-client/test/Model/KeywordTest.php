@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * KeywordTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Keywords are used to describe events. Linked events uses namespaced keywords in order to support having events from different sources. Namespaces are needed because keywords are defined by the organization sourcing the events and can therefore overlap in meaning. Conversely the meaning of same keyword can vary between organizations. Organization sourcing the keyword can be identified by data_source field. Data_source field will later specify standardized namespaces as well.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeyword()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyId()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyName()
     {
-
     }
 
     /**
@@ -103,7 +96,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyImages()
     {
-
     }
 
     /**
@@ -111,7 +103,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyOriginId()
     {
-
     }
 
     /**
@@ -119,7 +110,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedTime()
     {
-
     }
 
     /**
@@ -127,7 +117,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedTime()
     {
-
     }
 
     /**
@@ -135,7 +124,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAggregate()
     {
-
     }
 
     /**
@@ -143,7 +131,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDataSource()
     {
-
     }
 
     /**
@@ -151,7 +138,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedBy()
     {
-
     }
 
     /**
@@ -159,7 +145,6 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedBy()
     {
-
     }
 
     /**
@@ -167,7 +152,5 @@ class KeywordTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAltLabels()
     {
-
     }
-
 }

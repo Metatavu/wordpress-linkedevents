@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * PlaceTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Places describe physical locations for events and means for contacting people responsible for these locations. Place definitions come from organizations publishing events (field \&quot;publisher\&quot;) and can thus have slightly different semantics between places sourced from different organizations.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPlace()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyId()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCustomData()
     {
-
     }
 
     /**
@@ -103,7 +96,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyName()
     {
-
     }
 
     /**
@@ -111,7 +103,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyImages()
     {
-
     }
 
     /**
@@ -119,7 +110,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyOriginId()
     {
-
     }
 
     /**
@@ -127,7 +117,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedTime()
     {
-
     }
 
     /**
@@ -135,7 +124,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedTime()
     {
-
     }
 
     /**
@@ -143,7 +131,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyInfoUrl()
     {
-
     }
 
     /**
@@ -151,7 +138,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDescription()
     {
-
     }
 
     /**
@@ -159,7 +145,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPosition()
     {
-
     }
 
     /**
@@ -167,7 +152,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyEmail()
     {
-
     }
 
     /**
@@ -175,7 +159,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyTelephone()
     {
-
     }
 
     /**
@@ -183,7 +166,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyContactType()
     {
-
     }
 
     /**
@@ -191,7 +173,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyStreetAddress()
     {
-
     }
 
     /**
@@ -199,7 +180,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAddressLocality()
     {
-
     }
 
     /**
@@ -207,7 +187,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAddressRegion()
     {
-
     }
 
     /**
@@ -215,7 +194,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPostalCode()
     {
-
     }
 
     /**
@@ -223,7 +201,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPostOfficeBoxNum()
     {
-
     }
 
     /**
@@ -231,7 +208,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyAddressCountry()
     {
-
     }
 
     /**
@@ -239,7 +215,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDeleted()
     {
-
     }
 
     /**
@@ -247,7 +222,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDataSource()
     {
-
     }
 
     /**
@@ -255,7 +229,5 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPublisher()
     {
-
     }
-
 }

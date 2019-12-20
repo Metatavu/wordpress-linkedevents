@@ -4,7 +4,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -26,18 +26,18 @@
  * Please update the test case below to test the endpoint.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
-use \LinkedEvents\Configuration;
-use \LinkedEvents\ApiClient;
-use \LinkedEvents\ApiException;
-use \LinkedEvents\ObjectSerializer;
+use \Metatavu\LinkedEvents\Configuration;
+use \Metatavu\LinkedEvents\ApiClient;
+use \Metatavu\LinkedEvents\ApiException;
+use \Metatavu\LinkedEvents\ObjectSerializer;
 
 /**
  * ImageApiTest Class Doc Comment
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -49,7 +49,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -57,7 +56,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -65,7 +63,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -73,7 +70,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -84,7 +80,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testImageCreate()
     {
-
     }
 
     /**
@@ -95,7 +90,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testImageList()
     {
-
     }
 
     /**
@@ -106,7 +100,6 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testImageRetrieve()
     {
-
     }
 
     /**
@@ -117,7 +110,5 @@ class ImageApiTest extends \PHPUnit_Framework_TestCase
      */
     public function testImageUpdate()
     {
-
     }
-
 }

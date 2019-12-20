@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * ImageTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Images are used as pictures for events, places and organizers.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,13 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testImage()
     {
+    }
 
+    /**
+     * Test attribute "id"
+     */
+    public function testPropertyId()
+    {
     }
 
     /**
@@ -87,7 +89,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyName()
     {
-
     }
 
     /**
@@ -95,7 +96,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyPublisher()
     {
-
     }
 
     /**
@@ -103,7 +103,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedTime()
     {
-
     }
 
     /**
@@ -111,7 +110,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedTime()
     {
-
     }
 
     /**
@@ -119,7 +117,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedBy()
     {
-
     }
 
     /**
@@ -127,7 +124,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedBy()
     {
-
     }
 
     /**
@@ -135,7 +131,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyUrl()
     {
-
     }
 
     /**
@@ -143,7 +138,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCropping()
     {
-
     }
 
     /**
@@ -151,7 +145,5 @@ class ImageTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLicense()
     {
-
     }
-
 }

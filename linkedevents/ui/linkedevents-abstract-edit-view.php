@@ -145,6 +145,13 @@
         echo '<input class="linkedevents-input" type="text" name="' . $name . '" value="' . $value . '" />';
       }
       
+      protected function renderCustomDataInput($name, $values) {
+        foreach($values as $key => $value) {
+          $fieldName = "$name-$key";
+          $this->renderTextInput($key, $fieldName, $value);
+        }
+      }
+
       /**
        * Renders input fields for localized property
        * 

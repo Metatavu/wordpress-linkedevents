@@ -5,7 +5,7 @@
  * PHP version 5
  *
  * @category Class
- * @package  LinkedEvents
+ * @package  Metatavu\LinkedEvents
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
@@ -27,7 +27,7 @@
  * Please update the test case below to test the model.
  */
 
-namespace LinkedEvents;
+namespace Metatavu\LinkedEvents;
 
 /**
  * KeywordSetTest Class Doc Comment
@@ -35,7 +35,7 @@ namespace LinkedEvents;
  * @category    Class */
 // * @description Keyword sets are used to group keywords together into classification groups. For example, one set of keywords might describe themes used by an event provider and another could be used to describe audience groups.
 /**
- * @package     LinkedEvents
+ * @package     Metatavu\LinkedEvents
  * @author      Swagger Codegen team
  * @link        https://github.com/swagger-api/swagger-codegen
  */
@@ -47,7 +47,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
     }
 
     /**
@@ -63,7 +61,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-
     }
 
     /**
@@ -79,7 +75,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeywordSet()
     {
-
     }
 
     /**
@@ -87,7 +82,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyId()
     {
-
     }
 
     /**
@@ -95,7 +89,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyName()
     {
-
     }
 
     /**
@@ -103,7 +96,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyOriginId()
     {
-
     }
 
     /**
@@ -111,7 +103,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyCreatedTime()
     {
-
     }
 
     /**
@@ -119,7 +110,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedTime()
     {
-
     }
 
     /**
@@ -127,7 +117,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyDataSource()
     {
-
     }
 
     /**
@@ -135,7 +124,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyLastModifiedBy()
     {
-
     }
 
     /**
@@ -143,7 +131,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyUsage()
     {
-
     }
 
     /**
@@ -151,7 +138,6 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyOrganization()
     {
-
     }
 
     /**
@@ -159,7 +145,5 @@ class KeywordSetTest extends \PHPUnit_Framework_TestCase
      */
     public function testPropertyKeywords()
     {
-
     }
-
 }

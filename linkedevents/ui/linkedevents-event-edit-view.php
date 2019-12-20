@@ -90,6 +90,21 @@
       }
       
       /**
+       * Updates custom_data into model
+       * 
+       * @param \Metatavu\LinkedEvents\Model\Event $event
+       */
+      protected function updateCustomData($event) {
+        $customData = $event->getCustomData();
+        foreach($customData as $key => $value) {
+          $fieldName = "custom_data-$key";
+          $customData[$key] = $this->getPostString($fieldName);
+        }
+        $event->setCustomData($customData);
+      }
+
+
+      /**
        * Updates event name into model
        * 
        * @param \Metatavu\LinkedEvents\Model\Event $event
