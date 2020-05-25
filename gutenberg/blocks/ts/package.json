@@ -7,6 +7,9 @@
     "name": "Metatavu",
     "email": "devs@metatavu.fi"
   },
+  "scripts": {
+    "build": "webpack"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
@@ -22,7 +25,7 @@
     "tslint": "^5.16.0",
     "typescript": "^3.4.4",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1"
+    "webpack-cli": "^3.3.11"
   },
   "babel": {
     "presets": [
