@@ -6,6 +6,9 @@
     "name": "Metatavu",
     "email": "devs@metatavu.fi"
   },
+  "scripts": {
+    "grunt": "grunt"
+  },
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-shell": "^3.0.1",
