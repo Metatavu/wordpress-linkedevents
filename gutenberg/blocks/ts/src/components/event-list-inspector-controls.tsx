@@ -72,6 +72,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderSort() }
         { this.renderPageSize() }
         { this.renderLanguageSelection() }
+        { this.renderFieldConfig() }
         { this.renderAddressLocalityFi() }
       </InspectorControls>
     );
@@ -178,6 +179,12 @@ class EventList extends React.Component<Props, State> {
     }]);
   }
   
+  private renderFieldConfig = () => {
+    const title = __("Field config", "linkedevents");
+    const hint = __("Show/hide and sort fields", "linkedevents");
+    return this.renderTextControl(title, hint, "field-config");
+  }
+
   /**
    * Renders recurring filter
    */

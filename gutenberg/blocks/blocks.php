@@ -108,6 +108,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           "filter-language" => [
             'type' => 'string'
           ],
+          "field-config" => [
+            'type' => 'string'
+          ],
           "sort" => [
             'type' => 'string'
           ],
@@ -267,6 +270,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalitySv = null;
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
+      $fieldConfig = $attributes["field-config"];
       $publicationStatus = null;
 
       try {
@@ -315,7 +319,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $templateData = [
             "events" => $events->getData(),
             "locations" => $locations,
-            "language" => $language
+            "language" => $language,
+            "fieldConfig" => $fieldConfig
           ];
 
           $templateLoader = new \Metatavu\LinkedEvents\TemplateLoader();
