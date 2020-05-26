@@ -266,7 +266,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalityFi = $attributes["filter-locality-fi"];
       $addressLocalitySv = null;
       $addressLocalityEn = null;
-      $language = $attributes["language"];
+      $language = $attributes["filter-language"];
       $publicationStatus = null;
 
       try {
@@ -314,7 +314,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         if ($events->valid()) {
           $templateData = [
             "events" => $events->getData(),
-            "locations" => $locations
+            "locations" => $locations,
+            "language" => $language
           ];
 
           $templateLoader = new \Metatavu\LinkedEvents\TemplateLoader();

@@ -68,6 +68,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderKeywordFilter() }
         { this.renderRecurringFilter() }
         { this.renderDurationFilter() }
+        { this.renderSelectedFields() }
         { this.renderSort() }
         { this.renderPageSize() }
         { this.renderLanguageSelection() }
@@ -237,6 +238,12 @@ class EventList extends React.Component<Props, State> {
       </div>
     );
 
+  }
+
+  private renderSelectedFields = () => {
+    const title = __("Fields", "linkedevents");
+    const hint = __("Show following fields in event listing", "linkedevents");
+    // TODO: return this.renderSearchableChecklistFilter(title, hint, "keywords", this.searchKeywords, this.findKeyword);
   }
 
   /**
