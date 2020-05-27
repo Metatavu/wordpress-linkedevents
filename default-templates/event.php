@@ -10,6 +10,10 @@
     $fieldsToShow = explode(',', $fieldConfig);
   }
 
+  if ( empty($language) || $language === "All languages") {
+    $language = "fi";
+  }
+
   $eventName = $event["name"][$language];
   $eventLink = $event["externalLinks"][0]["link"];
   $shortDescription = $event["shortDescription"][$language];

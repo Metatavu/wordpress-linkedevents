@@ -423,7 +423,7 @@ class EventApi
             $queryParams['address_locality_en'] = $this->apiClient->getSerializer()->toQueryValue($addressLocalityEn);
         }
         // query params
-        if ($language !== null) {
+        if ($language !== null && strlen($language) < 3) {
             $queryParams['language'] = $this->apiClient->getSerializer()->toQueryValue($language);
         }
         // query params

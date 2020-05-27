@@ -68,7 +68,6 @@ class EventList extends React.Component<Props, State> {
         { this.renderKeywordFilter() }
         { this.renderRecurringFilter() }
         { this.renderDurationFilter() }
-        { this.renderSelectedFields() }
         { this.renderSort() }
         { this.renderPageSize() }
         { this.renderLanguageSelection() }
@@ -165,8 +164,8 @@ class EventList extends React.Component<Props, State> {
     const hint = __("Show events with chosen language", "linkedevents");
 
     return this.renderSelectControlFilter(title, hint, "language", [{
-      label: __("All languages", "linkedevents"),
-      value: null
+      value: null,
+      label: __("All languages", "linkedevents")
     }, {
       label: __("Finnish", "linkedevents"),
       value: "fi"
@@ -245,12 +244,6 @@ class EventList extends React.Component<Props, State> {
       </div>
     );
 
-  }
-
-  private renderSelectedFields = () => {
-    const title = __("Fields", "linkedevents");
-    const hint = __("Show following fields in event listing", "linkedevents");
-    // TODO: return this.renderSearchableChecklistFilter(title, hint, "keywords", this.searchKeywords, this.findKeyword);
   }
 
   /**
