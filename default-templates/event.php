@@ -9,7 +9,6 @@
     error_log($fieldConfig);
     $fieldsToShow = explode(',', $fieldConfig);
   }
-
   if ( empty($language) || $language === "All languages") {
     $language = "fi";
   }

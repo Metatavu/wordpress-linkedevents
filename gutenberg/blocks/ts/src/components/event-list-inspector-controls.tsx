@@ -3,6 +3,7 @@ import { wp, WPSelectControlOption } from 'wp';
 import moment from "moment";
 import { LinkedEventsOptions } from '../types';
 import SearchableChecklist, { SearchableChecklistItem } from './searchable-checklist';
+import DragAndDropSelectList from './drag-and-drop-select-list';
 import { LinkedEventsApi } from '../linkedevents/api';
 import LinkedEventsUtils from '../linkedevents/utils';
 
@@ -181,6 +182,7 @@ class EventList extends React.Component<Props, State> {
   private renderFieldConfig = () => {
     const title = __("Field config", "linkedevents");
     const hint = __("Show/hide and sort fields", "linkedevents");
+    return this.renderDragAndDropList(title, hint, "field-config");
     return this.renderTextControl(title, hint, "field-config");
   }
 
@@ -412,7 +414,7 @@ class EventList extends React.Component<Props, State> {
    */
   private renderSelectControl = (title: string, hint: string, attribute: string, options: WPSelectControlOption[]) => {
     const { SelectControl, Tooltip } = wp.components;
-
+    
     return (
       <div>
         <Tooltip text={ hint } >
@@ -452,6 +454,20 @@ class EventList extends React.Component<Props, State> {
         <TextControl value={ this.props.getAttribute(attribute) } onChange={(value: string) => this.props.setAttribute(attribute, value) }></TextControl>
       </div>
     );
+  }
+
+  private renderDragAndDropList = (title: string, hint: string, attribute: string) => {
+    const { Tooltip } = wp.components;
+
+
+    return (
+      <div>
+        <Tooltip text={ hint } >
+          <label> { title } </label>
+        </Tooltip>
+        <DragAndDropSelectList></DragAndDropSelectList>
+      </div>
+    )
   }
 
 }
