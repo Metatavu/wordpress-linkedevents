@@ -4,18 +4,15 @@ import { wp } from 'wp';
 declare var wp: wp;
 const { __ } = wp.i18n;
 
-export interface DragAndDropListItem {
-  name: string;
-  selected: boolean;
-}
-
 interface State {
-  items: DragAndDropListItem[];
+  items: string[];
   selected: string[];
 }
 
 interface Props {
   value: string[];
+  forcedItems: string[];
+  optionalItems: string[];
   onChange: (value: string[]) => void;
 }
 
@@ -23,98 +20,153 @@ class DragAndDropSelectList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      items: [
-        { name: 'name', selected: true },
-        { name: 'shortDescription', selected: false },
-        { name: 'location', selected: false }
-      ],
-      selected: ['name']
+      items: [],
+      selected: []
     };
   }
 
-    /**
+  /**
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
     const selected: any[] = [];
+    const items: string[] = this.props.optionalItems;
 
     for (let i = 0; i < this.props.value.length; i++) {
-      selected.push({name: this.props.value[i], selected: true});
+      selected.push(this.props.value[i]);
     }
 
+    this.props.forcedItems.forEach(item => {
+      if (!selected.includes(item)) {
+        selected.push(item);
+      }
+    })
+
     this.setState({
-      selected: selected
+      items,
+      selected
     });
-  }
+  };
 
   draggedItem: any;
   draggedIdx: any;
 
   onDragStart = (e: any, index: number) => {
-    this.draggedItem = this.state.items[index];
+    this.draggedItem = this.state.selected[index];
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', e.target.parentNode);
     e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
   };
 
   onDragOver = (index: number) => {
-    const draggedOverItem = this.state.items[index];
+    const draggedOverItem = this.state.selected[index];
 
     if (this.draggedItem === draggedOverItem) {
       return;
     }
-    let items = this.state.items.filter(item => item !== this.draggedItem);
-    items.splice(index, 0, this.draggedItem);
-    this.setState({ items });
+    let selected = this.state.selected.filter(item => item !== this.draggedItem);
+    selected.splice(index, 0, this.draggedItem);
+    this.setState({ selected });
+    this.triggerSelectedChange(selected);
   };
 
   onDragEnd = () => {
     this.draggedIdx = null;
   };
 
-  handleChange(event: any) {
-    const target = event.target;
-    const name = target.name;
-    let items;
-    let selected = [];
-    if (name !== 'name') {
-      items = this.state.items.map(item => {
-        if (item.name === name) {
-          item.selected = !item.selected;
-          selected.push(item.name);
-        }
-        return item;
-      });
-    }
-
-    this.setState({
-      items: items
-    });
-  }
-
   render() {
-    const { CheckboxControl } = wp.components;
     return (
       <div className='App'>
         <main>
           <ul>
-            {this.state.items.map((item, idx) => (
-              <li key={item.name} onDragOver={() => this.onDragOver(idx)}>
-                <div className='drag' draggable onDragStart={e => this.onDragStart(e, idx)} onDragEnd={this.onDragEnd}>
-                  <span>
-                    <input name={item.name} type='checkbox' checked={item.selected} onChange={event => this.handleChange(event)} />
-                  </span>
-                  <span className='content'>
-                    {idx} - {item.name}
-                  </span>
-                </div>
-              </li>
-            ))}
+            {this.renderSelectedItems()}
+            {this.renderItems()}
           </ul>
         </main>
       </div>
     );
   }
+
+  /**
+   * Renders selected items
+   */
+  private renderSelectedItems = () => {
+    const { CheckboxControl } = wp.components;
+
+    return (
+      <div>
+        {this.state.selected.map((selectedItem, idx) => (
+          <li key={selectedItem} onDragOver={() => this.onDragOver(idx)}>
+            <div className='drag' draggable onDragStart={e => this.onDragStart(e, idx)} onDragEnd={this.onDragEnd}>
+              <CheckboxControl checked={true} label={`${idx + 1}. ${__(selectedItem)}`} key={selectedItem} onChange={() => this.onSelectedItemChange(selectedItem)} />
+            </div>
+          </li>
+        ))}
+      </div>
+    );
+  };
+
+  /**
+   * Renders match items
+   */
+  private renderItems = () => {
+    const { CheckboxControl } = wp.components;
+
+    return this.state.items.map(item => {
+      return <div>{<CheckboxControl checked={false} label={item} key={item} onChange={() => this.onMatchItemChange(item)} />}</div>;
+    });
+  };
+
+  /**
+   * Event handler for selected item change
+   *
+   * @param removedItem item removed from selected list
+   */
+  private onSelectedItemChange = (removedItem: string) => {
+    if (!this.props.forcedItems.includes(removedItem)) {
+      const selected = this.state.selected.filter(selectedItem => {
+        return selectedItem !== removedItem;
+      });
+
+      const items = [removedItem].concat(this.state.items);
+
+      this.setState({
+        items,
+        selected
+      });
+
+      this.triggerSelectedChange(selected);
+    }
+  };
+
+  /**
+   * Event handler for matc item change
+   *
+   * @param removedItem item selected from matched list
+   */
+  private onMatchItemChange = (selectedItem: string) => {
+    const items = this.state.items.filter(item => {
+      return item !== selectedItem;
+    });
+
+    const selected = this.state.selected.concat([selectedItem]);
+
+    this.setState({
+      items,
+      selected
+    });
+
+    this.triggerSelectedChange(selected);
+  };
+
+  /**
+   * Triggers a selected change
+   *
+   * @param selected selected items
+   */
+  private triggerSelectedChange = (selected: string[]) => {
+    this.props.onChange(selected);
+  };
 }
 
 export default DragAndDropSelectList;

@@ -169,20 +169,20 @@ class EventList extends React.Component<Props, State> {
 
     return this.renderSelectControlFilter(title, hint, 'language', [
       {
-        value: null,
+        value: '',
         label: __('All languages', 'linkedevents')
       },
       {
-        label: __('Finnish', 'linkedevents'),
-        value: 'fi'
+        value: 'fi',
+        label: __('Finnish', 'linkedevents')
       },
       {
-        label: __('English', 'linkedevents'),
-        value: 'en'
+        value: 'en',
+        label: __('English', 'linkedevents')
       },
       {
-        label: __('Swedish', 'linkedevents'),
-        value: 'sv'
+        value: 'sv',
+        label: __('Swedish', 'linkedevents')
       }
     ]);
   };
@@ -190,8 +190,9 @@ class EventList extends React.Component<Props, State> {
   private renderFieldConfig = () => {
     const title = __('Field config', 'linkedevents');
     const hint = __('Show/hide and sort fields', 'linkedevents');
-    return this.renderDragAndDropList(title, hint, 'field-config');
-    return this.renderTextControl(title, hint, 'field-config');
+    const forcedItems = ['name'];
+    const optionalItems = ['shortDescription', 'description', 'location', 'infoUrl', 'startTime', 'endTime', 'images'];
+    return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
   };
 
   /**
@@ -369,14 +370,14 @@ class EventList extends React.Component<Props, State> {
   };
 
   /**
-   * Renders checkboxded drag and drop list 
+   * Renders checkboxded drag and drop list
    *
    * @param title title
    * @param hint hint text
    * @param attribute attribute for storing list value
    * @param onChange method to execute list changes
    */
-  private renderDragAndDropList = (title: string, hint: string, attribute: string) => {
+  private renderDragAndDropList = (title: string, hint: string, attribute: string, forcedItems: string[], optionalItems: string[]) => {
     const { Tooltip } = wp.components;
 
     const value = (this.props.getAttribute(`filter-${attribute}`) || '').split(',').filter((id: string) => {
@@ -392,7 +393,7 @@ class EventList extends React.Component<Props, State> {
         <Tooltip text={hint}>
           <label> {title} </label>
         </Tooltip>
-        <DragAndDropSelectList value={value} onChange={onChange}></DragAndDropSelectList>
+        <DragAndDropSelectList forcedItems={forcedItems} optionalItems={optionalItems} value={value} onChange={onChange}></DragAndDropSelectList>
       </div>
     );
   };
