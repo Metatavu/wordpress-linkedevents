@@ -93,6 +93,30 @@
         "Vain kertaluontoiset"
       ],
 
+      "Show events with chosen language": [
+        "Näytä tapahtumat valitulla kielellä"
+      ],
+
+      "Event language": [
+        "Tapahtumien kieli"
+      ],
+
+      "All languages": [
+        "Kaikki kielet"
+      ],
+
+      "Finnish": [
+        "Suomi"
+      ],
+
+      "English": [
+        "Englanti"
+      ],
+
+      "Swedish": [
+        "Ruotsi"
+      ],
+
       "Duration (min - max)": [
         "Kesto (minimi - maksimi)"
       ],

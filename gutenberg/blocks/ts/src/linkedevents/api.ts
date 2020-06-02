@@ -22,7 +22,7 @@ export class LinkedEventsApi {
    */
   public listPlaces = async (search: string): Promise<any[]> => {
     const text = encodeURIComponent(search) ;
-    const result = await this.fetchFromLinkedEvents(`/place/?text=${text}`);
+    const result = await this.fetchFromLinkedEvents(`place/?text=${text}`);
 
     if (!result) {
       return [];
@@ -38,7 +38,7 @@ export class LinkedEventsApi {
    * @return place or null if not found
    */
   public findPlace = async (id: string): Promise<any> => {
-    const result = await this.fetchFromLinkedEvents(`/place/${id}`);
+    const result = await this.fetchFromLinkedEvents(`place/${id}`);
     if (!result || !result.id) {
       return null;
     }
@@ -54,7 +54,7 @@ export class LinkedEventsApi {
    */
   public listKeywords = async (options?: { text?: string }): Promise<any[]> => {
     const queryParams = this.getQueryParams(options);
-    const result = await this.fetchFromLinkedEvents(`/keyword/?${queryParams}`);
+    const result = await this.fetchFromLinkedEvents(`keyword/?${queryParams}`);
     if (!result) {
       return [];
     }
@@ -69,7 +69,7 @@ export class LinkedEventsApi {
    * @return keyword or null if not found
    */
   public findKeyword = async (id: string): Promise<any> => {
-    const result = await this.fetchFromLinkedEvents(`/keyword/${id}`);
+    const result = await this.fetchFromLinkedEvents(`keyword/${id}`);
     if (!result || !result.id) {
       return null;
     }

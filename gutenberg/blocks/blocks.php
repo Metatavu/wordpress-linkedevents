@@ -105,6 +105,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           "filter-locality-fi" => [
             'type' => 'string'
           ],
+          "filter-language" => [
+            'type' => 'string'
+          ],
           "sort" => [
             'type' => 'string'
           ],
@@ -233,6 +236,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
      *   @type string $addressLocalityFi Search for events in given address localities (fi). Multiple localities can be entered by separating them by a comma (optional)
      *   @type string $addressLocalitySv Search for events in given address localities (sv). Multiple localities can be entered by separating them by a comma (optional)
      *   @type string $addressLocalityEn Search for events in given address localities (en). Multiple localities can be entered by separating them by a comma (optional)
+     *   @type string $language Search for events in given language (optional)
      *   @type string $publicationStatus Filter events by publication status (either draft or public) (optional)
      * }
      */
@@ -262,6 +266,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalityFi = $attributes["filter-locality-fi"];
       $addressLocalitySv = null;
       $addressLocalityEn = null;
+      $language = $attributes["filter-language"];
       $publicationStatus = null;
 
       try {
@@ -286,7 +291,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $pageSize, 
           $addressLocalityFi, 
           $addressLocalitySv, 
-          $addressLocalityEn, 
+          $addressLocalityEn,
+          $language, 
           $publicationStatus);
 
         $locationIds = array_unique(array_filter(array_map(function ($event) {
@@ -308,7 +314,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         if ($events->valid()) {
           $templateData = [
             "events" => $events->getData(),
-            "locations" => $locations
+            "locations" => $locations,
+            "language" => $language
           ];
 
           $templateLoader = new \Metatavu\LinkedEvents\TemplateLoader();
