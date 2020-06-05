@@ -143,6 +143,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $sortLabel = $attributes["sortLabel"];
       $keywordsVisible = $attributes["keywordsVisible"];
       $keywordsLabel = $attributes["keywordsLabel"];
+      $locationVisible = $attributes["locationVisible"];
+      $locationLabel = $attributes["locationLabel"];
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
@@ -202,6 +204,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         }, $filterApi->keywordList()->getData()));
 
         $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $keywordsLabelHtml, $keywordsSelectHtml);
+      }
+
+      if ($locationVisible) {
+        
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);

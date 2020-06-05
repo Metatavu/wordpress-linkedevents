@@ -1,5 +1,6 @@
 import React from 'react';
 import { wp, WPSelectControlOption } from 'wp';
+import SubmittableTextControl from './submittable-text-control';
 
 declare var wp: wp;
 const { __ } = wp.i18n;
@@ -31,6 +32,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      locationData: []
     };
   }
 
@@ -55,6 +57,9 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         { this.renderDateFilterVisible() }
         { this.renderSortVisible() }
         { this.renderKeywordsVisible() }
+        { this.renderLocationVisible() }
+        { this.renderLocationOptions() }
+        { this.renderAudienceVisible() }
       </InspectorControls>
     );
   }
@@ -107,6 +112,57 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
+   /**
+   * Renders select for selecting whether location is visible or not
+   */
+  private renderLocationVisible = () => {
+    const title = __("Location visible", "linkedevents");
+    const hint = __("Whether to show location in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "locationVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
+     /**
+   * Renders 
+   */
+  private renderLocationOptions = () => {
+    const show = this.props.getAttribute("locationVisible");
+    if (show) {
+      const title = __("Add Locations", "linkedevents");
+      const hint = __("Add possible locations for users to fetch", "linkedevents");
+
+      return this.renderSelectControl(title, hint, "locationForm", [{
+        value: "",
+        label: __("Hidden", "linkedevents")
+      }, {
+        value: "true",
+        label: __("Visible", "linkedevents")
+      }]);
+    }
+  }
+
+     /**
+   * Renders select for selecting whether audience is visible or not
+   */
+  private renderAudienceVisible = () => {
+    const title = __("Audience visible", "linkedevents");
+    const hint = __("Whether to show audience in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "audienceVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
   /**
    * Renders select control
    * 
@@ -125,6 +181,28 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         </Tooltip>
         <SelectControl value={ this.props.getAttribute(attribute) } onChange={(value: string) => this.props.setAttribute(attribute, value) } options={ options }></SelectControl>
       </div>
+    );
+  }
+
+    /**
+   * Renders form and list of form items
+   * 
+   * @param title filter title
+   * @param hint filter hint text
+   * @param attribute attribute for storing value
+   * @param options options
+   */
+  private renderCheckboxedTextForm = (title: string, hint: string, attribute: string, options: WPSelectControlOption[]) => {
+    const { Tooltip } = wp.components;
+
+
+    return (
+      <div>
+        <Tooltip text={ hint } >
+          <label> { title } </label>
+        </Tooltip>
+        <SubmittableTextControl></SubmittableTextControl>
+        </div>
     );
   }
 

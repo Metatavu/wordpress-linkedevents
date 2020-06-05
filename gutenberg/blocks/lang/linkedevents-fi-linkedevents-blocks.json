@@ -117,6 +117,38 @@
         "Ruotsi"
       ],
 
+      "name": [
+        "Nimi"
+      ],
+
+      "shortDescription": [
+        "Lyhyt kuvaus"
+      ],
+
+      "description": [
+        "Kuvaus"
+      ],
+
+      "location": [
+        "Sijainti"
+      ],
+
+      "infoUrl": [
+        "Infosivu"
+      ],
+
+      "startTime": [
+        "Aloitusaika"
+      ],
+
+      "endTime": [
+        "Lopetusaika"
+      ],
+
+      "images": [
+        "Kuvat"
+      ],
+
       "Duration (min - max)": [
         "Kesto (minimi - maksimi)"
       ],
@@ -195,6 +227,14 @@
 
       "Whether to show keywords in search widget": [
         "Näytetäänkö avainsanat hakuwidgetissä"
+      ],
+
+      "Location visible": [
+        "Kunta näkyvissä"
+      ],
+
+      "Whether to show location in search widget": [
+        "Näytetäänkö kunta hakuwidgetissä"
       ]
     }
   }

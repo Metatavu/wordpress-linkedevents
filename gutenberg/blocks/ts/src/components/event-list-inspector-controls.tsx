@@ -191,7 +191,7 @@ class EventList extends React.Component<Props, State> {
     const title = __('Field config', 'linkedevents');
     const hint = __('Show/hide and sort fields', 'linkedevents');
     const forcedItems = ['name'];
-    const optionalItems = ['shortDescription', 'description', 'location', 'infoUrl', 'startTime', 'endTime', 'images'];
+    const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images'];
     return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
   };
 
@@ -380,7 +380,7 @@ class EventList extends React.Component<Props, State> {
   private renderDragAndDropList = (title: string, hint: string, attribute: string, forcedItems: string[], optionalItems: string[]) => {
     const { Tooltip } = wp.components;
 
-    const value = (this.props.getAttribute(`filter-${attribute}`) || '').split(',').filter((id: string) => {
+    const value = (this.props.getAttribute(`${attribute}`) || '').split(',').filter((id: string) => {
       return !!id;
     });
 

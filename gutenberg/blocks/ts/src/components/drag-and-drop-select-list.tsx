@@ -40,7 +40,7 @@ class DragAndDropSelectList extends React.Component<Props, State> {
       if (!selected.includes(item)) {
         selected.push(item);
       }
-    })
+    });
 
     this.setState({
       items,
@@ -98,7 +98,12 @@ class DragAndDropSelectList extends React.Component<Props, State> {
         {this.state.selected.map((selectedItem, idx) => (
           <li key={selectedItem} onDragOver={() => this.onDragOver(idx)}>
             <div className='drag' draggable onDragStart={e => this.onDragStart(e, idx)} onDragEnd={this.onDragEnd}>
-              <CheckboxControl checked={true} label={`${idx + 1}. ${__(selectedItem)}`} key={selectedItem} onChange={() => this.onSelectedItemChange(selectedItem)} />
+              <CheckboxControl
+                checked={true}
+                label={`${idx + 1}. ${__(selectedItem, 'linkedevents')}`}
+                key={selectedItem}
+                onChange={() => this.onSelectedItemChange(selectedItem)}
+              />
             </div>
           </li>
         ))}
@@ -113,7 +118,7 @@ class DragAndDropSelectList extends React.Component<Props, State> {
     const { CheckboxControl } = wp.components;
 
     return this.state.items.map(item => {
-      return <div>{<CheckboxControl checked={false} label={item} key={item} onChange={() => this.onMatchItemChange(item)} />}</div>;
+      return <div>{<CheckboxControl checked={false} label={__(item, 'linkedevents')} key={item} onChange={() => this.onMatchItemChange(item)} />}</div>;
     });
   };
 

@@ -84,7 +84,9 @@ class EventSearch extends React.Component<Props, State> {
 
         { this.renderDateFilter() }
         { this.renderSort() }
-        { this.renderKeywords () }
+        { this.renderKeywords() }
+        { this.renderLocation() }
+        { this.renderAudience() }
 
         <div className="linkedevents-event-search-widget-button-container">
           <RichText
@@ -204,6 +206,80 @@ class EventSearch extends React.Component<Props, State> {
             withoutInteractiveFormatting
             value={ this.props.getAttribute("keywordsLabel") }
             onChange={ ( text: string ) => this.props.setAttribute("keywordsLabel", text ) }
+          />
+        </div>
+        <div>
+          {
+            this.state.keywords.map((keyword) => {
+              return (
+                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(keyword.name) }></CheckboxControl>
+              );
+            })
+          }
+        </div>
+      </div>
+    );
+  }
+
+    /**
+   * Render location select if visible
+   */
+  private renderLocation = () => {
+    const { RichText } = wp.editor;
+    const { CheckboxControl } = wp.components;
+    const locationVisible = this.props.getAttribute("locationVisible");
+
+    if (!locationVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("locationsLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("locationsLabel", text ) }
+          />
+        </div>
+        <div>
+          {
+            this.state.keywords.map((keyword) => {
+              return (
+                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(keyword.name) }></CheckboxControl>
+              );
+            })
+          }
+        </div>
+      </div>
+    );
+  }
+
+      /**
+   * Render audience select if visible
+   */
+  private renderAudience = () => {
+    const { RichText } = wp.editor;
+    const { CheckboxControl } = wp.components;
+    const audienceVisible = this.props.getAttribute("audienceVisible");
+
+    if (!audienceVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("audienceLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("audienceLabel", text ) }
           />
         </div>
         <div>
