@@ -21,7 +21,9 @@ interface Props {
  * Interface describing component state
  */
 interface State {
-  keywords: any[]
+  keywords: any[],
+  locations: string[],
+  audiences: string[]
 }
 
 /**
@@ -39,7 +41,9 @@ class EventSearch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { 
-      keywords: []
+      keywords: [],
+      locations: [],
+      audiences: []
     };
 
     this.linkedEventsApi = new LinkedEventsApi(linkedEventsOptions.apiUrl);
@@ -49,8 +53,24 @@ class EventSearch extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
+    const locationsProp = this.props.getAttribute('locations').split(',');
+    const audiencesProp = this.props.getAttribute('audiences').split(',');
+
+    const locations: string[] = [];
+    const audiences: string[] = [];
+
+    for (let i = 0; i < locationsProp.length; i++) {
+      locations.push(locationsProp[i]);
+    }
+
+    for (let i = 0; i < audiencesProp.length; i++) {
+      audiences.push(audiencesProp[i]);
+    }
+
     this.setState({
-      keywords: await this.linkedEventsApi.listKeywords()
+      keywords: await this.linkedEventsApi.listKeywords(),
+      locations,
+      audiences
     });
   }
 
@@ -241,15 +261,15 @@ class EventSearch extends React.Component<Props, State> {
             aria-label={ __( 'Label text' ) }
             placeholder={ __( 'Add label text...' ) }
             withoutInteractiveFormatting
-            value={ this.props.getAttribute("locationsLabel") }
-            onChange={ ( text: string ) => this.props.setAttribute("locationsLabel", text ) }
+            value={ this.props.getAttribute("locationLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("locationLabel", text ) }
           />
         </div>
         <div>
           {
-            this.state.keywords.map((keyword) => {
+            this.state.locations.map((location) => {
               return (
-                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(keyword.name) }></CheckboxControl>
+                <CheckboxControl className="keyword-checkbox" label={ location }></CheckboxControl>
               );
             })
           }
@@ -284,9 +304,9 @@ class EventSearch extends React.Component<Props, State> {
         </div>
         <div>
           {
-            this.state.keywords.map((keyword) => {
+            this.state.audiences.map((audience) => {
               return (
-                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(keyword.name) }></CheckboxControl>
+                <CheckboxControl className="keyword-checkbox" label={ audience }></CheckboxControl>
               );
             })
           }

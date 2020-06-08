@@ -235,6 +235,22 @@
 
       "Whether to show location in search widget": [
         "Näytetäänkö kunta hakuwidgetissä"
+      ],
+      
+      "Add location": [
+        "Lisää sijainti"
+      ],
+
+      "Add audience": [
+        "Lisää kohderyhmä"
+      ],
+
+      "Submit": [
+        "Lisää"
+      ],
+
+      "Remove": [
+        "Poista"
       ]
     }
   }

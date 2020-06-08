@@ -32,7 +32,6 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      locationData: []
     };
   }
 
@@ -60,6 +59,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         { this.renderLocationVisible() }
         { this.renderLocationOptions() }
         { this.renderAudienceVisible() }
+        { this.renderAudienceOptions() }
       </InspectorControls>
     );
   }
@@ -129,21 +129,15 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
   }
 
      /**
-   * Renders 
+   * Renders location options
    */
   private renderLocationOptions = () => {
-    const show = this.props.getAttribute("locationVisible");
-    if (show) {
+    const visible = this.props.getAttribute("locationVisible");
+    if (visible) {
       const title = __("Add Locations", "linkedevents");
       const hint = __("Add possible locations for users to fetch", "linkedevents");
 
-      return this.renderSelectControl(title, hint, "locationForm", [{
-        value: "",
-        label: __("Hidden", "linkedevents")
-      }, {
-        value: "true",
-        label: __("Visible", "linkedevents")
-      }]);
+      return this.renderSubmittableTextForm(title, hint, "locations");
     }
   }
 
@@ -161,6 +155,19 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
       value: "true",
       label: __("Visible", "linkedevents")
     }]);
+  }
+
+       /**
+   * Renders location options
+   */
+  private renderAudienceOptions = () => {
+    const visible = this.props.getAttribute("audienceVisible");
+    if (visible) {
+      const title = __("Add Audience", "linkedevents");
+      const hint = __("Add possible Audience options for users to fetch", "linkedevents");
+
+      return this.renderSubmittableTextForm(title, hint, "audiences");
+    }
   }
 
   /**
@@ -190,18 +197,20 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
    * @param title filter title
    * @param hint filter hint text
    * @param attribute attribute for storing value
-   * @param options options
+   * @param items list items
    */
-  private renderCheckboxedTextForm = (title: string, hint: string, attribute: string, options: WPSelectControlOption[]) => {
+  private renderSubmittableTextForm = (title: string, hint: string, attribute: string) => {
     const { Tooltip } = wp.components;
+    const attributeValue = (this.props.getAttribute(attribute) || '');
 
-
+    const value = attributeValue ? attributeValue.split(',') : [];
+    
     return (
       <div>
         <Tooltip text={ hint } >
           <label> { title } </label>
         </Tooltip>
-        <SubmittableTextControl></SubmittableTextControl>
+        <SubmittableTextControl value={value} onChange={(items: string[]) => this.props.setAttribute(attribute, items.join(',')) }></SubmittableTextControl>
         </div>
     );
   }

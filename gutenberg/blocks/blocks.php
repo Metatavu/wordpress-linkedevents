@@ -69,6 +69,24 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "keywordsLabel" => [
             'type' => 'string'
+          ],
+          "locationVisible" => [
+            'type' => 'boolean'
+          ],
+          "locationLabel" => [
+            'type' => 'string'
+          ],
+          "locations" => [
+            'type' => 'string'
+          ],
+          "audienceVisible" => [
+            'type' => 'boolean'
+          ],
+          "audienceLabel" => [
+            'type' => 'string'
+          ],
+          "audiences" => [
+            'type' => 'string'
           ]
         ]
       ]);
@@ -145,6 +163,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $keywordsLabel = $attributes["keywordsLabel"];
       $locationVisible = $attributes["locationVisible"];
       $locationLabel = $attributes["locationLabel"];
+      $locations = $attributes["locations"];
+      $audienceVisible = $attributes["audienceVisible"];
+      $audienceLabel = $attributes["audienceLabel"];
+      $audiences = $attributes["audiences"];
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
@@ -207,7 +229,21 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       }
 
       if ($locationVisible) {
+        $locationId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $locationsLabelHtml = sprintf("<label>%s</label>", $locationLabel);
         
+        $locationsSelectHtml = $this->renderChecklistInput($locationId, "les-address_locality_fi", $locations, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($location) {
+          return [
+            "value" => $location,
+            "label" => $location
+          ];
+        }, $locations));
+
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $locationsLabelHtml, $locationsSelectHtml);
+      }
+
+      if ($audienceVisible) {
+
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);

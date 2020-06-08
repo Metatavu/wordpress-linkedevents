@@ -17,10 +17,11 @@ interface Props {
  */
 interface State {
   items: string[];
+  formValue: string;
 }
 
 /**
- * Searchable multiselect component
+ * Submittable text control component
  */
 class SubmittableTextControl extends React.Component<Props, State> {
   /*
@@ -31,8 +32,10 @@ class SubmittableTextControl extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      formValue: ''
     };
+    this.onItemDelete = this.onItemDelete.bind(this);
   }
 
   /**
@@ -54,43 +57,48 @@ class SubmittableTextControl extends React.Component<Props, State> {
    * Component render method
    */
   public render() {
-    const { TextControl } = wp.components;
-
     return (
       <div>
-        <div>
-          <TextControl value={this.state.search} onChange={this.onSearchChange}></TextControl>
-        </div>
-        <div>
-          {this.renderForm()}
-          {this.renderItems()}
-        </div>
+        {this.renderForm()}
+        {this.renderItems()}
       </div>
     );
   }
 
   /**
-   * Renders selected items
+   * Renders form
    */
   private renderForm = () => {
-    const { CheckboxControl, Spinner, Placeholder } = wp.components;
+    const handleChange = (event: any) => {
+      this.setState({formValue: event.target.value});
+    }
 
-
-    return this.state.selected.map(selectedItem => {
-      return (
-        <div>{<CheckboxControl checked={true} label={selectedItem.text} key={selectedItem.id} onChange={() => this.onSelectedItemChange(selectedItem)} />}</div>
-      );
-    });
+    return (
+      <div>
+        <form onSubmit={() => this.onItemAdd()}>
+          <label>
+            Name:
+            <input type='text' value={this.state.formValue} onChange={handleChange} />
+          </label>
+          <input type='submit' value={__('Add', 'linkedevents')} />
+        </form>
+      </div>
+    );
   };
 
   /**
-   * Renders match items
+   * Renders added items
    */
   private renderItems = () => {
     const { Button } = wp.components;
 
     return this.state.items.map(item => {
-      return <div>{item}<Button ></Button></div>;
+      return (
+        <div>
+          {item}
+          <Button onClick={() => this.onItemDelete(item)}>{__('Remove', 'linkedevents')}</Button>
+        </div>
+      );
     });
   };
 
@@ -99,79 +107,43 @@ class SubmittableTextControl extends React.Component<Props, State> {
    *
    * @param removedItem item removed from selected list
    */
-  private onSelectedItemChange = (removedItem: SearchableChecklistItem) => {
-    const selected = this.state.selected.filter(selectedItem => {
-      return selectedItem.id !== removedItem.id;
+  private onItemDelete = (removedItem: string) => {
+    const items = this.state.items.filter(item => {
+      return item !== removedItem;
     });
-
-    const match = [removedItem].concat(this.state.match);
 
     this.setState({
-      match: match,
-      selected: selected
+      items
     });
 
-    this.triggerSelectedChange(selected);
+    this.triggerSelectedChange(items);
   };
 
   /**
-   * Event handler for matc item change
+   * Event handler for item add
    *
-   * @param removedItem item selected from matched list
+   * @param event 
    */
-  private onMatchItemChange = (selectedItem: SearchableChecklistItem) => {
-    const match = this.state.match.filter(match => {
-      return match.id !== selectedItem.id;
-    });
+  private onItemAdd = () => {
+    const items = this.state.items.concat([this.state.formValue]);
 
-    const selected = this.state.selected.concat([selectedItem]);
+    event.preventDefault();
 
     this.setState({
-      match: match,
-      selected: selected
+      items,
+      formValue: ''
     });
 
-    this.triggerSelectedChange(selected);
-  };
-
-  /**
-   * Event handler for search
-   *
-   * @param value value
-   */
-  private onSearchChange = async (value: string) => {
-    if (value && value.length >= this.props.minCharacters) {
-      this.setState({
-        loading: true,
-        search: value
-      });
-
-      const match = await this.props.onSearch(value);
-
-      this.setState({
-        loading: false,
-        match: match
-      });
-    } else {
-      this.setState({
-        search: value,
-        loading: false,
-        match: []
-      });
-    }
+    this.triggerSelectedChange(items);
   };
 
   /**
    * Triggers a selected change
    *
-   * @param selected selected items
+   * @param items selected items
    */
-  private triggerSelectedChange = (selected: SearchableChecklistItem[]) => {
-    this.props.onChange(
-      selected.map(selectedItem => {
-        return selectedItem.id;
-      })
-    );
+  private triggerSelectedChange = (items: string[]) => {
+    this.props.onChange(items);
   };
 }
 

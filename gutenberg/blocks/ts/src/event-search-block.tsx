@@ -35,6 +35,24 @@ const attributes: any = {
   },
   "keywordsLabel": {
     type: "string"
+  },
+  "locationVisible": {
+    type: 'boolean'
+  },
+  "locationLabel": {
+    type: 'string'
+  },
+  "locations": {
+    type: 'string'
+  },
+  "audienceVisible": {
+    type: 'boolean'
+  },
+  "audienceLabel": {
+    type: 'string'
+  },
+  "audiences": {
+    type: 'string'
   }
 };
 
