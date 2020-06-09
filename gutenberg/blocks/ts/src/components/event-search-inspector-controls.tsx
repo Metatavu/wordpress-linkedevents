@@ -59,7 +59,6 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         { this.renderLocationVisible() }
         { this.renderLocationOptions() }
         { this.renderAudienceVisible() }
-        { this.renderAudienceOptions() }
       </InspectorControls>
     );
   }
@@ -157,19 +156,6 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
-       /**
-   * Renders location options
-   */
-  private renderAudienceOptions = () => {
-    const visible = this.props.getAttribute("audienceVisible");
-    if (visible) {
-      const title = __("Add Audience", "linkedevents");
-      const hint = __("Add possible Audience options for users to fetch", "linkedevents");
-
-      return this.renderSubmittableTextForm(title, hint, "audiences");
-    }
-  }
-
   /**
    * Renders select control
    * 
@@ -204,13 +190,17 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     const attributeValue = (this.props.getAttribute(attribute) || '');
 
     const value = attributeValue ? attributeValue.split(',') : [];
+
+    const onChange = (items: string[]) => {
+      this.props.setAttribute(`${attribute}`, items.join(','));
+    };
     
     return (
       <div>
         <Tooltip text={ hint } >
           <label> { title } </label>
         </Tooltip>
-        <SubmittableTextControl value={value} onChange={(items: string[]) => this.props.setAttribute(attribute, items.join(',')) }></SubmittableTextControl>
+        <SubmittableTextControl value={value} onChange={(items) => onChange(items)}></SubmittableTextControl>
         </div>
     );
   }

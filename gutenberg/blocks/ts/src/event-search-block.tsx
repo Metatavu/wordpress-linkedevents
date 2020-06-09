@@ -50,9 +50,6 @@ const attributes: any = {
   },
   "audienceLabel": {
     type: 'string'
-  },
-  "audiences": {
-    type: 'string'
   }
 };
 

@@ -77,6 +77,26 @@ export class LinkedEventsApi {
     return result;
   } 
 
+    /**
+   * Searches keyword_sets by free text
+   * 
+   * @param search search query
+   * @returns found keywords
+   */
+  public listKeywordSets = async (options?: { include?: string }, usage?: string): Promise<any[]> => {
+    const queryParams = this.getQueryParams(options);
+    const result = await this.fetchFromLinkedEvents(`/keyword_set/?${queryParams}`);
+    if (!result) {
+      return [];
+    }
+
+    if (usage) {
+      return result.data.find((data: any) => data.usage === usage);
+    }
+    return result.data;
+  } 
+  
+
   /**
    * Translates object into query string
    * 

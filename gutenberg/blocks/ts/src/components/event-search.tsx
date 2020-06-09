@@ -23,7 +23,7 @@ interface Props {
 interface State {
   keywords: any[],
   locations: string[],
-  audiences: string[]
+  audiences: any[]
 }
 
 /**
@@ -54,23 +54,19 @@ class EventSearch extends React.Component<Props, State> {
    */
   public componentDidMount = async () => {
     const locationsProp = this.props.getAttribute('locations').split(',');
-    const audiencesProp = this.props.getAttribute('audiences').split(',');
 
     const locations: string[] = [];
-    const audiences: string[] = [];
 
     for (let i = 0; i < locationsProp.length; i++) {
       locations.push(locationsProp[i]);
     }
 
-    for (let i = 0; i < audiencesProp.length; i++) {
-      audiences.push(audiencesProp[i]);
-    }
+    //const audiences = await this.linkedEventsApi.listKeywordSets({include: "keywords"}, "audience");
 
     this.setState({
       keywords: await this.linkedEventsApi.listKeywords(),
       locations,
-      audiences
+      //audiences
     });
   }
 
@@ -306,7 +302,7 @@ class EventSearch extends React.Component<Props, State> {
           {
             this.state.audiences.map((audience) => {
               return (
-                <CheckboxControl className="keyword-checkbox" label={ audience }></CheckboxControl>
+                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(audience.name) }></CheckboxControl>
               );
             })
           }

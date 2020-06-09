@@ -77,15 +77,12 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             'type' => 'string'
           ],
           "locations" => [
-            'type' => 'string'
+            'type' => 'array'
           ],
           "audienceVisible" => [
             'type' => 'boolean'
           ],
           "audienceLabel" => [
-            'type' => 'string'
-          ],
-          "audiences" => [
             'type' => 'string'
           ]
         ]
@@ -163,10 +160,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $keywordsLabel = $attributes["keywordsLabel"];
       $locationVisible = $attributes["locationVisible"];
       $locationLabel = $attributes["locationLabel"];
-      $locations = $attributes["locations"];
+      $locations = explode(",", $attributes["locations"]);
       $audienceVisible = $attributes["audienceVisible"];
       $audienceLabel = $attributes["audienceLabel"];
-      $audiences = $attributes["audiences"];
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
@@ -174,6 +170,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $end = $this->getSearchParam("end");
       $sort = $this->getSearchParam("sort");
       $keywordIds = $this->getSearchParams("keywords", []);
+      $locationIds = $this->getSearchParams("address_locality_fi", []);
 
       $labelHtml = sprintf('<label class="linkedevents-events-search-label">%s</label>', $label);
       $inputHtml = sprintf('<input type="search" id="%s-text" class="linkedevents-events-text-input" name="les-text" value="%s" placeholder="%s" />', 'linkedevents-events-search-input-' . esc_attr(++$instanceId), esc_attr($text), esc_attr($textPlaceholder));
@@ -232,7 +229,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $locationId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
         $locationsLabelHtml = sprintf("<label>%s</label>", $locationLabel);
         
-        $locationsSelectHtml = $this->renderChecklistInput($locationId, "les-address_locality_fi", $locations, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($location) {
+        $locationsSelectHtml = $this->renderChecklistInput($locationId, "les-address_locality_fi", $locationIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($location) {
           return [
             "value" => $location,
             "label" => $location
@@ -243,12 +240,24 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       }
 
       if ($audienceVisible) {
-
+        $audienceId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $audiencesLabelHtml = sprintf("<label>%s</label>", $audienceLabel);
+        
+        $audiencesSelectHtml = $this->renderChecklistInput($audienceId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($audience) {
+          return [
+            "value" => $audience,
+            "label" => $audience
+          ];
+        }, []));
+        //$filterApi->keywordSetList()->getData()
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $audiencesLabelHtml, $audiencesSelectHtml);
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);
 
       $html = sprintf('%s%s%s%s', $labelHtml, $inputHtml, $filterHtmls, $buttonHtml);
+
+      error_log($html);
 
       return sprintf('<form class="linkedevents-events-search" role="search" method="get" action="%s">%s</form>', esc_url($actionUrl), $html);
     }
@@ -308,7 +317,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $sort = $this->getSearchParam("sort", $attributes["sort"]);
       $page = null; 
       $pageSize = $this->parseInt($attributes["page-size"]);
-      $addressLocalityFi = $attributes["filter-locality-fi"];
+      $addressLocalityFi = $this->getSearchParamsCDT("address_locality_fi", $attributes["filter-locality-fi"]);;
       $addressLocalitySv = null;
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
