@@ -51,6 +51,9 @@ registerBlockType('linkedevents/list-block', {
     "filter-language": {
       type: 'string'
     },
+    "field-config": {
+      type: 'string'
+    },
     "sort": {
       type: 'string'
     },

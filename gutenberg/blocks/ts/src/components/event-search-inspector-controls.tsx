@@ -136,7 +136,8 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
       const title = __("Add Locations", "linkedevents");
       const hint = __("Add possible locations for users to fetch", "linkedevents");
 
-      return this.renderSubmittableTextForm(title, hint, "locations");
+      return this.renderTextControl(title, hint, "locations");
+      //return this.renderSubmittableTextForm(title, hint, "locations");
     }
   }
 
@@ -204,6 +205,26 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         </div>
     );
   }
+
+  /**
+   * Renders text control
+   *
+   * @param title title
+   * @param hint hint text
+   * @param attribute attribute for storing value
+   */
+  private renderTextControl = (title: string, hint: string, attribute: string) => {
+    const { TextControl, Tooltip } = wp.components;
+
+    return (
+      <div>
+        <Tooltip text={hint}>
+          <label> {title} </label>
+        </Tooltip>
+        <TextControl value={this.props.getAttribute(attribute)} onChange={(value: string) => this.props.setAttribute(attribute, value)}></TextControl>
+      </div>
+    );
+  };
 
 }
 

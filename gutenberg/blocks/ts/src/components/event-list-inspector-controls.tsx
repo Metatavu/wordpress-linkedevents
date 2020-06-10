@@ -385,7 +385,7 @@ class EventList extends React.Component<Props, State> {
     });
 
     const onChange = (items: string[]) => {
-      this.props.setAttribute(`${attribute}`, items.join(','));
+      this.props.setAttribute(attribute, items.join(','));
     };
 
     return (
@@ -393,7 +393,7 @@ class EventList extends React.Component<Props, State> {
         <Tooltip text={hint}>
           <label> {title} </label>
         </Tooltip>
-        <DragAndDropSelectList forcedItems={forcedItems} optionalItems={optionalItems} value={value} onChange={onChange}></DragAndDropSelectList>
+        <DragAndDropSelectList forcedItems={forcedItems} optionalItems={optionalItems} value={value} onChange={(items) => onChange(items)}></DragAndDropSelectList>
       </div>
     );
   };
