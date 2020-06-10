@@ -30,7 +30,7 @@ class DragAndDropSelectList extends React.Component<Props, State> {
    */
   public componentDidMount = async () => {
     const selected: any[] = [];
-    const items: string[] = this.props.optionalItems;
+    const items: string[] = [];
 
     for (let i = 0; i < this.props.value.length; i++) {
       selected.push(this.props.value[i]);
@@ -41,6 +41,12 @@ class DragAndDropSelectList extends React.Component<Props, State> {
         selected.push(item);
       }
     });
+
+    this.props.optionalItems.forEach(item => {
+      if (!selected.includes(item)) {
+        items.push(item);
+      }
+    })
 
     this.setState({
       items,
