@@ -54,7 +54,7 @@ class InlineResponse2003 implements ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'meta' => '\Metatavu\LinkedEvents\Model\Keyword',
+        'meta' => '\Metatavu\LinkedEvents\Model\MetaDefinition',
         'data' => '\Metatavu\LinkedEvents\Model\KeywordSet[]'
     ];
 
@@ -168,7 +168,7 @@ class InlineResponse2003 implements ArrayAccess
 
     /**
      * Gets meta
-     * @return \Metatavu\LinkedEvents\Model\Keyword
+     * @return \Metatavu\LinkedEvents\Model\MetaDefinition
      */
     public function getMeta()
     {
@@ -177,7 +177,7 @@ class InlineResponse2003 implements ArrayAccess
 
     /**
      * Sets meta
-     * @param \Metatavu\LinkedEvents\Model\Keyword $meta
+     * @param \Metatavu\LinkedEvents\Model\MetaDefinition $meta
      * @return $this
      */
     public function setMeta($meta)
