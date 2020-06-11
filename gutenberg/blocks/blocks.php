@@ -242,14 +242,22 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       if ($audienceVisible) {
         $audienceId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
         $audiencesLabelHtml = sprintf("<label>%s</label>", $audienceLabel);
+        $keywordSets = $filterApi->keywordSetList(null, null, 'keywords')->getData();
         
+        foreach($keywordSets as $keywordSet) {
+          if ($keywordSet->getUsage() == "audience") {
+              $audiences = $keywordSet->getKeywords();
+              break;
+          }
+        }
+
+
         $audiencesSelectHtml = $this->renderChecklistInput($audienceId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($audience) {
           return [
-            "value" => $audience,
-            "label" => $audience
+            "value" => $audience->getId(),
+            "label" => $this->getLocalizedValue($audience->getName())
           ];
-        }, []));
-        //$filterApi->keywordSetList()->getData()
+        }, $audiences));
         $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $audiencesLabelHtml, $audiencesSelectHtml);
       }
 

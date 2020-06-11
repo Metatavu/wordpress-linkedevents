@@ -61,12 +61,12 @@ class EventSearch extends React.Component<Props, State> {
       locations.push(locationsProp[i]);
     }
 
-    //const audiences = await this.linkedEventsApi.listKeywordSets({include: "keywords"}, "audience");
+    const audiences = await this.linkedEventsApi.listKeywordSets({include: "keywords"}, "audience");
 
     this.setState({
       keywords: await this.linkedEventsApi.listKeywords(),
       locations,
-      //audiences
+      audiences
     });
   }
 
