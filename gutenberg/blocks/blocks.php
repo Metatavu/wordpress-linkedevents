@@ -84,6 +84,12 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ],
           "audienceLabel" => [
             'type' => 'string'
+          ],
+          "categoriesVisible" => [
+            'type' => 'boolean'
+          ],
+          "categoriesLabel" => [
+            'type' => 'string'
           ]
         ]
       ]);
@@ -163,6 +169,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $locations = explode(",", $attributes["locations"]);
       $audienceVisible = $attributes["audienceVisible"];
       $audienceLabel = $attributes["audienceLabel"];
+      $categoriesVisible = $attributes["categoriesVisible"];
+      $categoriesLabel = $attributes["categoriesLabel"];
       $actionUrl = $_SERVER['REQUEST_URI'];
 
       $text = $this->getSearchParam("text");
@@ -251,7 +259,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           }
         }
 
-
         $audiencesSelectHtml = $this->renderChecklistInput($audienceId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($audience) {
           return [
             "value" => $audience->getId(),
@@ -259,6 +266,27 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ];
         }, $audiences));
         $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $audiencesLabelHtml, $audiencesSelectHtml);
+      }
+
+      if ($categoriesVisible) {
+        $categoryId = sprintf('linkedevents-events-search-sort-%d', $instanceId);
+        $categoriesLabelHtml = sprintf("<label>%s</label>", $categoriesLabel);
+        $keywordSets = $filterApi->keywordSetList(null, null, 'keywords')->getData();
+        
+        foreach($keywordSets as $keywordSet) {
+          if ($keywordSet->getUsage() == "any") {
+              $categories = $keywordSet->getKeywords();
+              break;
+          }
+        }
+
+        $categoriesSelectHtml = $this->renderChecklistInput($categoryId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($category) {
+          return [
+            "value" => $category->getId(),
+            "label" => $this->getLocalizedValue($category->getName())
+          ];
+        }, $categories));
+        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $categoriesLabelHtml, $categoriesSelectHtml);
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);

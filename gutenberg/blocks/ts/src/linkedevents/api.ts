@@ -83,16 +83,13 @@ export class LinkedEventsApi {
    * @param search search query
    * @returns found keywords
    */
-  public listKeywordSets = async (options?: { include?: string }, usage?: string): Promise<any[]> => {
+  public listKeywordSets = async (options?: { include?: string }): Promise<any[]> => {
     const queryParams = this.getQueryParams(options);
     const result = await this.fetchFromLinkedEvents(`keyword_set/?${queryParams}`);
     if (!result) {
       return [];
     }
 
-    if (usage) {
-      return result.data.find((keywordSet: any) => keywordSet.usage === usage).keywords;
-    }
     return result.data;
   } 
   

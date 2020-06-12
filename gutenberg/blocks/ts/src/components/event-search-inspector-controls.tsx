@@ -1,6 +1,5 @@
 import React from 'react';
 import { wp, WPSelectControlOption } from 'wp';
-import SubmittableTextControl from './submittable-text-control';
 
 declare var wp: wp;
 const { __ } = wp.i18n;
@@ -59,6 +58,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         { this.renderLocationVisible() }
         { this.renderLocationOptions() }
         { this.renderAudienceVisible() }
+        { this.renderCategoriesVisible() }
       </InspectorControls>
     );
   }
@@ -157,6 +157,22 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
+       /**
+   * Renders select for selecting whether categories are visible or not
+   */
+  private renderCategoriesVisible = () => {
+    const title = __("Categories visible", "linkedevents");
+    const hint = __("Whether to show categories in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "categoriesVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
   /**
    * Renders select control
    * 
@@ -175,34 +191,6 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         </Tooltip>
         <SelectControl value={ this.props.getAttribute(attribute) } onChange={(value: string) => this.props.setAttribute(attribute, value) } options={ options }></SelectControl>
       </div>
-    );
-  }
-
-    /**
-   * Renders form and list of form items
-   * 
-   * @param title filter title
-   * @param hint filter hint text
-   * @param attribute attribute for storing value
-   * @param items list items
-   */
-  private renderSubmittableTextForm = (title: string, hint: string, attribute: string) => {
-    const { Tooltip } = wp.components;
-    const attributeValue = (this.props.getAttribute(attribute) || '');
-
-    const value = attributeValue ? attributeValue.split(',') : [];
-
-    const onChange = (items: string[]) => {
-      this.props.setAttribute(`${attribute}`, items.join(','));
-    };
-    
-    return (
-      <div>
-        <Tooltip text={ hint } >
-          <label> { title } </label>
-        </Tooltip>
-        <SubmittableTextControl value={value} onChange={(items) => onChange(items)}></SubmittableTextControl>
-        </div>
     );
   }
 

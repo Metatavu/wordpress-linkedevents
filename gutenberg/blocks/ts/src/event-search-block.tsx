@@ -50,6 +50,12 @@ const attributes: any = {
   },
   "audienceLabel": {
     type: 'string'
+  },
+  "categoriesVisible": {
+    type: 'boolean'
+  },
+  "categoriesLabel": {
+    type: 'string'
   }
 };
 
