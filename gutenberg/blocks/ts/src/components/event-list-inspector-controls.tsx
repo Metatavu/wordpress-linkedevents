@@ -70,6 +70,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderDurationFilter() }
         { this.renderSort() }
         { this.renderPageSize() }
+        { this.renderLanguageFilter() }
         { this.renderAddressLocalityFi() }
       </InspectorControls>
     );
@@ -156,6 +157,33 @@ class EventList extends React.Component<Props, State> {
       label: __("Only non-recurring", "linkedevents")
     }]);
   }
+
+  /**
+   * Renders Event language filter
+   */
+  private renderLanguageFilter = () => {
+    const title = __('Event language', 'linkedevents');
+    const hint = __('Show events with chosen language', 'linkedevents');
+
+    return this.renderSelectControlFilter(title, hint, 'language', [
+      {
+        value: '',
+        label: __('All languages', 'linkedevents')
+      },
+      {
+        value: 'fi',
+        label: __('Finnish', 'linkedevents')
+      },
+      {
+        value: 'en',
+        label: __('English', 'linkedevents')
+      },
+      {
+        value: 'sv',
+        label: __('Swedish', 'linkedevents')
+      }
+    ]);
+  };
 
   
   /**
