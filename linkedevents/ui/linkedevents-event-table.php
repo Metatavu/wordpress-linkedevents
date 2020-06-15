@@ -200,7 +200,8 @@
         $publisher = null;
         $addressLocalityFi = null;
         $addressLocalitySv = null; 
-        $addressLocalityEn = null; 
+        $addressLocalityEn = null;
+        $language = null; 
 
         try {
           return $this->eventsApi->eventList(
@@ -224,7 +225,8 @@
             $pageSize, 
             $addressLocalityFi, 
             $addressLocalitySv, 
-            $addressLocalityEn, 
+            $addressLocalityEn,
+            $language, 
             $publicationStatus);
         } catch (\Metatavu\LinkedEvents\ApiException $e) {
           echo '<div class="error notice">';

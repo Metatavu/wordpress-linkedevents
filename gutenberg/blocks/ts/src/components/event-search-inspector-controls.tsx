@@ -55,6 +55,10 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
         { this.renderDateFilterVisible() }
         { this.renderSortVisible() }
         { this.renderKeywordsVisible() }
+        { this.renderLocationVisible() }
+        { this.renderLocationOptions() }
+        { this.renderAudienceVisible() }
+        { this.renderCategoriesVisible() }
       </InspectorControls>
     );
   }
@@ -107,6 +111,68 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
+   /**
+   * Renders select for selecting whether location is visible or not
+   */
+  private renderLocationVisible = () => {
+    const title = __("Location visible", "linkedevents");
+    const hint = __("Whether to show location in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "locationVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
+     /**
+   * Renders location options
+   */
+  private renderLocationOptions = () => {
+    const visible = this.props.getAttribute("locationVisible");
+    if (visible) {
+      const title = __("Add Locations", "linkedevents");
+      const hint = __("Add possible locations for users to fetch", "linkedevents");
+
+      return this.renderTextControl(title, hint, "locations");
+      //return this.renderSubmittableTextForm(title, hint, "locations");
+    }
+  }
+
+     /**
+   * Renders select for selecting whether audience is visible or not
+   */
+  private renderAudienceVisible = () => {
+    const title = __("Audience visible", "linkedevents");
+    const hint = __("Whether to show audience in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "audienceVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
+       /**
+   * Renders select for selecting whether categories are visible or not
+   */
+  private renderCategoriesVisible = () => {
+    const title = __("Categories visible", "linkedevents");
+    const hint = __("Whether to show categories in search widget", "linkedevents");
+
+    return this.renderSelectControl(title, hint, "categoriesVisible", [{
+      value: "",
+      label: __("Hidden", "linkedevents")
+    }, {
+      value: "true",
+      label: __("Visible", "linkedevents")
+    }]);
+  }
+
   /**
    * Renders select control
    * 
@@ -127,6 +193,26 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
       </div>
     );
   }
+
+  /**
+   * Renders text control
+   *
+   * @param title title
+   * @param hint hint text
+   * @param attribute attribute for storing value
+   */
+  private renderTextControl = (title: string, hint: string, attribute: string) => {
+    const { TextControl, Tooltip } = wp.components;
+
+    return (
+      <div>
+        <Tooltip text={hint}>
+          <label> {title} </label>
+        </Tooltip>
+        <TextControl value={this.props.getAttribute(attribute)} onChange={(value: string) => this.props.setAttribute(attribute, value)}></TextControl>
+      </div>
+    );
+  };
 
 }
 

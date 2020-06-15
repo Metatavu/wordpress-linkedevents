@@ -11,7 +11,7 @@ export class LinkedEventsApi {
    * @param apiUrl LinkedEvents API URL
    */
   constructor(apiUrl: string) {
-    this.apiUrl = apiUrl;
+    this.apiUrl = apiUrl.slice(-1) === '/' ? apiUrl : apiUrl + '/';
   }
 
   /**
@@ -22,7 +22,7 @@ export class LinkedEventsApi {
    */
   public listPlaces = async (search: string): Promise<any[]> => {
     const text = encodeURIComponent(search) ;
-    const result = await this.fetchFromLinkedEvents(`/place/?text=${text}`);
+    const result = await this.fetchFromLinkedEvents(`place/?text=${text}`);
 
     if (!result) {
       return [];
@@ -38,7 +38,7 @@ export class LinkedEventsApi {
    * @return place or null if not found
    */
   public findPlace = async (id: string): Promise<any> => {
-    const result = await this.fetchFromLinkedEvents(`/place/${id}`);
+    const result = await this.fetchFromLinkedEvents(`place/${id}`);
     if (!result || !result.id) {
       return null;
     }
@@ -54,7 +54,7 @@ export class LinkedEventsApi {
    */
   public listKeywords = async (options?: { text?: string }): Promise<any[]> => {
     const queryParams = this.getQueryParams(options);
-    const result = await this.fetchFromLinkedEvents(`/keyword/?${queryParams}`);
+    const result = await this.fetchFromLinkedEvents(`keyword/?${queryParams}`);
     if (!result) {
       return [];
     }
@@ -69,13 +69,30 @@ export class LinkedEventsApi {
    * @return keyword or null if not found
    */
   public findKeyword = async (id: string): Promise<any> => {
-    const result = await this.fetchFromLinkedEvents(`/keyword/${id}`);
+    const result = await this.fetchFromLinkedEvents(`keyword/${id}`);
     if (!result || !result.id) {
       return null;
     }
 
     return result;
   } 
+
+    /**
+   * Searches keyword_sets by free text
+   * 
+   * @param search search query
+   * @returns found keywords
+   */
+  public listKeywordSets = async (options?: { include?: string }): Promise<any[]> => {
+    const queryParams = this.getQueryParams(options);
+    const result = await this.fetchFromLinkedEvents(`keyword_set/?${queryParams}`);
+    if (!result) {
+      return [];
+    }
+
+    return result.data;
+  } 
+  
 
   /**
    * Translates object into query string
@@ -101,7 +118,7 @@ export class LinkedEventsApi {
    * @returns result
    */
   private fetchFromLinkedEvents = async (url: string) => {
-    const result = await (await fetch(`${this.apiUrl}/${url}`, {
+    const result = await (await fetch(`${this.apiUrl}${url}`, {
       headers: {
         "Accept": "application/json"
       }
