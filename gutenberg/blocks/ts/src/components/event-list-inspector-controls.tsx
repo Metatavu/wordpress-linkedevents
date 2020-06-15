@@ -163,7 +163,18 @@ class EventList extends React.Component<Props, State> {
     ]);
   };
 
-  private renderLanguageSelection = () => {
+  private renderFieldConfig = () => {
+    const title = __('Field config', 'linkedevents');
+    const hint = __('Show/hide and sort fields', 'linkedevents');
+    const forcedItems = ['name'];
+    const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images', 'offers', 'provider', 'externalLinks', 'accessible'];
+    return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
+  };
+
+  /**
+   * Renders Event language filter
+   */
+  private renderLanguageFilter = () => {
     const title = __('Event language', 'linkedevents');
     const hint = __('Show events with chosen language', 'linkedevents');
 
@@ -185,14 +196,6 @@ class EventList extends React.Component<Props, State> {
         label: __('Swedish', 'linkedevents')
       }
     ]);
-  };
-
-  private renderFieldConfig = () => {
-    const title = __('Field config', 'linkedevents');
-    const hint = __('Show/hide and sort fields', 'linkedevents');
-    const forcedItems = ['name'];
-    const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images', 'offers', 'provider', 'externalLinks', 'accessible'];
-    return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
   };
 
   /**
