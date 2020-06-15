@@ -537,3 +537,5 @@ class KeywordSet implements ArrayAccess
         return json_encode(\Metatavu\LinkedEvents\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

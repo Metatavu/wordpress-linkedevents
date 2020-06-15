@@ -265,3 +265,5 @@ class InlineResponse2003 implements ArrayAccess
         return json_encode(\Metatavu\LinkedEvents\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+
