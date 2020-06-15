@@ -54,7 +54,7 @@ class InlineResponse2003 implements ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'meta' => '\Metatavu\LinkedEvents\Model\MetaDefinition',
+        'meta' => '\Metatavu\LinkedEvents\Model\Keyword',
         'data' => '\Metatavu\LinkedEvents\Model\KeywordSet[]'
     ];
 
@@ -168,7 +168,7 @@ class InlineResponse2003 implements ArrayAccess
 
     /**
      * Gets meta
-     * @return \Metatavu\LinkedEvents\Model\MetaDefinition
+     * @return \Metatavu\LinkedEvents\Model\Keyword
      */
     public function getMeta()
     {
@@ -177,7 +177,7 @@ class InlineResponse2003 implements ArrayAccess
 
     /**
      * Sets meta
-     * @param \Metatavu\LinkedEvents\Model\MetaDefinition $meta
+     * @param \Metatavu\LinkedEvents\Model\Keyword $meta
      * @return $this
      */
     public function setMeta($meta)
@@ -265,5 +265,3 @@ class InlineResponse2003 implements ArrayAccess
         return json_encode(\Metatavu\LinkedEvents\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

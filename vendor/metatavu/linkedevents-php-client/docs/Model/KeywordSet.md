@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** | Unique identifier for this keyword_set. These should be URIs identifying the source and the keyword_set itself, and preferably also well formed http-URLs pointing to more information about the keyword. | 
-**name** | [**\Metatavu\LinkedEvents\Model\KeywordName**](KeywordName.md) |  | [optional] 
+**name** | **string** | Name for this keyword_set. This should be human readable, such that it could be shown as label in UI | 
 **originId** | **string** | Set identifier in the originating system, if any | [optional] 
 **createdTime** | [**\DateTime**](\DateTime.md) | Time when this keyword_set was created (ISO 8601) | [optional] 
 **lastModifiedTime** | [**\DateTime**](\DateTime.md) | Time when this keyword_set was last modified (ISO 8601) | [optional] 

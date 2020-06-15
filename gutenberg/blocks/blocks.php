@@ -293,8 +293,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
 
       $html = sprintf('%s%s%s%s', $labelHtml, $inputHtml, $filterHtmls, $buttonHtml);
 
-      error_log($html);
-
       return sprintf('<form class="linkedevents-events-search" role="search" method="get" action="%s">%s</form>', esc_url($actionUrl), $html);
     }
     

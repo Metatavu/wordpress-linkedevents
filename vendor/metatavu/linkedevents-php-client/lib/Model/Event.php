@@ -87,8 +87,7 @@ class Event implements ArrayAccess
         'dataSource' => 'string',
         'createdBy' => 'string',
         'lastModifiedBy' => 'string',
-        'publisher' => 'string',
-        'accessible' => 'bool'
+        'publisher' => 'string'
     ];
 
     /**
@@ -128,8 +127,7 @@ class Event implements ArrayAccess
         'dataSource' => null,
         'createdBy' => null,
         'lastModifiedBy' => null,
-        'publisher' => null,
-        'accessible' => null
+        'publisher' => null
     ];
 
     public static function swaggerTypes()
@@ -179,8 +177,7 @@ class Event implements ArrayAccess
         'dataSource' => 'data_source',
         'createdBy' => 'created_by',
         'lastModifiedBy' => 'last_modified_by',
-        'publisher' => 'publisher',
-        'accessible' => 'accessible'
+        'publisher' => 'publisher'
     ];
 
 
@@ -221,8 +218,7 @@ class Event implements ArrayAccess
         'dataSource' => 'setDataSource',
         'createdBy' => 'setCreatedBy',
         'lastModifiedBy' => 'setLastModifiedBy',
-        'publisher' => 'setPublisher',
-        'accessible' => 'setAccessible'
+        'publisher' => 'setPublisher'
     ];
 
 
@@ -263,8 +259,7 @@ class Event implements ArrayAccess
         'dataSource' => 'getDataSource',
         'createdBy' => 'getCreatedBy',
         'lastModifiedBy' => 'getLastModifiedBy',
-        'publisher' => 'getPublisher',
-        'accessible' => 'getAccessible'
+        'publisher' => 'getPublisher'
     ];
 
     public static function attributeMap()
@@ -331,7 +326,6 @@ class Event implements ArrayAccess
         $this->container['createdBy'] = isset($data['createdBy']) ? $data['createdBy'] : null;
         $this->container['lastModifiedBy'] = isset($data['lastModifiedBy']) ? $data['lastModifiedBy'] : null;
         $this->container['publisher'] = isset($data['publisher']) ? $data['publisher'] : null;
-        $this->container['accessible'] = isset($data['accessible']) ? $data['accessible'] : null;
     }
 
     /**
@@ -1075,27 +1069,6 @@ class Event implements ArrayAccess
 
         return $this;
     }
-
-    /**
-     * Gets accessible
-     * @return bool
-     */
-    public function getAccessible()
-    {
-        return $this->container['accessible'];
-    }
-    
-    /**
-     * Sets accessible
-     * @param bool $accessible Is event accessible for everyone
-     * @return $this
-     */
-    public function setAccessible($accessible)
-    {
-        $this->container['accessible'] = $accessible;
-        return $this;
-    }
-
     /**
      * Returns true if offset exists. False otherwise.
      * @param  integer $offset Offset
@@ -1154,5 +1127,3 @@ class Event implements ArrayAccess
         return json_encode(\Metatavu\LinkedEvents\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

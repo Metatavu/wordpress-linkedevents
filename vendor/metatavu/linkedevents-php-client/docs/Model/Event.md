@@ -36,7 +36,6 @@ Name | Type | Description | Notes
 **createdBy** | **string** | FIXME(verify) Which API user created this keyword | [optional] 
 **lastModifiedBy** | **string** | FIXME(verify) Which API user most recently edited this keyword | [optional] 
 **publisher** | **string** | Organization responsible for this event record. | [optional] 
-**accessible** | **bool** | Is event accessible for everyone | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

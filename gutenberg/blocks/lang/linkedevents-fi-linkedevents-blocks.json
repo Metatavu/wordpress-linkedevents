@@ -230,23 +230,35 @@
       ],
 
       "Location visible": [
-        "Kunta näkyvissä"
+        "Kunnat näkyvissä"
       ],
 
       "Whether to show location in search widget": [
         "Näytetäänkö kunta hakuwidgetissä"
       ],
       
-      "Add location": [
-        "Lisää sijainti"
+      "Add locations": [
+        "Lisää kuntia"
       ],
 
-      "Submit": [
-        "Lisää"
+      "Add possible locations for users to fetch": [
+        "Lisää kuntia käyttäjän haettavaksi"
       ],
 
-      "Remove": [
-        "Poista"
+      "Whether to show audience in search widget": [
+        "Näytetäänkö kohderyhmät hakuwidgetissä"
+      ],
+
+      "Audience visible": [
+        "Kohderyhmät näkyvissä"
+      ],
+
+      "Whether to show categories in search widget": [
+        "Näytetäänkö kategoriat hakuwidgetissä"
+      ],
+
+      "Categories visible": [
+        "Kategoriatt näkyvissä"
       ]
     }
   }

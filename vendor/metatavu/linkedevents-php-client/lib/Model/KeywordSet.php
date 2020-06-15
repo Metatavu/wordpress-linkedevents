@@ -56,7 +56,7 @@ class KeywordSet implements ArrayAccess
       */
     protected static $swaggerTypes = [
         'id' => 'string',
-        'name' => '\Metatavu\LinkedEvents\Model\KeywordName',
+        'name' => 'string',
         'originId' => 'string',
         'createdTime' => '\DateTime',
         'lastModifiedTime' => '\DateTime',
@@ -284,7 +284,7 @@ class KeywordSet implements ArrayAccess
 
     /**
      * Gets name
-     * @return \Metatavu\LinkedEvents\Model\KeywordName
+     * @return string
      */
     public function getName()
     {
@@ -293,7 +293,7 @@ class KeywordSet implements ArrayAccess
 
     /**
      * Sets name
-     * @param \Metatavu\LinkedEvents\Model\KeywordName $name Name for this keyword_set. This should be human readable, such that it could be shown as label in UI
+     * @param string $name Name for this keyword_set. This should be human readable, such that it could be shown as label in UI
      * @return $this
      */
     public function setName($name)
@@ -537,5 +537,3 @@ class KeywordSet implements ArrayAccess
         return json_encode(\Metatavu\LinkedEvents\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-
