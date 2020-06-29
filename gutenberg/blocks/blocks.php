@@ -230,7 +230,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ];
         }, $filterApi->keywordList()->getData()));
 
-        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $keywordsLabelHtml, $keywordsSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $keywordsLabelHtml, "linkedevents-events-keyword-section", $keywordsSelectHtml);
       }
 
       if ($locationVisible) {
@@ -244,7 +244,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ];
         }, $locations));
 
-        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $locationsLabelHtml, $locationsSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $locationsLabelHtml, "linkedevents-events-keyword-section", $locationsSelectHtml);
       }
 
       if ($audienceVisible) {
@@ -262,10 +262,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $audiencesSelectHtml = $this->renderChecklistInput($audienceId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($audience) {
           return [
             "value" => $audience->getId(),
-            "label" => $this->getLocalizedValue($audience->getName())
+            "label" => $this->removeTextInParens($this->getLocalizedValue($audience->getName()))
           ];
         }, $audiences));
-        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $audiencesLabelHtml, $audiencesSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $audiencesLabelHtml, "linkedevents-events-keyword-section", $audiencesSelectHtml);
       }
 
       if ($categoriesVisible) {
@@ -283,10 +283,10 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $categoriesSelectHtml = $this->renderChecklistInput($categoryId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($category) {
           return [
             "value" => $category->getId(),
-            "label" => $this->getLocalizedValue($category->getName())
+            "label" => $this->removeTextInParens($this->getLocalizedValue($category->getName()))
           ];
         }, $categories));
-        $filterHtmls .= sprintf("<div>%s</div><div>%s</div>", $categoriesLabelHtml, $categoriesSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $categoriesLabelHtml, "linkedevents-events-keyword-section", $categoriesSelectHtml);
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);
@@ -349,9 +349,9 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $maxDuration = $this->parseInt($attributes["filter-max-duration"]);
       $publisher = null;
       $sort = $this->getSearchParam("sort", $attributes["sort"]);
-      $page = null; 
+      $page = $this->getSearchParam("page"); 
       $pageSize = $this->parseInt($attributes["page-size"]);
-      $addressLocalityFi = $this->getSearchParamsCDT("address_locality_fi", $attributes["filter-locality-fi"]);;
+      $addressLocalityFi = $this->getSearchParamsCDT("address_locality_fi", $attributes["filter-locality-fi"]);
       $addressLocalitySv = null;
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
@@ -644,6 +644,17 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
 
       $result->setTime(0, 0);
       return $result;
+    }
+
+    /**
+     * Removes part(s) of text that is in parens
+     * 
+     * @return e.g. input "Something (in parens)" -> "Something"
+     */
+    private function removeTextInParens($string) {
+      $pattern = '/\w*[(]\S*[)]/';
+      $replaced = preg_replace($pattern, '', $string);
+      return trim($replaced);
     }
 
   }
