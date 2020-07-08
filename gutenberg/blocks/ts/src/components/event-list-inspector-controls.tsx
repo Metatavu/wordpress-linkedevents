@@ -67,7 +67,7 @@ class EventList extends React.Component<Props, State> {
         {this.renderDurationFilter()}
         {this.renderSort()}
         {this.renderPageSize()}
-        {this.renderLanguageSelection()}
+        {this.renderLanguageFilter()}
         {this.renderFieldConfig()}
         {this.renderAddressLocalityFi()}
       </InspectorControls>
@@ -163,14 +163,6 @@ class EventList extends React.Component<Props, State> {
     ]);
   };
 
-  private renderFieldConfig = () => {
-    const title = __('Field config', 'linkedevents');
-    const hint = __('Show/hide and sort fields', 'linkedevents');
-    const forcedItems = ['name'];
-    const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images', 'offers', 'provider', 'externalLinks', 'accessible'];
-    return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
-  };
-
   /**
    * Renders Event language filter
    */
@@ -198,6 +190,10 @@ class EventList extends React.Component<Props, State> {
     ]);
   };
 
+    /**
+   * Renders field config
+   * Config includes items shown in event list
+   */
   private renderFieldConfig = () => {
     const title = __('Field config', 'linkedevents');
     const hint = __('Show/hide and sort fields', 'linkedevents');
