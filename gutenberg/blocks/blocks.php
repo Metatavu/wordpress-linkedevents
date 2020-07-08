@@ -244,7 +244,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           ];
         }, $locations));
 
-        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $locationsLabelHtml, "linkedevents-events-keyword-section", $locationsSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $locationsLabelHtml, "linkedevents-events-locations-section", $locationsSelectHtml);
       }
 
       if ($audienceVisible) {
@@ -265,7 +265,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             "label" => $this->removeTextInParens($this->getLocalizedValue($audience->getName()))
           ];
         }, $audiences));
-        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $audiencesLabelHtml, "linkedevents-events-keyword-section", $audiencesSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $audiencesLabelHtml, "linkedevents-events-audience-section", $audiencesSelectHtml);
       }
 
       if ($categoriesVisible) {
@@ -286,7 +286,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             "label" => $this->removeTextInParens($this->getLocalizedValue($category->getName()))
           ];
         }, $categories));
-        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $categoriesLabelHtml, "linkedevents-events-keyword-section", $categoriesSelectHtml);
+        $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $categoriesLabelHtml, "linkedevents-events-category-section", $categoriesSelectHtml);
       }
 
       $buttonHtml = sprintf('<div><button type="submit" class="linkedevents-events-search-button">%s</button></div>', $buttonText);

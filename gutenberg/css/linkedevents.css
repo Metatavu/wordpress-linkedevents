@@ -45,3 +45,24 @@
 .linkedevents-events-search-button {
   margin-top: 10px;
 }
+
+.linkedevents-events-locations-section {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.linkedevents-events-audience-section {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.linkedevents-events-category-section {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
