@@ -71,13 +71,14 @@ class EventSearch extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
+    const keywords = await this.linkedEventsApi.listKeywords();
     const locations: string[] = this.props.getAttribute('locations').split(',');
     const keywordSets = await this.linkedEventsApi.listKeywordSets({include: "keywords"});
     const audiences = keywordSets.find(keywordSet => keywordSet.usage === 'audience').keywords; 
     const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any').keywords;
 
     this.setState({
-      keywords: await this.linkedEventsApi.listKeywords(),
+      keywords,
       locations,
       audiences,
       categories
@@ -252,7 +253,7 @@ class EventSearch extends React.Component<Props, State> {
     );
   }
 
-    /**
+  /**
    * Render location select if visible
    */
   private renderLocation = () => {

@@ -158,6 +158,15 @@ class DragAndDropSelectList extends React.Component<Props, State> {
     });
   };
 
+    /**
+   * Triggers a selected change
+   *
+   * @param selected selected items
+   */
+  private triggerSelectedChange = (selected: string[]) => {
+    this.props.onChange(selected);
+  };
+
   /**
    * Event handler for selected item change
    *
@@ -190,23 +199,12 @@ class DragAndDropSelectList extends React.Component<Props, State> {
       return item !== selectedItem;
     });
 
-    const selected = this.state.selected.concat([selectedItem]);
-
     this.setState({
       items,
-      selected
+      selected: [ ...this.state.selected, selectedItem ]
     });
 
-    this.triggerSelectedChange(selected);
-  };
-
-  /**
-   * Triggers a selected change
-   *
-   * @param selected selected items
-   */
-  private triggerSelectedChange = (selected: string[]) => {
-    this.props.onChange(selected);
+    this.triggerSelectedChange([ ...this.state.selected, selectedItem ]);
   };
 }
 
