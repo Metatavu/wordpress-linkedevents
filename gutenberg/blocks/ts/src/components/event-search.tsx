@@ -9,6 +9,22 @@ declare var wp: wp;
 const { __ } = wp.i18n;
 declare var linkedEventsOptions: LinkedEventsOptions;
 
+
+interface Keyword {
+  name: string;
+
+}
+
+interface Audience {
+  name: string;
+
+}
+
+interface Category {
+  name: string;
+
+}
+
 /**
  * Interface describing component props
  */
@@ -21,10 +37,10 @@ interface Props {
  * Interface describing component state
  */
 interface State {
-  keywords: any[],
+  keywords: Keyword[],
   locations: string[],
-  audiences: any[],
-  categories: any[]
+  audiences: Audience[],
+  categories: Category[]
 }
 
 /**
@@ -55,14 +71,7 @@ class EventSearch extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
-    const locationsProp = this.props.getAttribute('locations').split(',');
-
-    const locations: string[] = [];
-
-    for (let i = 0; i < locationsProp.length; i++) {
-      locations.push(locationsProp[i]);
-    }
-
+    const locations: string[] = this.props.getAttribute('locations').split(',');
     const keywordSets = await this.linkedEventsApi.listKeywordSets({include: "keywords"});
     const audiences = keywordSets.find(keywordSet => keywordSet.usage === 'audience').keywords; 
     const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any').keywords;
@@ -280,7 +289,7 @@ class EventSearch extends React.Component<Props, State> {
     );
   }
 
-      /**
+  /**
    * Render audience select if visible
    */
   private renderAudience = () => {
@@ -318,7 +327,7 @@ class EventSearch extends React.Component<Props, State> {
   }
 
   
-      /**
+  /**
    * Render categories select if visible
    */
   private renderCategories = () => {

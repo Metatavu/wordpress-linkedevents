@@ -77,7 +77,7 @@ export class LinkedEventsApi {
     return result;
   } 
 
-    /**
+  /**
    * Searches keyword_sets by free text
    * 
    * @param search search query
