@@ -45,24 +45,10 @@ class DragAndDropSelectList extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
-    const selected: string[] = [];
-    const items: string[] = [];
+    const { forcedItems, optionalItems, value } = this.props;
 
-    for (let i = 0; i < this.props.value.length; i++) {
-      selected.push(this.props.value[i]);
-    }
-
-    this.props.forcedItems.forEach(item => {
-      if (!selected.includes(item)) {
-        selected.push(item);
-      }
-    });
-
-    this.props.optionalItems.forEach(item => {
-      if (!selected.includes(item)) {
-        items.push(item);
-      }
-    });
+    const selected: string[] = value.concat(forcedItems.filter(item => !value.includes(item)));
+    const items: string[] = optionalItems.filter(item => !selected.includes(item));
 
     this.setState({
       items,
@@ -72,38 +58,6 @@ class DragAndDropSelectList extends React.Component<Props, State> {
 
   draggedItem: any;
   draggedIdx: any;
-
-    /**
-   * Event handler for drag start 
-   * 
-   * @param e 
-   * @param index items index on selected list
-   */
-  private onDragStart = (e: any, index: number) => {
-    this.draggedItem = this.state.selected[index];
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', e.target.parentNode);
-    e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
-  };
-
-  private onDragOver = (index: number) => {
-    const draggedOverItem = this.state.selected[index];
-
-    if (this.draggedItem === draggedOverItem) {
-      return;
-    }
-
-    const selected = this.state.selected.filter(item => item !== this.draggedItem);
-    selected.splice(index, 0, this.draggedItem);
-    this.setState({ 
-      selected: selected
-    });
-    this.triggerSelectedChange(selected);
-  };
-
-  private onDragEnd = () => {
-    this.draggedIdx = null;
-  };
 
    /**
    * Component render method
@@ -145,6 +99,38 @@ class DragAndDropSelectList extends React.Component<Props, State> {
         ))}
       </div>
     );
+  };
+
+      /**
+   * Event handler for drag start 
+   * 
+   * @param e 
+   * @param index items index on selected list
+   */
+  private onDragStart = (e: any, index: number) => {
+    this.draggedItem = this.state.selected[index];
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.parentNode);
+    e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
+  };
+
+  private onDragOver = (index: number) => {
+    const draggedOverItem = this.state.selected[index];
+
+    if (this.draggedItem === draggedOverItem) {
+      return;
+    }
+
+    const selected = this.state.selected.filter(item => item !== this.draggedItem);
+    selected.splice(index, 0, this.draggedItem);
+    this.setState({ 
+      selected: selected
+    });
+    this.triggerSelectedChange(selected);
+  };
+
+  private onDragEnd = () => {
+    this.draggedIdx = null;
   };
 
   /**

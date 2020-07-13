@@ -2,27 +2,18 @@ import React from 'react';
 import { wp, WPSelectControlOption } from 'wp';
 import EventSearchInspectorControls from './event-search-inspector-controls';
 import { LinkedEventsOptions } from '../types';
-import { LinkedEventsApi } from '../linkedevents/api';
+import { LinkedEventsApi, Keyword, JSONLDObject, KeywordSet } from '../linkedevents/api';
 import LinkedEventsUtils from '../linkedevents/utils';
 
 declare var wp: wp;
 const { __ } = wp.i18n;
 declare var linkedEventsOptions: LinkedEventsOptions;
 
-
-interface Keyword {
-  name: string;
-
-}
-
-interface Audience {
-  name: string;
-
-}
-
-interface Category {
-  name: string;
-
+/**
+ * Interface describing KeywordSetKeywords
+ */
+export interface KeywordSetKeywords {
+  keywords: Array<Keyword>;
 }
 
 /**
@@ -39,8 +30,8 @@ interface Props {
 interface State {
   keywords: Keyword[],
   locations: string[],
-  audiences: Audience[],
-  categories: Category[]
+  audiences: KeywordSetKeywords,
+  categories: KeywordSetKeywords
 }
 
 /**
@@ -60,8 +51,8 @@ class EventSearch extends React.Component<Props, State> {
     this.state = { 
       keywords: [],
       locations: [],
-      audiences: [],
-      categories: []
+      audiences: {keywords: []},
+      categories: {keywords: []}
     };
 
     this.linkedEventsApi = new LinkedEventsApi(linkedEventsOptions.apiUrl);
@@ -71,17 +62,17 @@ class EventSearch extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
-    const keywords = await this.linkedEventsApi.listKeywords();
+    const keywords: Keyword[] = await this.linkedEventsApi.listKeywords();
     const locations: string[] = this.props.getAttribute('locations').split(',');
-    const keywordSets = await this.linkedEventsApi.listKeywordSets({include: "keywords"});
-    const audiences = keywordSets.find(keywordSet => keywordSet.usage === 'audience').keywords; 
-    const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any').keywords;
+    const keywordSets: KeywordSet[] = await this.linkedEventsApi.listKeywordSets({include: "keywords"});
+    const audiences: KeywordSetKeywords = keywordSets.find((keywordSet: KeywordSet ) => keywordSet.usage === 'audience'); 
+    const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any');
 
     this.setState({
       keywords,
       locations,
-      audiences,
-      categories
+      audiences: audiences ? audiences : {keywords: []},
+      categories: categories ? categories : {keywords: []}
     });
   }
 
@@ -316,7 +307,7 @@ class EventSearch extends React.Component<Props, State> {
         </div>
         <div>
           {
-            this.state.audiences.map((audience) => {
+            this.state.audiences.keywords.map((audience) => {
               return (
                 <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(audience.name) }></CheckboxControl>
               );
@@ -354,7 +345,7 @@ class EventSearch extends React.Component<Props, State> {
         </div>
         <div>
           {
-            this.state.categories.map((category) => {
+            this.state.categories.keywords.map((category) => {
               return (
                 <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(category.name) }></CheckboxControl>
               );
