@@ -69,8 +69,8 @@ class EventSearch extends React.Component<Props, State> {
     const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any');
 
     this.setState({
-      keywords,
-      locations,
+      keywords: keywords,
+      locations: locations,
       audiences: audiences ? audiences : {keywords: []},
       categories: categories ? categories : {keywords: []}
     });
@@ -318,7 +318,6 @@ class EventSearch extends React.Component<Props, State> {
     );
   }
 
-  
   /**
    * Render categories select if visible
    */

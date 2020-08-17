@@ -368,8 +368,8 @@ class EventList extends React.Component<Props, State> {
    * @param title title
    * @param hint hint text
    * @param attribute attribute for storing list value
-   * @param onChange method to execute list changes
-   */
+   * @param forcedItems string list of always selected items
+   * @param optionalItems string list of selectable items   */
   private renderDragAndDropList = (title: string, hint: string, attribute: string, forcedItems: string[], optionalItems: string[]) => {
     const { Tooltip } = wp.components;
 
@@ -383,10 +383,10 @@ class EventList extends React.Component<Props, State> {
 
     return (
       <div>
-        <Tooltip text={hint}>
-          <label> {title} </label>
+        <Tooltip text={ hint }>
+          <label> { title } </label>
         </Tooltip>
-        <DragAndDropSelectList forcedItems={forcedItems} optionalItems={optionalItems} value={value} onChange={(items) => onChange(items)}></DragAndDropSelectList>
+        <DragAndDropSelectList forcedItems={ forcedItems } optionalItems={ optionalItems } value={ value } onChange={(items) => onChange(items)}></DragAndDropSelectList>
       </div>
     );
   };

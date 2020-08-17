@@ -127,7 +127,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
-  /**
+     /**
    * Renders location options
    */
   private renderLocationOptions = () => {
@@ -137,11 +137,10 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
       const hint = __("Add possible locations for users to fetch", "linkedevents");
 
       return this.renderTextControl(title, hint, "locations");
-      //return this.renderSubmittableTextForm(title, hint, "locations");
     }
   }
 
-  /**
+     /**
    * Renders select for selecting whether audience is visible or not
    */
   private renderAudienceVisible = () => {
@@ -157,7 +156,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
     }]);
   }
 
-  /**
+       /**
    * Renders select for selecting whether categories are visible or not
    */
   private renderCategoriesVisible = () => {
@@ -206,7 +205,7 @@ class EventSearchInspectorControls extends React.Component<Props, State> {
 
     return (
       <div>
-        <Tooltip text={hint}>
+        <Tooltip text={ hint }>
           <label> { title } </label>
         </Tooltip>
         <TextControl value={this.props.getAttribute(attribute)} onChange={(value: string) => this.props.setAttribute(attribute, value)}></TextControl>

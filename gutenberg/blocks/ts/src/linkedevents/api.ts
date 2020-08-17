@@ -3,7 +3,6 @@
  */
 export interface JSONLDObject {
   '@id': string;
-  // Objects of this type could omit these properties:
   '@context'?: string;
   '@type'?: string;
 }
@@ -137,8 +136,8 @@ export class LinkedEventsApi {
   /**
    * Searches keyword_sets by free text
    * 
-   * @param search search query
-   * @returns found keywords
+   * @param options search query
+   * @returns Promise for found keywordsets
    */
   public listKeywordSets = async (options?: { include?: string }): Promise<KeywordSet[]> => {
     const queryParams = this.getQueryParams(options);

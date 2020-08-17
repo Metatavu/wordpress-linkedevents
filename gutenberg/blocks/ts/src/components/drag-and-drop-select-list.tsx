@@ -12,6 +12,7 @@ const { __ } = wp.i18n;
 interface State {
   items: string[];
   selected: string[];
+  draggedItem: any;
 }
 
 /**
@@ -37,7 +38,8 @@ class DragAndDropSelectList extends React.Component<Props, State> {
     super(props);
     this.state = {
       items: [],
-      selected: []
+      selected: [],
+      draggedItem: null
     };
   }
 
@@ -55,9 +57,6 @@ class DragAndDropSelectList extends React.Component<Props, State> {
       selected
     });
   };
-
-  draggedItem: any;
-  draggedIdx: any;
 
    /**
    * Component render method
@@ -85,7 +84,7 @@ class DragAndDropSelectList extends React.Component<Props, State> {
       <div>
         {this.state.selected.map((selectedItem, index) => (
           <li key={selectedItem} onDragOver={() => this.onDragOver(index)}>
-            <div className='drag-item' draggable onDragStart={e => this.onDragStart(e, index)} onDragEnd={this.onDragEnd}>
+            <div className='drag-item' draggable onDragStart={e => this.onDragStart(e, index)} >
               <span className='menu-icon'>{MenuIcon}</span>
               <CheckboxControl
                 checked={true}
@@ -93,44 +92,11 @@ class DragAndDropSelectList extends React.Component<Props, State> {
                 key={selectedItem}
                 onChange={() => this.onSelectedItemChange(selectedItem)}
               />
-
             </div>
           </li>
         ))}
       </div>
     );
-  };
-
-      /**
-   * Event handler for drag start 
-   * 
-   * @param e 
-   * @param index items index on selected list
-   */
-  private onDragStart = (e: any, index: number) => {
-    this.draggedItem = this.state.selected[index];
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', e.target.parentNode);
-    e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
-  };
-
-  private onDragOver = (index: number) => {
-    const draggedOverItem = this.state.selected[index];
-
-    if (this.draggedItem === draggedOverItem) {
-      return;
-    }
-
-    const selected = this.state.selected.filter(item => item !== this.draggedItem);
-    selected.splice(index, 0, this.draggedItem);
-    this.setState({ 
-      selected: selected
-    });
-    this.triggerSelectedChange(selected);
-  };
-
-  private onDragEnd = () => {
-    this.draggedIdx = null;
   };
 
   /**
@@ -153,6 +119,39 @@ class DragAndDropSelectList extends React.Component<Props, State> {
     this.props.onChange(selected);
   };
 
+    /**
+   * Event handler for drag start 
+   * 
+   * @param e 
+   * @param index items index on selected list
+   */
+  private onDragStart = (e: any, index: number) => {
+    this.setState({
+      draggedItem: this.state.selected[index]
+    })
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', e.target.parentNode);
+    e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
+  };
+
+  /**
+   * Event handler for dragging over items
+   */
+  private onDragOver = (index: number) => {
+    const draggedOverItem = this.state.selected[index];
+
+    if (this.state.draggedItem === draggedOverItem) {
+      return;
+    }
+
+    const selected = this.state.selected.filter(item => item !== this.state.draggedItem);
+    selected.splice(index, 0, this.state.draggedItem);
+    this.setState({ 
+      selected: selected
+    });
+    this.triggerSelectedChange(selected);
+  };
+
   /**
    * Event handler for selected item change
    *
@@ -164,11 +163,9 @@ class DragAndDropSelectList extends React.Component<Props, State> {
         return selectedItem !== removedItem;
       });
 
-      const items = [removedItem].concat(this.state.items);
-
       this.setState({
-        items,
-        selected
+        items: [ ...this.state.items, removedItem ],
+        selected: selected
       });
 
       this.triggerSelectedChange(selected);
