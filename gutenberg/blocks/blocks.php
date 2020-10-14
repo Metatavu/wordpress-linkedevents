@@ -262,7 +262,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $audiencesSelectHtml = $this->renderChecklistInput($audienceId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($audience) {
           return [
             "value" => $audience->getId(),
-            "label" => $this->removeTextInParens($this->getLocalizedValue($audience->getName()))
+            "label" => $this->getLocalizedValue($audience->getName())
           ];
         }, $audiences));
         $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $audiencesLabelHtml, "linkedevents-events-audience-section", $audiencesSelectHtml);
@@ -283,7 +283,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
         $categoriesSelectHtml = $this->renderChecklistInput($categoryId, "les-keywords", $keywordIds, "linkedevents-events-keyword-container", "linkedevents-events-keyword", array_map(function ($category) {
           return [
             "value" => $category->getId(),
-            "label" => $this->removeTextInParens($this->getLocalizedValue($category->getName()))
+            "label" => $this->getLocalizedValue($category->getName())
           ];
         }, $categories));
         $filterHtmls .= sprintf("<div>%s</div><div class=\"%s\">%s</div>", $categoriesLabelHtml, "linkedevents-events-category-section", $categoriesSelectHtml);
@@ -645,18 +645,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $result->setTime(0, 0);
       return $result;
     }
-
-    /**
-     * Removes part(s) of text that is in parens
-     * 
-     * @return e.g. input "Something (in parens)" -> "Something"
-     */
-    private function removeTextInParens($string) {
-      $pattern = '/\w*[(]\S*[)]/';
-      $replaced = preg_replace($pattern, '', $string);
-      return trim($replaced);
-    }
-
   }
 
 }
