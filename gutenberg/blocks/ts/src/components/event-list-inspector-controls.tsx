@@ -196,7 +196,7 @@ class EventList extends React.Component<Props, State> {
     const hint = __('Show/hide and sort fields', 'linkedevents');
     const forcedItems = ['name'];
     const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images', 'offers', 'provider', 'externalLinks'];
-    return this.renderDragAndDropList(title, hint, 'field-config', forcedItems, optionalItems);
+    return this.renderDragAndDropList(title, hint, 'visible-list-fields', forcedItems, optionalItems);
   };
   
   /**

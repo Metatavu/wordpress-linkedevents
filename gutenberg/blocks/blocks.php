@@ -129,7 +129,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           "filter-language" => [
             'type' => 'string'
           ],
-          "field-config" => [
+          "visible-list-fields" => [
             'type' => 'string'
           ],
           "sort" => [
@@ -355,7 +355,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalitySv = null;
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
-      $fieldConfig = $attributes["field-config"];
+      $fieldConfig = $attributes["visible-list-fields"];
       $publicationStatus = null;
 
       try {
