@@ -72,7 +72,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderSort() }
         { this.renderPageSize() }
         { this.renderLanguageFilter() }
-        { this.renderFieldConfig() }
+        { this.renderVisibleListFields() }
         { this.renderAddressLocalityFi() }
       </InspectorControls>
     );
@@ -188,10 +188,10 @@ class EventList extends React.Component<Props, State> {
   };
 
   /**
-   * Renders field config
+   * Renders visible fields list input
    * Config includes items shown in event list
    */
-  private renderFieldConfig = () => {
+  private renderVisibleListFields = () => {
     const title = __('Field config', 'linkedevents');
     const hint = __('Show/hide and sort fields', 'linkedevents');
     const forcedItems = ['name'];

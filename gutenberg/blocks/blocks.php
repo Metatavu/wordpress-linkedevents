@@ -355,7 +355,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalitySv = null;
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
-      $fieldConfig = $attributes["visible-list-fields"];
+      $visibleListFields = $attributes["visible-list-fields"];
       $publicationStatus = null;
 
       try {
@@ -405,7 +405,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
             "events" => $events->getData(),
             "locations" => $locations,
             "language" => $language,
-            "fieldConfig" => $fieldConfig
+            "visibleListFields" => $visibleListFields
           ];
 
           $templateLoader = new \Metatavu\LinkedEvents\TemplateLoader();
