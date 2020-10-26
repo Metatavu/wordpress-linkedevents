@@ -3,6 +3,7 @@ import { wp, WPSelectControlOption } from 'wp';
 import moment from "moment";
 import { LinkedEventsOptions } from '../types';
 import SearchableChecklist, { SearchableChecklistItem } from './searchable-checklist';
+import DragAndDropSelectList from './drag-and-drop-select-list';
 import { LinkedEventsApi } from '../linkedevents/api';
 import LinkedEventsUtils from '../linkedevents/utils';
 
@@ -71,6 +72,7 @@ class EventList extends React.Component<Props, State> {
         { this.renderSort() }
         { this.renderPageSize() }
         { this.renderLanguageFilter() }
+        { this.renderVisibleListFields() }
         { this.renderAddressLocalityFi() }
       </InspectorControls>
     );
@@ -185,6 +187,17 @@ class EventList extends React.Component<Props, State> {
     ]);
   };
 
+  /**
+   * Renders visible fields list input
+   * Config includes items shown in event list
+   */
+  private renderVisibleListFields = () => {
+    const title = __('Field config', 'linkedevents');
+    const hint = __('Show/hide and sort fields', 'linkedevents');
+    const forcedItems = ['name'];
+    const optionalItems = ['shortDescription', 'location', 'infoUrl', 'startTime', 'endTime', 'images', 'offers', 'provider', 'externalLinks'];
+    return this.renderDragAndDropList(title, hint, 'visible-list-fields', forcedItems, optionalItems);
+  };
   
   /**
    * Renders recurring filter
@@ -331,7 +344,7 @@ class EventList extends React.Component<Props, State> {
    */
   private renderSearchableChecklistFilter = (title: string, hint: string, attribute: string, onSearch: (search: string) => Promise<SearchableChecklistItem[]>, onGetItem: (id: string) => Promise<SearchableChecklistItem>) => {
     const { Tooltip } = wp.components;
-    const value = (this.props.getAttribute(`filter-${attribute}`) || "").split(",").filter((id: string) => {
+    const value = (this.props.getAttribute(`filter-${attribute}`) || "").split(",").filter((id: string) => {
       return !!id;
     });
 
@@ -348,6 +361,35 @@ class EventList extends React.Component<Props, State> {
       </div>
     );
   }
+
+  /**
+   * Renders checkboxded drag and drop list
+   *
+   * @param title title
+   * @param hint hint text
+   * @param attribute attribute for storing list value
+   * @param forcedItems string list of always selected items
+   * @param optionalItems string list of selectable items   */
+  private renderDragAndDropList = (title: string, hint: string, attribute: string, forcedItems: string[], optionalItems: string[]) => {
+    const { Tooltip } = wp.components;
+
+    const value = (this.props.getAttribute(`${attribute}`) || '').split(',').filter((id: string) => {
+      return !!id;
+    });
+
+    const onChange = (items: string[]) => {
+      this.props.setAttribute(attribute, items.join(','));
+    };
+
+    return (
+      <div>
+        <Tooltip text={ hint }>
+          <label> { title } </label>
+        </Tooltip>
+        <DragAndDropSelectList forcedItems={ forcedItems } optionalItems={ optionalItems } value={ value } onChange={(items) => onChange(items)}></DragAndDropSelectList>
+      </div>
+    );
+  };
 
   /**
    * Renders date control filter
@@ -372,7 +414,7 @@ class EventList extends React.Component<Props, State> {
     const value = this.props.getAttribute(`filter-${attribute}`);
     const selectValue = !value ? "" : value == "today" ? "today" : "date";
     const onSelectChange = (value: string) => {
-      if (value == "" || value == "today") {
+      if (value == "" || value == "today") {
         this.props.setAttribute(`filter-${attribute}`, value);
       } else {
         this.props.setAttribute(`filter-${attribute}`, moment().format());
@@ -387,7 +429,7 @@ class EventList extends React.Component<Props, State> {
           <label> { title } </label>
         </Tooltip>
         <SelectControl value={ selectValue } onChange={ onSelectChange } options={ options }></SelectControl>
-        { pickerVisible ? <DatePicker currentDate={ value } onChange={(value: string) => this.props.setAttribute(`filter-${attribute}`, value) } /> : null }
+        { pickerVisible ? <DatePicker currentDate={ value } onChange={(value: string) => this.props.setAttribute(`filter-${attribute}`, value) } /> : null }
       </div>
     );
   }

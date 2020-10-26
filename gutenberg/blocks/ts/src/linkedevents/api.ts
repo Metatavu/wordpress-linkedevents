@@ -1,4 +1,60 @@
 /**
+ * Interface describing JSONLDObject
+ */
+export interface JSONLDObject {
+  '@id': string;
+  '@context'?: string;
+  '@type'?: string;
+}
+
+/**
+ * Interface describing Keyword
+ */
+export interface Keyword extends JSONLDObject {
+  id?: string;
+  alt_labels?: Array<string>;
+  createdTime?: string;
+  last_modified_time?: string;
+  aggregate?: boolean;
+  deprecated?: boolean;
+  n_events?: number;
+  data_source?: string;
+  publisher?: string;
+  name?: {[key: string]: string};
+}
+
+/**
+ * Interface describing KeywordSet
+ */
+export interface KeywordSet extends JSONLDObject {
+  id: string;
+  name:  {[key: string]: string};
+  usage: number | string;
+  created_time: string;
+  last_modified_time: string;
+  data_source: string;
+  image: Image | null;
+  organization: string;
+  keywords: Array<Keyword>;
+}
+
+/**
+ * Interface describing Image
+ */
+export interface Image extends JSONLDObject {
+  id: number;
+  license: string;
+  name: string;
+  created_time: string;
+  last_modified_time: string;
+  url: string;
+  cropping: string;
+  photographer_name: string;
+  data_source: string;
+  publisher: string;
+}
+
+/**
  * API client for LinkedEvents API
  */
 export class LinkedEventsApi {
@@ -76,6 +132,23 @@ export class LinkedEventsApi {
 
     return result;
   } 
+
+  /**
+   * Searches keyword_sets by free text
+   * 
+   * @param options search query
+   * @returns Promise for found keywordsets
+   */
+  public listKeywordSets = async (options?: { include?: string }): Promise<KeywordSet[]> => {
+    const queryParams = this.getQueryParams(options);
+    const result = await this.fetchFromLinkedEvents(`keyword_set/?${queryParams}`);
+    if (!result) {
+      return [];
+    }
+
+    return result.data;
+  } 
+  
 
   /**
    * Translates object into query string

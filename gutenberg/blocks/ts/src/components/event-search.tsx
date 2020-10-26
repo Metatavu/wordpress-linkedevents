@@ -2,12 +2,19 @@ import React from 'react';
 import { wp, WPSelectControlOption } from 'wp';
 import EventSearchInspectorControls from './event-search-inspector-controls';
 import { LinkedEventsOptions } from '../types';
-import { LinkedEventsApi } from '../linkedevents/api';
+import { LinkedEventsApi, Keyword, JSONLDObject, KeywordSet } from '../linkedevents/api';
 import LinkedEventsUtils from '../linkedevents/utils';
 
 declare var wp: wp;
 const { __ } = wp.i18n;
 declare var linkedEventsOptions: LinkedEventsOptions;
+
+/**
+ * Interface describing KeywordSetKeywords
+ */
+export interface KeywordSetKeywords {
+  keywords: Array<Keyword>;
+}
 
 /**
  * Interface describing component props
@@ -21,7 +28,10 @@ interface Props {
  * Interface describing component state
  */
 interface State {
-  keywords: any[]
+  keywords: Keyword[],
+  locations: string[],
+  audiences: KeywordSetKeywords,
+  categories: KeywordSetKeywords
 }
 
 /**
@@ -39,7 +49,10 @@ class EventSearch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { 
-      keywords: []
+      keywords: [],
+      locations: [],
+      audiences: {keywords: []},
+      categories: {keywords: []}
     };
 
     this.linkedEventsApi = new LinkedEventsApi(linkedEventsOptions.apiUrl);
@@ -49,8 +62,17 @@ class EventSearch extends React.Component<Props, State> {
    * Component did mount life-cycle event
    */
   public componentDidMount = async () => {
+    const keywords: Keyword[] = await this.linkedEventsApi.listKeywords();
+    const locations: string[] = this.props.getAttribute('locations').split(',');
+    const keywordSets: KeywordSet[] = await this.linkedEventsApi.listKeywordSets({include: "keywords"});
+    const audiences: KeywordSetKeywords = keywordSets.find((keywordSet: KeywordSet ) => keywordSet.usage === 'audience'); 
+    const categories = keywordSets.find(keywordSet => keywordSet.usage === 'any');
+
     this.setState({
-      keywords: await this.linkedEventsApi.listKeywords()
+      keywords: keywords,
+      locations: locations,
+      audiences: audiences ? audiences : {keywords: []},
+      categories: categories ? categories : {keywords: []}
     });
   }
 
@@ -84,7 +106,10 @@ class EventSearch extends React.Component<Props, State> {
 
         { this.renderDateFilter() }
         { this.renderSort() }
-        { this.renderKeywords () }
+        { this.renderKeywords() }
+        { this.renderLocation() }
+        { this.renderAudience() }
+        { this.renderCategories() }
 
         <div className="linkedevents-event-search-widget-button-container">
           <RichText
@@ -211,6 +236,117 @@ class EventSearch extends React.Component<Props, State> {
             this.state.keywords.map((keyword) => {
               return (
                 <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(keyword.name) }></CheckboxControl>
+              );
+            })
+          }
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * Render location select if visible
+   */
+  private renderLocation = () => {
+    const { RichText } = wp.editor;
+    const { CheckboxControl } = wp.components;
+    const locationVisible = this.props.getAttribute("locationVisible");
+
+    if (!locationVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("locationLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("locationLabel", text ) }
+          />
+        </div>
+        <div>
+          {
+            this.state.locations.map((location) => {
+              return (
+                <CheckboxControl className="keyword-checkbox" label={ location }></CheckboxControl>
+              );
+            })
+          }
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * Render audience select if visible
+   */
+  private renderAudience = () => {
+    const { RichText } = wp.editor;
+    const { CheckboxControl } = wp.components;
+    const audienceVisible = this.props.getAttribute("audienceVisible");
+
+    if (!audienceVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("audienceLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("audienceLabel", text ) }
+          />
+        </div>
+        <div>
+          {
+            this.state.audiences.keywords.map((audience) => {
+              return (
+                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(audience.name) }></CheckboxControl>
+              );
+            })
+          }
+        </div>
+      </div>
+    );
+  }
+
+  /**
+   * Render categories select if visible
+   */
+  private renderCategories = () => {
+    const { RichText } = wp.editor;
+    const { CheckboxControl } = wp.components;
+    const audienceVisible = this.props.getAttribute("categoriesVisible");
+
+    if (!audienceVisible) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="linkedevents-event-search-widget-option-label-container">
+          <RichText
+            className="linkedevents-event-search-widget-option-label"
+            aria-label={ __( 'Label text' ) }
+            placeholder={ __( 'Add label text...' ) }
+            withoutInteractiveFormatting
+            value={ this.props.getAttribute("categoriesLabel") }
+            onChange={ ( text: string ) => this.props.setAttribute("categoriesLabel", text ) }
+          />
+        </div>
+        <div>
+          {
+            this.state.categories.keywords.map((category) => {
+              return (
+                <CheckboxControl className="keyword-checkbox" label={ LinkedEventsUtils.getLocalizedValue(category.name) }></CheckboxControl>
               );
             })
           }

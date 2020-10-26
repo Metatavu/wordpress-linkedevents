@@ -8,8 +8,16 @@
   width: 100%;
 }
 
+.linkedevents-events-keyword-section {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .linkedevents-events-keyword-container {
   line-height: 25px;
+  padding-right: 20px;
 }
 
 .linkedevents-events-keyword-container input[type="checkbox"] {
@@ -20,6 +28,7 @@
 .linkedevents-events-keyword-container label {
   vertical-align: top;
   font-size: 15px;
+  text-transform: capitalize;
 }
 
 .linkedevents-events-date-sep {
@@ -35,4 +44,13 @@
 
 .linkedevents-events-search-button {
   margin-top: 10px;
+}
+
+.linkedevents-events-locations-section,
+.linkedevents-events-audience-section,
+.linkedevents-events-category-section {
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
