@@ -356,7 +356,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       $addressLocalityEn = null;
       $language = $attributes["filter-language"];
       $visibleListFields = $attributes["visible-list-fields"];
-      $publicationStatus = null;
+      $publicationStatus = "public";
 
       try {
         $events = $eventsApi->eventList(
