@@ -13,7 +13,7 @@
       private $eventsApi;
       
       public function __construct() {
-        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
+        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi(true);
         add_action('linkedeventsDraftNotificationUpdateHook', [ $this, 'onUpdateHook' ]);
         if (!wp_next_scheduled('linkedeventsDraftNotificationUpdateHook')) {
           wp_schedule_event(time(), 'hourly', 'linkedeventsDraftNotificationUpdateHook');

@@ -16,7 +16,7 @@
       
       public function __construct($targetPage, $pageTitle) {
         parent::__construct($targetPage, $pageTitle);
-        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
+        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi(true);
       }
         
       /**
