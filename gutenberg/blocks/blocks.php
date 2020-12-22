@@ -147,8 +147,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
     /**
      * Renders an event search block
      * 
-     * @param boolean $authenticated use authenticated client
-     * 
      * @return string the form HTML
      */
     public function renderEventSearchBlock($attributes) {
