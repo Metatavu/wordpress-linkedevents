@@ -19,7 +19,7 @@
       /**
        * Creates new Events API instance
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        *
        * @return \Metatavu\LinkedEvents\Client\EventApi API instance
        */
@@ -31,7 +31,7 @@
       /**
        * Creates new Filter API instance
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        *
        * @return \Metatavu\LinkedEvents\Client\FilterApi API instance
        */
@@ -43,7 +43,7 @@
       /**
        * Creates new Image API instance
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        * 
        * @return \Metatavu\LinkedEvents\Client\ImageApi API instance
        */
@@ -55,7 +55,7 @@
       /**
        * Creates new Language API instance
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        * 
        * @return \Metatavu\LinkedEvents\Client\LanguageApi API instance
        */
@@ -67,7 +67,7 @@
       /**
        * Creates new Search API instance
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        * 
        * @return \Metatavu\LinkedEvents\Client\SearchApi API instance
        */
@@ -79,7 +79,7 @@
       /**
        * Returns new LinkedEvents client
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        *
        * @return \Metatavu\LinkedEvents\ApiClient new LinkedEvents client
        */
@@ -90,7 +90,7 @@
       /**
        * Returns LinkedEvents client configuration
        * 
-       * @param boolean $authenticated if true, prints public and draft events with false prints only public
+       * @param boolean $authenticated use authenticated client
        * 
        * @return \Metatavu\LinkedEvents\Configuration LinkedEvents client configuration
        */
