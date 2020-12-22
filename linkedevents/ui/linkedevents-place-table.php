@@ -33,7 +33,7 @@
         wp_register_style('jquery-ui', 'https://cdn.metatavu.io/libs/jquery-ui/1.12.1/jquery-ui.min.css');
         wp_enqueue_style('jquery-ui');
         
-        $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+        $this->filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(true);
       }
       /**
        * Returns free text search text if any specified 

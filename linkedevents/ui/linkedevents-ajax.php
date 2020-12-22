@@ -9,7 +9,7 @@
   require_once( __DIR__ . '/../linkedevents-api.php');
   
   add_action('wp_ajax_linkedevents_places', function () {
-    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(true);
     
     $search = $_GET['q'];
     $placeResponse = $filterApi->placeList(null, null, true, null, null, $search);
@@ -29,7 +29,7 @@
   });
   
   add_action('wp_ajax_linkedevents_keywords', function () {
-    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(true);
     
     $search = $_GET['q'];
     $keywordResponse = $filterApi->keywordList(null, null, null, true, null, $search);
@@ -54,7 +54,7 @@
       return;
     }
     
-    $eventApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
+    $eventApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi(true);
     $id = $_GET['id'];
     
     $eventApi->eventDelete($id);
@@ -68,7 +68,7 @@
       return;
     }
     
-    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(true);
     $id = $_GET['id'];
     $filterApi->placeDelete($id);
 
@@ -81,7 +81,7 @@
       return;
     }
     
-    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+    $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(true);
     $id = $_GET['id'];
     $filterApi->keywordDelete($id);
 

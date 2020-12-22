@@ -40,7 +40,7 @@
         wp_register_style('jquery-ui', 'https://cdn.metatavu.io/libs/jquery-ui/1.12.1/jquery-ui.min.css');
         wp_enqueue_style('jquery-ui');
         
-        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
+        $this->eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi(true);
       }
 
       /**

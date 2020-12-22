@@ -153,7 +153,7 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
       global $wp;
       static $instanceId = 0;
 
-      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(false);
 
       $label = $attributes["label"];
       $textPlaceholder = $attributes["textPlaceholder"];
@@ -330,8 +330,8 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
      */
     public function renderListBlock($attributes) {
       $result = '';
-      $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi();
-      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi();
+      $eventsApi = \Metatavu\LinkedEvents\Wordpress\Api::getEventApi(false);
+      $filterApi = \Metatavu\LinkedEvents\Wordpress\Api::getFilterApi(false);
       
       $include = null;
       $text = $this->getSearchParam("text");
