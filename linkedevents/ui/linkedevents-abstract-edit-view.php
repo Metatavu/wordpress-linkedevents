@@ -181,7 +181,7 @@
        * @param string $poBox
        * @param float[] $coordinates
        */
-      protected function renderGeoPositionInput($label, $name, $streetAddress, $postalCode, $addressLocality, $addressRegion, $poBox, $coordinates) {
+      protected function renderGeoPositionInput($label, $name, $streetAddress = null, $postalCode = null, $addressLocality = null, $addressRegion = null, $poBox = null, $coordinates = null) {
         echo '<h3>' . $label . '</h3>';
         echo '<div data-input="' . $name . '" class="linkedevents-geoinput">';
         echo '<a href="#" class="linkedevents-search dashicons-before dashicons-search">&nbsp;</a>';
