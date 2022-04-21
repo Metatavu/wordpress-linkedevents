@@ -1,15 +1,12 @@
 {
-  "name": "grunt",
-  "description": "Grunt tasks for Wordpress LinkedEvents plugin",
+  "name": "wordpress-linkedevents",
+  "description": "Typescript build tasks for Wordpress LinkedEvents plugin",
   "version": "1.0.0",
+  "scripts": {
+    "build": "cd gutenberg/blocks/ts/ && npm run build"
+  },
   "author": {
     "name": "Metatavu",
     "email": "devs@metatavu.fi"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.4",
-    "grunt-shell": "^3.0.1",
-    "load-grunt-tasks": "^4.0.0",
-    "webpack-cli": "^3.3.2"
   }
 }
