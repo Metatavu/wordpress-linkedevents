@@ -12,16 +12,16 @@ module.exports = {
         path.resolve(__dirname, "src")
       ]
     }, {
-      test: /\.jsx?$/,
-      use: 'babel-loader',
-      exclude: /node_modules/,
-      include: [
-        path.resolve(__dirname, "src")
-      ]
-    }, {
-      test: /\.scss$/,
-      use: [ "style-loader", "css-loader", "sass-loader"]
-    }]
+      test: /\.s[ac]ss$/i,
+      use: [
+        // Creates `style` nodes from JS strings
+        "style-loader",
+        // Translates CSS into CommonJS
+        "css-loader",
+        // Compiles Sass to CSS
+        "sass-loader",
+      ],
+    },]
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.jsx' ]

@@ -5,10 +5,6 @@
     exit;
   }
   
-  define("LINKEDEVENTS_SETTINGS_OPTION", 'linkedevents');
-  define("LINKEDEVENTS_SETTINGS_GROUP", 'linkedevents');
-  define("LINKEDEVENTS_SETTINGS_PAGE", 'linkedevents');
-  
   if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\SettingsUI' ) ) {
 
     class SettingsUI {
