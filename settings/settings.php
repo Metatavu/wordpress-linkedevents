@@ -5,9 +5,7 @@
     exit;
   }
   
-  require_once('settings-ui.php');  
-  
-  define("LINKEDEVENTS_SETTINGS_OPTION", 'linkedevents');
+  require_once('settings-ui.php');
   
   if (!class_exists( '\Metatavu\LinkedEvents\Wordpress\Settings\Settings' ) ) {
 

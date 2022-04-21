@@ -83,7 +83,7 @@
        *
        * @return \Metatavu\LinkedEvents\ApiClient new LinkedEvents client
        */
-      private function getClient($authenticated) {
+      private static function getClient($authenticated) {
         return new \Metatavu\LinkedEvents\ApiClient(self::getConfiguration($authenticated));
       }
       
@@ -94,7 +94,7 @@
        * 
        * @return \Metatavu\LinkedEvents\Configuration LinkedEvents client configuration
        */
-      private function getConfiguration($authenticated) {
+      private static function getConfiguration($authenticated) {
         $result = new \Metatavu\LinkedEvents\Configuration();
         $result->setHost(\Metatavu\LinkedEvents\Wordpress\Settings\Settings::getValue("api-url"));
         
