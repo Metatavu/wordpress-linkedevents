@@ -28,6 +28,7 @@
       public static function activationHook() {
         self::addCapabilities('administrator');
         self::addCapabilities('editor');
+        self::addCapabilities('linkedevents');
       }
       
       public static function deactivationHook() {
