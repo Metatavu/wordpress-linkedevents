@@ -16,7 +16,6 @@ declare module "wp" {
   }
 
   export interface WPEditor {
-    ServerSideRender: any,
     AutosaveMonitor: any,
     DocumentOutline: any,
     DocumentOutlineCheck: any,
@@ -241,7 +240,6 @@ declare module "wp" {
     ResponsiveWrapper: any,
     SandBox: any,
     Spinner: any,
-    ServerSideRender: any,
     TabPanel: any,
     TextareaControl: any,
     ToggleControl: any,
@@ -301,6 +299,7 @@ declare module "wp" {
     compose: WPCompose;
     i18n: WPI18n,
     apiFetch: any;
+    serverSideRender: any;
   }
 
   
