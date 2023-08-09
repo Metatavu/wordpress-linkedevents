@@ -27,5 +27,8 @@
       "@babel/preset-env",
       "@babel/preset-react"
     ]
+  },
+  "dependencies": {
+    "@wordpress/server-side-render": "^4.15.0"
   }
 }

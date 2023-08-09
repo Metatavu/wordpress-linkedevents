@@ -39,7 +39,7 @@ class EventList extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <wp.components.ServerSideRender block="linkedevents/list-block" 
+        <wp.serverSideRender block="linkedevents/list-block" 
           attributes={ this.props.attributes } 
           urlQueryArgs={{ preview: true }} />
       </div>
