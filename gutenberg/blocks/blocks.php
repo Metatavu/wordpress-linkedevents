@@ -383,7 +383,6 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
           $addressLocalityEn,
           $language, 
           $publicationStatus);
-
         $locationIds = array_unique(array_filter(array_map(function ($event) {
           if (!$event["location"]) {
             return null;
@@ -394,10 +393,18 @@ if (!class_exists( 'Metatavu\LinkedEvents\Wordpress\Gutenberg\Blocks\Blocks' ) )
 
         $locations = [];
 
+        $index = 0;
         foreach ($locationIds as $locationId) {
+          $index = $index + 1;
           $refId = IdRefController::getPlaceRef($locationId);
-          $place = $filterApi->placeRetrieve($locationId);
-          $locations[$refId->getId()] = $place;
+
+          try {
+            $place = $filterApi->placeRetrieve($locationId);
+            $locations[$refId->getId()] = $place;
+          } catch(\Metatavu\LinkedEvents\ApiException $e) {
+            error_log("Warning: place " . $locationId . " missing!");
+
+          }
         }
 
         if ($events->valid()) {
